@@ -5,7 +5,7 @@ export const useStoresStore = defineStore("stores", {
   state: () => ({
     stores: [],
     storeTab: "description",
-    sort: ""
+    sort: "",
   }),
 
   actions: {
@@ -24,7 +24,7 @@ export const useStoresStore = defineStore("stores", {
     async getStoreBestList() {
       await axios
         .get(
-          "https://run.mocky.io/v3/f453ad42-cf9a-474f-a9d4-15509a769963",
+          "https://02bbbbe3-c971-4a76-b853-6bbbc83b2afd.mock.pstmn.io/storeBest",
           {
             sort: "HOT",
             place: "서울",
