@@ -3,7 +3,7 @@
 <h1 align="center" style="color: #FFD675;">🍽️ Eatzzy </h1>
 
 <div align="center">
-  <img src="/public/logo.png" alt="eatzzy logo" width="400" height="400" align="center" />
+  <img src="/public/logo.png" alt="eatzzy logo" width="800" height="400" />
 </div>
 
 <h4 align="center">3팀 - Team Matfia </h4>
@@ -39,6 +39,8 @@
 ![AWS EC2](https://img.shields.io/badge/Amazon%20EC2-FF9900?style=for-the-badge&logo=Amazon%20EC2&logoColor=white)
 ![Ubuntu](https://img.shields.io/badge/ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=FFFFFF)
 
+![Figma](https://img.shields.io/badge/figma-F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
+
 ![Vue.js](https://img.shields.io/badge/vue.js-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D) ![pinia](https://img.shields.io/badge/Pinia-ffd859?style=for-the-badge&logoColor=black) ![NginX](https://img.shields.io/badge/NginX-009639?style=for-the-badge&logo=nginx&logoColor=white)
 
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
@@ -49,11 +51,12 @@
 
 ## 🎨 화면 설계서
 
-[프로젝트 기획안](https://docs.google.com/document/d/1yTdJoi2CMtNkD5Jb95j-Yd6mb683Dsed7SkipP3Y_OQ/edit?usp=sharing)
+[Figma 화면 설계](https://www.figma.com/design/leR9n5pKxLlldYIoeHpF1D/Eatzzy?node-id=0-1&t=tfu1BcA8m6TsxtLC-1)
 
 <br>
 
 ## ✨ 접속 주소
+[https://www.eatzzy.kro.kr](https://www.eatzzy.kro.kr)
 
 <br>
 
@@ -67,8 +70,6 @@
   </div>
 </details>
 
-<br>
-
 <details>
   <summary>로그인</summary>
   <div markdown="1">
@@ -76,7 +77,7 @@
   </div>
 </details>
 
-<br> 
+<br>
 
 <h3 style="color: #ffd859">식당</h3>
 
@@ -87,8 +88,6 @@
 
   </div>
 </details>
-
-<br>
 
 <details>
   <summary>식당 예약 (고객)</summary>
@@ -109,16 +108,12 @@
   </div>
 </details>
 
-<br>
-
 <details>
   <summary>장바구니</summary>
    <div markdown="1">
   <br>
   </div>
 </details>
-
-<br>
 
 <details>
   <summary>주문</summary>
@@ -151,16 +146,12 @@
   </div>
 </details>
 
-<br>
-
 <details>
   <summary>좋아요한 식당</summary>
   <div markdown="1">
   <br>
   </div>
 </details>
-
-<br>
 
 <details>
   <summary>식당 리뷰 작성</summary>
@@ -169,7 +160,6 @@
   </div>
 </details>
 
-<br>
 
 <details>
   <summary>상품 주문 내역</summary>
@@ -190,16 +180,12 @@
   </div>
 </details>
 
-<br>
-
 <details>
   <summary>내 식당 조회</summary>
   <div markdown="1">
   <br>
   </div>
 </details>
-
-<br>
 
 <details>
   <summary>고객 예약 조회</summary>
@@ -208,16 +194,12 @@
   </div>
 </details>
 
-<br>
-
 <details>
   <summary>식당 정보 수정/삭제</summary>
   <div markdown="1">
   <br>
   </div>
 </details>
-
-<br>
 
 <details>
   <summary>상품 등록</summary>
@@ -226,8 +208,6 @@
   </div>
 </details>
 
-<br>
-
 <details>
   <summary>내 상품 조회</summary>
   <div markdown="1">
@@ -235,16 +215,12 @@
   </div>
 </details>
 
-<br>
-
 <details>
-  <summary><b>상품 정보 수정/삭제</b></summary>
+  <summary>상품 정보 수정/삭제</summary>
   <div markdown="1">
   <br>
   </div>
 </details>
-
-<br>
 
 <details>
   <summary>상품 주문내역 확인</summary>
@@ -252,8 +228,6 @@
   <br>
   </div>
 </details>
-
-<br>
 
 <details>
   <summary>배송 등록</summary>
