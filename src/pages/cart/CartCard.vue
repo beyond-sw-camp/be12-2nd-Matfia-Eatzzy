@@ -95,9 +95,11 @@
             ></button>
             <span class="max_order_cnt" style="display: none">0</span>
           </span>
-          <span v-if="isClicked" class="cart_go" data-cart-sno="4556515"
-            >수량변경</span
-          >
+          <router-link to="/carts">
+            <!-- <span v-if="isClicked" class="cart_go" data-cart-sno="4556515"
+              >수량변경</span
+            > -->
+          </router-link>
         </div>
       </div>
     </td>
@@ -106,37 +108,21 @@
         {{ cartProduct.price }}
       </strong>
     </td>
-    <!-- <td class="td_benefit">
-                <ul class="benefit_list">
-                  <li class="benefit_sale">
-                    <em>할인</em>
-                    <span>상품 <strong>-3,960원</strong></span>
-                  </li>
-                  <li class="benefit_mileage js_mileage">
-                    <em>적립</em>
-                    <span>상품 <strong>+150원</strong></span>
-                  </li>
-                </ul>
-              </td> -->
     <td>
       <strong class="order_sum_txt">
         {{ totalPrice }}
-        <!-- 15,840원 -->
       </strong>
     </td>
-    <!-- <td class="td_delivery" rowspan="1">
-                    기본배송비<br />
-                    4,000원
-
-                    <br />
-                    (택배)
-                  </td> -->
   </tr>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
-const isClicked = ref(false);
+// import { useCartStore } from "../../stores/useCartStore";
+import { useCartStore } from "../../stores/useCartStore";
+
+const cartStore = useCartStore();
+
 const props = defineProps({
   cartProduct: {
     type: Object,
@@ -147,7 +133,7 @@ const props = defineProps({
     required: true,
   },
 });
-const emit = defineEmits(["update:isChecked"]);
+const emit = defineEmits(["update:isChecked", "update:cartProduct"]);
 const onClick = () => {
   console.log(!props.isChecked);
   emit("update:isChecked", !props.isChecked);
@@ -158,15 +144,20 @@ const totalPrice = computed(() => {
 });
 const productCnt = ref(props.cartProduct.quantity);
 const addCart = () => {
-  isClicked.value = true;
   productCnt.value = productCnt.value + 1;
+  const newQuantity = props.cartProduct.quantity + 1;
+  emit("update:cartProduct", { ...props.cartProduct, quantity: newQuantity });
+  console.log(props.cartProduct);
 };
 const substactCart = () => {
   if (productCnt.value == 1) {
     alert("상품은 1개 이상 장바구니에 담을 수 있습니다.");
     return;
-  } else productCnt.value = productCnt.value - 1;
-  isClicked.value = true;
+  } else {
+    productCnt.value = productCnt.value - 1;
+    const newQuantity = props.cartProduct.quantity - 1;
+    emit("update:cartProduct", { ...props.cartProduct, quantity: newQuantity });
+  }
 };
 </script>
 

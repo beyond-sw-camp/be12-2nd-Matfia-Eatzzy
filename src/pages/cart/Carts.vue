@@ -61,7 +61,11 @@
                       checked="checked"
                       data-gtm-form-interact-field-id="0"
                     />
-                    <label for="allCheck1" class="check_s on"></label>
+                    <label
+                      @click="allCheck"
+                      for="allCheck1"
+                      class="check_s on"
+                    ></label>
                   </div>
                 </th>
                 <th>상품/옵션 정보</th>
@@ -78,6 +82,7 @@
                 :cartProduct="cartProduct"
                 :key="cartProduct.id"
                 v-model:isChecked="findCheckedItem(cartProduct.id).isChecked"
+                @update:cartProduct="updateCartProduct"
               ></CartCard>
             </tbody>
           </table>
@@ -195,6 +200,31 @@ const initalProductCheckList = () => {
     id: product.id,
     isChecked: true,
   }));
+};
+const allCheckFlag = ref(true);
+const allCheck = () => {
+  if (allCheckFlag.value) {
+    for (const cartProductCheck of cartProductCheckList.value) {
+      cartProductCheck.isChecked = false;
+    }
+    allCheckFlag.value = false;
+  } else {
+    for (const cartProductCheck of cartProductCheckList.value) {
+      cartProductCheck.isChecked = true;
+    }
+    allCheckFlag.value = true;
+  }
+};
+const updateCartProduct = (updatedProduct) => {
+  const index = cartStore.cartProducts.findIndex(
+    (product) => product.id === updatedProduct.id
+  );
+  if (index !== -1) {
+    cartStore.cartProducts[index] = updatedProduct; // 배열의 특정 항목 업데이트
+    cartStore.cartProducts[index].totalPrice =
+      cartStore.cartProducts[index].price *
+      cartStore.cartProducts[index].quantity;
+  }
 };
 
 const findCheckedItem = (id) => {
