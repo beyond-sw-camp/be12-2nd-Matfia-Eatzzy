@@ -5,6 +5,7 @@ export const useStoresStore = defineStore("stores", {
   state: () => ({
     stores: [],
     storeTab: "description",
+    sort: "",
   }),
 
   actions: {
