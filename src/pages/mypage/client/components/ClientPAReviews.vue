@@ -35,12 +35,7 @@ onMounted(fetchPAReviews);
       </div>
       <p class="review_text">{{ PAreview.content }}</p>
       <div class="img_box">
-        <img
-          v-for="image in PAreview.review_images"
-          src="https://thenaum.cdn-nhncommerce.com/data/goods/15/01/26/1000000463/1000000463_magnify_07.jpg"
-          alt="Review Image"
-          class="review_image"
-        />
+        <img v-for="(image, index) in PAreview.review_images" :src="image" :alt="'Review Image ' + (index + 1)" class="review_image" :key="index" />
       </div>
     </div>
     <div class="review_right after_right">

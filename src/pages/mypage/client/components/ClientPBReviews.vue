@@ -20,7 +20,7 @@ onMounted(fetchPBReviews);
   <div class="review_item" v-for="(PBreview, index) in PBreviews" :key="index">
     <a href="/products/1" class="review_left">
       <div class="review_itemName">{{ PBreview.product_name }}</div>
-      <img src="https://thenaum.cdn-nhncommerce.com/data/goods/15/01/26/1000000463/1000000463_magnify_07.jpg" alt="Review Image" class="review_image" />
+      <img :src="PBreview.review_images" alt="Review Image" class="review_image" />
     </a>
     <div class="review_right notYet_right">
       <div class="review_date">{{ PBreview.purchase }}</div>

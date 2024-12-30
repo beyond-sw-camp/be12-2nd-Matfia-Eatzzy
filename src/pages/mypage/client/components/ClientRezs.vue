@@ -31,7 +31,7 @@ onMounted(fetchRezs);
     <a class="storeRez_left" href="/stores/1">
       <div class="store_name">{{ review.store_name }}</div>
       <div class="rez_category store_address">{{ review.store_address }}</div>
-      <img src="https://thenaum.cdn-nhncommerce.com/data/goods/15/01/26/1000000463/1000000463_magnify_07.jpg" alt="Review Image" class="review_image" />
+      <img :src="review.store_image" alt="Review Image" class="review_image" />
     </a>
     <div class="storeRez_right notYet_right">
       <div>
@@ -65,6 +65,8 @@ onMounted(fetchRezs);
   color: rgba(var(--gray50), 1);
 }
 .review_image {
+  width: 6.25rem;
+  height: 6.25rem;
   max-width: 6.25rem;
   max-height: 6.25rem;
   margin-top: 0.625rem;
