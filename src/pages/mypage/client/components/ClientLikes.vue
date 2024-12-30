@@ -33,13 +33,13 @@ onMounted(fetchLikes);
   <tr v-for="(like, index) in likes" :key="index">
     <td>
       <a href="/stores/1" class="likeStore_info">
-        <img src="https://thenaum.cdn-nhncommerce.com/data/goods/15/01/26/1000000463/1000000463_magnify_07.jpg" />
+        <img :src="like.store_image" class="like_images" />
         <div>
           <div class="likeStore_name">{{ like.store_name }}</div>
         </div>
       </a>
     </td>
-    <td class="address">{{ like.store_address }}</td>
+    <td class="address">{{ like.addresses }}</td>
     <td>
       <span class="phone">{{ like.call_number }}</span>
     </td>
@@ -66,7 +66,7 @@ onMounted(fetchLikes);
 }
 .likeStore_name {
   font-weight: bold;
-  font-size: 1.25rem;
+  font-size: 0.9375rem;
 }
 .address {
   font-size: 1.125rem;
