@@ -10,8 +10,8 @@ const props = defineProps({
 });
 
 const editStore = (storeId) => {
-  // 해당 가게의 id를 URL 파라미터로 전달하여 editStore 페이지로 이동
-  router.push({ name: 'storeEdit', params: { id: storeId } });
+  // 해당 가게의 id를 URL 경로로 전달하여 이동
+  router.push(`/mypage/seller/store_modify/${storeId}`);
 };
 </script>
 
