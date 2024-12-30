@@ -50,7 +50,7 @@ onMounted(()=> {
             </colgroup>
             <thead>
               <tr>
-                <th>상품명</th>
+                <th>상품명/사진</th>
                 <th>상품금액</th>
                 <th>재고</th>
                 <th>상품설명</th>
