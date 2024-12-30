@@ -7,7 +7,6 @@ import SellerMenu from "./components/SellerMenu.vue";
   <div class="main">
     <SellerMenu></SellerMenu>
     <div class="SellerContainer">
-      <ClientSummary></ClientSummary>
       <router-view></router-view>
     </div>
   </div>
