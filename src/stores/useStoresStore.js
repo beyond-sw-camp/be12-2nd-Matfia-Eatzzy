@@ -5,14 +5,14 @@ export const useStoresStore = defineStore("stores", {
   state: () => ({
     stores: [],
     storeTab: "description",
-    sort: "",
+    sort: ""
   }),
 
   actions: {
     async getStoreList(filter) {
       const response = await axios
         .get(
-          "https://2deee6c7-ce64-440b-80cd-b66969cb5b6e.mock.pstmn.io/store",
+          "https://run.mocky.io/v3/c4012d8c-a313-494d-b215-88fcaa7a99d8",
           filter
         )
         .catch((error) => {
@@ -24,7 +24,7 @@ export const useStoresStore = defineStore("stores", {
     async getStoreBestList() {
       await axios
         .get(
-          "https://02bbbbe3-c971-4a76-b853-6bbbc83b2afd.mock.pstmn.io/storeBest",
+          "https://run.mocky.io/v3/f453ad42-cf9a-474f-a9d4-15509a769963",
           {
             sort: "HOT",
             place: "서울",
@@ -47,13 +47,18 @@ export const useStoresStore = defineStore("stores", {
 
     async getStoreDetail(storeId) {
       const response = await axios
-        .get(
-          `https://2deee6c7-ce64-440b-80cd-b66969cb5b6e.mock.pstmn.io/store/${storeId}`
-        )
+        .get(`https://run.mocky.io/v3/762d58f3-4f9a-46b2-b371-149cc8dde27f`)
         .catch((error) => {
           console.error("getStoreDetail api error", error);
         });
       return response.data;
+    },
+
+    async getSellerStoresList() {
+      const response = await axios.get(
+        "https://28953cd5-1d7d-4987-b0bd-d7c0dc5512be.mock.pstmn.io/storeitem"
+      );
+      this.stores = response.data;
     },
 
     setStoreTab(tab) {

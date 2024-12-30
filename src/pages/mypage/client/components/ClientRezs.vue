@@ -28,11 +28,11 @@ onMounted(fetchRezs);
 
 <template>
   <div class="storeRez_item" v-for="(review, index) in rezs" :key="index">
-    <div class="storeRez_left">
+    <a class="storeRez_left" href="/stores/1">
       <div class="store_name">{{ review.store_name }}</div>
       <div class="rez_category store_address">{{ review.store_address }}</div>
       <img src="https://thenaum.cdn-nhncommerce.com/data/goods/15/01/26/1000000463/1000000463_magnify_07.jpg" alt="Review Image" class="review_image" />
-    </div>
+    </a>
     <div class="storeRez_right notYet_right">
       <div>
         <div class="rez_date">{{ review.reservation }}</div>

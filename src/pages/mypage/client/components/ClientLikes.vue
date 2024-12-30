@@ -22,25 +22,29 @@ const handleCancelClick = (likeId) => {
     // 예: API 호출 후 목록 갱신
   }
 };
+const moveClick = (likeId) => {
+  // JavaScript 기본 confirm 대화상자 표시
+  location.href = "/stores/1";
+};
 onMounted(fetchLikes);
 </script>
 
 <template>
   <tr v-for="(like, index) in likes" :key="index">
     <td>
-      <div class="likeStore_info">
+      <a href="/stores/1" class="likeStore_info">
         <img src="https://thenaum.cdn-nhncommerce.com/data/goods/15/01/26/1000000463/1000000463_magnify_07.jpg" />
         <div>
           <div class="likeStore_name">{{ like.store_name }}</div>
         </div>
-      </div>
+      </a>
     </td>
     <td class="address">{{ like.store_address }}</td>
     <td>
       <span class="phone">{{ like.call_number }}</span>
     </td>
     <td class="likeStore_buttons">
-      <button>예약하기</button>
+      <button @click="moveClick(like.id)">예약하기</button>
       <button class="delete" @click="handleCancelClick(like.id)">삭제하기</button>
     </td>
   </tr>

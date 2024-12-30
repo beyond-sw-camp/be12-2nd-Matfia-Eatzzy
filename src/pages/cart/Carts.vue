@@ -75,8 +75,9 @@
               <!-- TODO : emit 와 props 추가 장바구니 체크 리스트 기능 때문 -->
               <CartCard
                 v-for="cartProduct in cartStore.cartProducts"
-                :key="cartProduct.id"
                 :cartProduct="cartProduct"
+                :key="cartProduct.id"
+                v-model:isChecked="findCheckedItem(cartProduct.id).isChecked"
               ></CartCard>
             </tbody>
           </table>
@@ -109,17 +110,23 @@
           </div>
 
           <div class="price_sum">
-            <div class="price_sum_cont">
+            <div class="price_sum_cont sum_total_list">
               <div class="price_sum_list">
                 <div>
-                  <p>총 <strong>1</strong> 개의 상품금액</p>
-                  <p class="price"><strong>19,800</strong>원</p>
+                  <p>
+                    총 <strong>{{ cartStore.cartProducts.length }}</strong> 개의
+                    상품금액
+                  </p>
+                  <p class="price">
+                    <strong>{{ totalPriceInCarts }}</strong
+                    >원
+                  </p>
                 </div>
                 <img
-                  src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/order_price_minus.png"
-                  alt="빼기"
+                  src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/order_price_total.png"
+                  alt="합계"
                 />
-                <div>
+                <!-- <div>
                   <p>상품할인</p>
                   <p class="price"><strong>3,960</strong>원</p>
                 </div>
@@ -134,10 +141,13 @@
                 <img
                   src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/order_price_total.png"
                   alt="합계"
-                />
+                /> -->
                 <div class="price_total">
                   <p>합계</p>
-                  <p class="price"><strong>19,840</strong>원</p>
+                  <p class="price">
+                    <strong>{{ totalPriceInCarts }}</strong
+                    >원
+                  </p>
                 </div>
               </div>
             </div>
@@ -173,13 +183,38 @@
 </template>
 
 <script setup>
+import { ref, computed } from "vue";
 import CartCard from "./CartCard.vue";
 import "./../../../src/assets/cart/cart.css";
 import { useCartStore } from "../../stores/useCartStore";
 import { onMounted } from "vue";
 const cartStore = useCartStore();
+const cartProductCheckList = ref([]);
+const initalProductCheckList = () => {
+  cartProductCheckList.value = cartStore.cartProducts.map((product) => ({
+    id: product.id,
+    isChecked: true,
+  }));
+};
+
+const findCheckedItem = (id) => {
+  // console.log(cartProductCheckList.value);
+  // console.log("value[0] ", cartProductCheckList.value[0]);
+  // console.log(cartProductCheckList.value[0].isChecked);
+  return cartProductCheckList.value.find((item) => item.id == id);
+};
+
+const totalPriceInCarts = computed(() => {
+  let totalPrice = 0;
+  for (const product of cartStore.cartProducts) {
+    if (findCheckedItem(product.id).isChecked) totalPrice += product.totalPrice;
+  }
+  return totalPrice;
+});
 onMounted(async () => {
   await cartStore.getCartProducts();
+  initalProductCheckList();
+  // console.log(cartProductCheckList.value);
 });
 </script>
 

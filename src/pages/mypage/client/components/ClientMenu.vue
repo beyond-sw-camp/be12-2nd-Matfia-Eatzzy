@@ -8,22 +8,22 @@
         <li>
           내 정보
           <ul class="eachList">
-            <router-link to="/mypage/client/info"><li>- 내정보 수정</li></router-link>
+            <router-link to="/mypage/client/info"><li>- 내 정보 수정</li></router-link>
           </ul>
         </li>
         <li>
           식당
           <ul class="eachList">
-            <router-link to="/mypage/client/store_rez"><li>- 식당 예약 내역</li></router-link>
-            <router-link to="/mypage/client/store_like"><li>- 좋아요 한 식당</li></router-link>
-            <router-link to="/mypage/client/store_review"><li>- 식당 리뷰</li></router-link>
+            <router-link to="/mypage/client/store/rsv"><li>- 식당 예약 내역</li></router-link>
+            <router-link to="/mypage/client/store/like"><li>- 좋아요 한 식당</li></router-link>
+            <router-link to="/mypage/client/store/review"><li>- 식당 리뷰</li></router-link>
           </ul>
         </li>
         <li>
           상품
           <ul class="eachList">
-            <router-link to="/mypage/client/orders"><li>- 상품 주문 내역</li></router-link>
-            <router-link to="/mypage/client/product_review"><li>- 상품 배송 리뷰</li></router-link>
+            <router-link to="/mypage/client/orders"><li>- 주문 내역</li></router-link>
+            <router-link to="/mypage/client/product/review"><li>- 상품 리뷰</li></router-link>
           </ul>
         </li>
       </ul>

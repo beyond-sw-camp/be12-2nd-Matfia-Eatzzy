@@ -14,9 +14,7 @@ export const useCategoryStore = defineStore("category", {
   actions: {
     async getBigCategory() {
       await axios
-        .get(
-          "https://2deee6c7-ce64-440b-80cd-b66969cb5b6e.mock.pstmn.io/category/big"
-        )
+        .get("https://run.mocky.io/v3/411b95ab-4c34-4f25-8e81-bd5dfe5fb153")
         .then((response) => {
           this.bigCategory = response.data.category;
           return response.data.category;
@@ -28,12 +26,9 @@ export const useCategoryStore = defineStore("category", {
 
     async getSmallCategory(refId = 1) {
       await axios
-        .get(
-          "https://2deee6c7-ce64-440b-80cd-b66969cb5b6e.mock.pstmn.io/category/small",
-          {
-            ref_id: refId,
-          }
-        )
+        .get("https://run.mocky.io/v3/62022424-b24d-4a1f-9454-8c02ae82bc20", {
+          ref_id: refId,
+        })
         .then((response) => {
           this.smallCategory = response.data.category;
           return response.data.category;

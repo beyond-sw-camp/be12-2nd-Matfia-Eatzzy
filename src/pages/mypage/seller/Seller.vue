@@ -1,4 +1,5 @@
 <script setup>
+import ClientSummary from "../client/components/ClientSummary.vue";
 import SellerMenu from "./components/SellerMenu.vue";
 </script>
 
@@ -6,6 +7,7 @@ import SellerMenu from "./components/SellerMenu.vue";
   <div class="main">
     <SellerMenu></SellerMenu>
     <div class="SellerContainer">
+      <ClientSummary></ClientSummary>
       <router-view></router-view>
     </div>
   </div>
@@ -17,6 +19,7 @@ import SellerMenu from "./components/SellerMenu.vue";
   display: flex;
 }
 .SellerContainer {
+  width: 100%;
   padding: 3.125rem 3.125rem;
 }
 </style>

@@ -20,7 +20,7 @@ console.log(props.product)
       <p>{{ product.name }}</p>
       <div class="price_cnt_box">
         <span>{{ formatPrice(product.price) }}원</span>
-        <span>{{ product.quantity }}개</span>
+        <span v-if="product.quantity">{{ product.quantity }}개</span>
       </div>
     </div>
   </li>
@@ -48,7 +48,6 @@ console.log(props.product)
 }
 
 .product_info > p {
-  font-weight: 500;
   font-size: 1rem;
 }
 
@@ -65,7 +64,7 @@ console.log(props.product)
 }
 
 .price_cnt_box > span:first-child {
-  font-weight: 700;
+  font-weight: 600;
   font-size: 1rem;
 }
 </style>

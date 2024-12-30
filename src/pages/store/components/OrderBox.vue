@@ -1,9 +1,11 @@
 <script setup>
 import { ref } from 'vue';
+import { useStoresStore } from '../../../stores/useStoresStore';
 
-const order = ref("HOT");
+const storesStore = useStoresStore();
+
 const setOrder = (newOrder) => {
-  order.value = newOrder;
+  storesStore.sort = newOrder;
 };
 </script>
 
@@ -12,21 +14,21 @@ const setOrder = (newOrder) => {
     <ul class="orderby">
       <li
         class="orderby_list"
-        :class="{ picked: order === 'HOT' }"
+        :class="{ picked: storesStore.sort === 'HOT' }"
         @click="setOrder('HOT')"
       >
         좋아요순
       </li>
       <li
         class="orderby_list"
-        :class="{ picked: order === 'STAR' }"
+        :class="{ picked: storesStore.sort === 'STAR' }"
         @click="setOrder('STAR')"
       >
         평점순
       </li>
       <li
         class="orderby_list"
-        :class="{ picked: order === 'REVIEW' }"
+        :class="{ picked: storesStore.sort === 'REVIEW' }"
         @click="setOrder('REVIEW')"
       >
         리뷰 많은 순

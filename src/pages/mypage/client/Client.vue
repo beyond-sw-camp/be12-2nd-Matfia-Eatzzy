@@ -1,6 +1,5 @@
 <script setup>
 import ClientMenu from "./components/ClientMenu.vue";
-import ClientSummary from "./components/ClientSummary.vue";
 </script>
 
 <template>

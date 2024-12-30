@@ -3,6 +3,7 @@
     <td class="td_chk">
       <div class="form_element">
         <input
+          @click="onClick"
           type="checkbox"
           :id="`cartSno1_${cartProduct.id}`"
           name="cartSno[]"
@@ -74,7 +75,7 @@
       <div class="order_goods_num">
         <div>
           <span class="count_box">
-            <button class="minus" value></button>
+            <button class="minus" value @click="substactCart"></button>
             <span class="min_order_cnt" style="display: none">1</span>
             <input type="hidden" name="sale_unit" value="1" />
             <span class="stock_cnt" style="display: none">0</span>
@@ -84,11 +85,19 @@
               name="goodsCnt[]"
               class="goodsCnt"
               id="_goodsCnt_4556515"
-              value="2"
+              :value="productCnt"
             />
-            <button type="button" class="plus" value=""></button>
+            <button
+              type="button"
+              class="plus"
+              value=""
+              @click="addCart"
+            ></button>
             <span class="max_order_cnt" style="display: none">0</span>
           </span>
+          <span v-if="isClicked" class="cart_go" data-cart-sno="4556515"
+            >수량변경</span
+          >
         </div>
       </div>
     </td>
@@ -111,7 +120,7 @@
               </td> -->
     <td>
       <strong class="order_sum_txt">
-        {{ cartProduct.totalPrice }}
+        {{ totalPrice }}
         <!-- 15,840원 -->
       </strong>
     </td>
@@ -126,15 +135,39 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-//emit 추가! 부모 컴포넌트로 현재 컴포넌트가 체크 리스트에 포함 되는지 그 정보를 emit 로 전달!
-const checked = ref(true);
+import { ref, computed } from "vue";
+const isClicked = ref(false);
 const props = defineProps({
   cartProduct: {
     type: Object,
     required: true,
   },
+  isChecked: {
+    type: Boolean,
+    required: true,
+  },
 });
+const emit = defineEmits(["update:isChecked"]);
+const onClick = () => {
+  console.log(!props.isChecked);
+  emit("update:isChecked", !props.isChecked);
+};
+const totalPrice = computed(() => {
+  const price = props.cartProduct?.price || 0; // 가격이 없을 경우 기본값 0
+  return productCnt.value * price;
+});
+const productCnt = ref(props.cartProduct.quantity);
+const addCart = () => {
+  isClicked.value = true;
+  productCnt.value = productCnt.value + 1;
+};
+const substactCart = () => {
+  if (productCnt.value == 1) {
+    alert("상품은 1개 이상 장바구니에 담을 수 있습니다.");
+    return;
+  } else productCnt.value = productCnt.value - 1;
+  isClicked.value = true;
+};
 </script>
 
 <style></style>

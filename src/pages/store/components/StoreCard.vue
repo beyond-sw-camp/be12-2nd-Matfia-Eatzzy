@@ -8,11 +8,8 @@ const props = defineProps({
 </script>
 
 <template>
-  <router-link :to="`/stores/${store.idx}`" class="store_item">
-    <img
-      class="store_img"
-      src="https://d12zq4w4guyljn.cloudfront.net/750_750_20241123105001_photo1_394db3cb2fa0.jpg"
-    />
+  <router-link :to="`/stores/${store.idx}`" id="store_item">
+    <img class="store_img" :src="store.storeImg" />
     <div class="info_box">
       <span class="subtitle">{{ store.category }}</span>
       <span class="store_name">{{ store.name }}</span>
@@ -30,25 +27,21 @@ const props = defineProps({
 
 <style scoped>
 .store_item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  width: 100%;
 }
 
 .store_img {
   width: 100%;
-  height: 100%;
-  position: relative;
-  display: flex;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
   border-radius: 0.375rem;
-  overflow: hidden;
 }
 
 .info_box {
   display: flex;
   flex-direction: column;
-  gap: 0.3125rem;
-  white-space: nowrap;
+  gap: 0.2rem;
+  margin: 0.5rem 0;
 }
 
 .store_name {
@@ -79,4 +72,5 @@ const props = defineProps({
   font-weight: 500;
   margin-right: 0.2rem;
 }
+
 </style>

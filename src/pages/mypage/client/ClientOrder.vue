@@ -25,7 +25,7 @@ onMounted(async () => {
 
 <style scoped>
 .order_container > h1 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   margin-bottom: 1.5rem;
 }
 

@@ -44,3 +44,9 @@ const config = {
   }
 }
 </style>
+
+<style>
+.carousel__icon {
+  fill: #ffffff;
+}
+</style>
