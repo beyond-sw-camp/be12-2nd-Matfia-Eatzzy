@@ -7,16 +7,15 @@
       <li>
         내 정보
         <ul class="eachList">
-          <router-link to="/mypage/seller"><li>- 내정보 수정</li></router-link>
+          <router-link to="/mypage/seller/myinfo_modify"><li>- 내정보 수정</li></router-link>
         </ul>
       </li>
       <li>
         식당
         <ul class="eachList">
-          <router-link to="/mypage/seller"><li>- 식당 등록</li></router-link>
-          <router-link to="/mypage/seller"><li>- 식당 조회</li></router-link>
-          <router-link to="/mypage/seller"><li>- 고객 예약 조회</li></router-link>
-          <router-link to="/mypage/seller"><li>- 식당 정보 수정/삭제</li></router-link>
+          <router-link to="/mypage/seller/insert_store"><li>- 식당 등록</li></router-link>
+          <router-link to="/mypage/seller/seller_store"><li>- 식당 조회</li></router-link>
+          <router-link to="/mypage/seller/seller_rsv"><li>- 고객 예약 조회</li></router-link>
         </ul>
       </li>
       <li>
