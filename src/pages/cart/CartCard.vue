@@ -8,7 +8,7 @@
           :id="`cartSno1_${cartProduct.id}`"
           name="cartSno[]"
           value="4556515"
-          checked="checked"
+          :checked="isChecked"
           data-price="31600"
           data-mileage="310"
           data-goodsdc="0"
@@ -28,7 +28,7 @@
           data-f-firstsample="n"
           class="foo_firstSampleCheck"
         />
-        <label :for="`cartSno1_${cartProduct.id}`" class="check_s on"></label>
+        <label :for="`cartSno1_${cartProduct.id}`"></label>
       </div>
     </td>
     <td class="td_left">

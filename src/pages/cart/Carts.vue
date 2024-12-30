@@ -60,12 +60,9 @@
                       data-target-form="#frmCart"
                       checked="checked"
                       data-gtm-form-interact-field-id="0"
-                    />
-                    <label
                       @click="allCheck"
-                      for="allCheck1"
-                      class="check_s on"
-                    ></label>
+                    />
+                    <label for="allCheck1" class="check_s"></label>
                   </div>
                 </th>
                 <th>상품/옵션 정보</th>
