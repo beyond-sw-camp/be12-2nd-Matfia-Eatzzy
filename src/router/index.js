@@ -41,21 +41,27 @@ import Order from "../pages/order/Order.vue";
 
 const checkUserType = (from, to, next) => {
   // 고객인지 점주인지 확인 후 경로 이동
-  const userType = false;
-  if (userType) {
+  const userType = sessionStorage.getItem("UserType");
+  if (userType === "seller") {
     return "/mypage/seller";
-  }
-  return "/mypage/client";
-};
-
-const checkLogin = async (from, to, next) => {
-  const memberStore = useMemberStore();
-  await memberStore.loginCheck();
-  if (memberStore.isLogin) {
+  } else if (userType === "client") {
+    return "/mypage/client";
+  } else {
     return next();
   }
 
-  next("/login");
+  next("/");
+};
+
+const checkLogin = async (from, to, next) => {
+  const loginStatus = sessionStorage.getItem("LOGIN");
+  console.log(loginStatus);
+
+  if (loginStatus === null) {
+    return next("/login");
+  }
+
+  next();
 };
 
 const routes = [
@@ -71,46 +77,124 @@ const routes = [
   {
     path: "/mypage",
     component: Mypage,
-    redirect: checkUserType,
+    beforeEnter: checkLogin,
     children: [
       {
         path: "client",
         component: Client,
         redirect: "/mypage/client/info",
+        beforeEnter: checkLogin,
         children: [
-          { path: "orders", component: ClientOrder },
-          { path: "orders/:id", component: ClientOrderDetail },
-          { path: "info", component: ClientInfo },
-          { path: "store/rsv", component: ClientStoreRez },
-          { path: "store/like", component: ClientStorelike },
-          { path: "store/review", component: ClientStoreReview },
-          { path: "product/info", component: ClientProductInfo },
-          { path: "product/review", component: ClientProductsReview },
-          { path: "product/review/create", component: CreateReview },
+          { path: "orders", component: ClientOrder, beforeEnter: checkLogin },
+          {
+            path: "orders/:id",
+            component: ClientOrderDetail,
+            beforeEnter: checkLogin,
+          },
+          { path: "info", component: ClientInfo, beforeEnter: checkLogin },
+          {
+            path: "store/rsv",
+            component: ClientStoreRez,
+            beforeEnter: checkLogin,
+          },
+          {
+            path: "store/like",
+            component: ClientStorelike,
+            beforeEnter: checkLogin,
+          },
+          {
+            path: "store/review",
+            component: ClientStoreReview,
+            beforeEnter: checkLogin,
+          },
+          {
+            path: "product/info",
+            component: ClientProductInfo,
+            beforeEnter: checkLogin,
+          },
+          {
+            path: "product/review",
+            component: ClientProductsReview,
+            beforeEnter: checkLogin,
+          },
+          {
+            path: "product/review/create",
+            component: CreateReview,
+            beforeEnter: checkLogin,
+          },
         ],
       },
       {
         path: "seller",
         component: Seller,
+        beforeEnter: checkLogin,
         children: [
-          { path: "my-info/modify", component: SellerMyInfoModify },
-          { path: "store", component: SellerStoreItem },
-          { path: "store/rsv", component: SellerReservationCard },
-          { path: "store/create", component: SellerInsertStore },
-          { path: "store/modify/:id", component: SellerModifyStore },
-          { path: "menu/insert", component: SellerInsertMenu },
-          { path: "order", component: ProductOrder },
-          { path: "order/:id", component: OrderDetails },
-          { path: "delivery/register", component: ShippingRegister },
-          { path: "product", component: ProductList },
-          { path: "product/register", component: ProductEdit },
-          { path: "product/modify", component: ProductEdit },
-          { path: "store_menu/:id", component: SellerMenuCard },
-          { path: "menu_modify/:id", component: SellerModifyMenu },
+          {
+            path: "my-info/modify",
+            component: SellerMyInfoModify,
+            beforeEnter: checkLogin,
+          },
+          {
+            path: "store",
+            component: SellerStoreItem,
+            beforeEnter: checkLogin,
+          },
+          {
+            path: "store/rsv",
+            component: SellerReservationCard,
+            beforeEnter: checkLogin,
+          },
+          {
+            path: "store/create",
+            component: SellerInsertStore,
+            beforeEnter: checkLogin,
+          },
+          {
+            path: "store/modify/:id",
+            component: SellerModifyStore,
+            beforeEnter: checkLogin,
+          },
+          {
+            path: "menu/insert",
+            component: SellerInsertMenu,
+            beforeEnter: checkLogin,
+          },
+          { path: "order", component: ProductOrder, beforeEnter: checkLogin },
+          {
+            path: "order/:id",
+            component: OrderDetails,
+            beforeEnter: checkLogin,
+          },
+          {
+            path: "delivery/register",
+            component: ShippingRegister,
+            beforeEnter: checkLogin,
+          },
+          { path: "product", component: ProductList, beforeEnter: checkLogin },
+          {
+            path: "product/register",
+            component: ProductEdit,
+            beforeEnter: checkLogin,
+          },
+          {
+            path: "product/modify",
+            component: ProductEdit,
+            beforeEnter: checkLogin,
+          },
+          {
+            path: "store_menu/:id",
+            component: SellerMenuCard,
+            beforeEnter: checkLogin,
+          },
+          {
+            path: "menu_modify/:id",
+            component: SellerModifyMenu,
+            beforeEnter: checkLogin,
+          },
         ],
       },
       { path: "/carts", component: Carts },
-      { path: "/order", component: Order },
+      { path: "/order", component: Order, beforeEnter: checkLogin },
     ],
   },
 ];
