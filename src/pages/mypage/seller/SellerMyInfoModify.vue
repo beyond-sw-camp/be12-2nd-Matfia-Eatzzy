@@ -1,12 +1,16 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useInformationsStore } from '../../../stores/useInformationsStore';
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 const myinfoStore = useInformationsStore();
+const cancel = () => {
+    router.push(`/mypage/seller`);
+}
 
 // 모달 상태 및 관련 변수 정의
 const isPostcodeModalVisible = ref(false); // 우편번호 검색 모달 여부
-const postcode = ref(""); // 우편번호
 const address = ref(""); // 주소
 const detailAddress = ref(""); // 상세주소
 
@@ -24,14 +28,13 @@ const selectedEmailDomain = ref("self");
 
 // 우편번호 검색 모달 열기
 const openPostcodeModal = () => {
-    isPostcodeModalVisible.value = true;
-    new daum.Postcode({
-        oncomplete: function (data) {
-            postcode.value = data.zonecode; // 우편번호
-            address.value = data.roadAddress; // 도로명 주소
-            isPostcodeModalVisible.value = false; // 모달 닫기
-        }
-    }).open();
+  isPostcodeModalVisible.value = true;
+  new daum.Postcode({
+    oncomplete: function (data) {
+      address.value = data.roadAddress; // 도로명 주소
+      isPostcodeModalVisible.value = false; // 모달 닫기
+    }
+  }).open();
 };
 
 // 우편번호 스크립트 로드
@@ -194,8 +197,7 @@ const updateEmail = () => {
                                             <strong>이메일</strong>
                                             <div class="member_email">
                                                 <div class="member_warning">
-                                                    <input type="text" v-model="emailUsername"
-                                                        placeholder="이메일 입력" />
+                                                    <input type="text" v-model="emailUsername" placeholder="이메일 입력" />
                                                     <select v-model="selectedEmailDomain" class="chosen-select">
                                                         <option value="self">직접입력</option>
                                                         <option value="naver.com">naver.com</option>
@@ -215,17 +217,13 @@ const updateEmail = () => {
                                     <tr>
                                         <td class="member_address">
                                             <strong>주소</strong>
-                                            <div class="address_postcode">
-                                                <input type="text" v-model="postcode" placeholder="우편번호" readonly />
-                                                <button type="button" class="btn_post_search"
-                                                    @click="openPostcodeModal">
-                                                    우편번호검색
-                                                </button>
-                                            </div>
                                             <div class="address_input">
-                                                <div class="member_warning">
-                                                    <input type="text" v-model="address" placeholder="도로명 주소"
-                                                        readonly />
+                                                <div class="member_post">
+                                                    <input type="text" :value="address" readonly />
+                                                    <button type="button" class="btn_post_search"
+                                                        @click="openPostcodeModal">
+                                                        우편번호검색
+                                                    </button>
                                                 </div>
                                                 <div class="detail_address_input">
                                                     <input type="text" v-model="detailAddress" placeholder="상세 주소" />
@@ -238,16 +236,16 @@ const updateEmail = () => {
                         </section>
 
                         <div class="btn_center_box">
-                                <button type="button" class="btn_member_cancel" @click="cancelChanges">
-                                    취소
-                                </button>
-                                <button type="button" class="btn_comfirm" @click="updateUserInfo">
-                                    정보수정
-                                </button>
-                                <button type="button" class="btn_member_out" @click="deleteAccount">
-                                    회원탈퇴
-                                </button>
-                            </div>
+                            <button type="button" class="btn_member_cancel" @click="cancel">
+                                취소
+                            </button>
+                            <button type="button" class="btn_comfirm" @click="updateUserInfo">
+                                정보수정
+                            </button>
+                            <button type="button" class="btn_member_out" @click="deleteAccount">
+                                회원탈퇴
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -264,22 +262,32 @@ const updateEmail = () => {
 
 
 <style scoped>
+.member_post{
+    display: flex;
+  justify-content: space-between;
+  /* 요소들 사이에 일정 간격을 둡니다. */
+  align-items: center;
+  /* 세로 방향으로 가운데 정렬 */
+}
 .modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* 어두운 배경 */
+    background: rgba(0, 0, 0, 0.5);
+    /* 어두운 배경 */
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    transition: background 0.3s ease; /* 배경색 전환을 부드럽게 */
+    transition: background 0.3s ease;
+    /* 배경색 전환을 부드럽게 */
 }
 
 .modal.hidden {
-    background: rgba(0, 0, 0, 0); /* 모달이 닫히면 배경색을 투명으로 */
+    background: rgba(0, 0, 0, 0);
+    /* 모달이 닫히면 배경색을 투명으로 */
 }
 
 .modal-content {
@@ -400,6 +408,20 @@ td {
     gap: 10px;
     /* 각 항목 사이의 간격을 추가 */
     width: 100%;
+}
+
+.btn_post_search {
+  margin: 0 0 0 0.625rem;
+  height: 3.375rem;
+  border-radius: .5rem;
+  padding: 0 1.125rem;
+  font-size: 1rem;
+  color: #00a7b3;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  border: .0625rem solid #00a7b3;
+  flex-shrink: 0;
 }
 
 #contents .member_address .address_postcode .btn_post_search {

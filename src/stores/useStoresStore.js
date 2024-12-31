@@ -57,7 +57,7 @@ export const useStoresStore = defineStore("stores", {
 
     async getSellerStoresList() {
       const response = await axios.get(
-        "https://28953cd5-1d7d-4987-b0bd-d7c0dc5512be.mock.pstmn.io/storeitem"
+        "https://run.mocky.io/v3/f005ed62-b04d-4ec9-a30a-02941d649b79"
       );
       this.stores = response.data;
     },

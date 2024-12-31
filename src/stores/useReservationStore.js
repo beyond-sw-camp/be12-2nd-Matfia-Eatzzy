@@ -17,7 +17,7 @@ export const useReservationStore = defineStore("reservation", {
 
     async getSellerReservationsList() {
       const response = await axios.get(
-        "https://28953cd5-1d7d-4987-b0bd-d7c0dc5512be.mock.pstmn.io/reservationitem"
+        "https://run.mocky.io/v3/467592c0-ede3-4f23-ac5a-b9edc22c6e62"
       );
       this.reservations = response.data;
     },

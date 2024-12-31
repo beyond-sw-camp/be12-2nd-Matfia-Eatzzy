@@ -1,8 +1,9 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';  // 라우터에서 params 사용을 위해 추가
+import { useRoute, useRouter} from 'vue-router';  // 라우터에서 params 사용을 위해 추가
 import { useStoresStore } from '../../../stores/useStoresStore';
 
+const router = useRouter()
 const previewImages = ref([]);  // 미리보기 이미지들을 저장할 배열
 const StoresStore = useStoresStore();
 const route = useRoute();  // 라우터 파라미터 사용
@@ -13,6 +14,9 @@ const isPostcodeModalVisible = ref(false); // 우편번호 검색 모달 여부
 const address = ref(""); // 주소
 const detailAddress = ref(""); // 상세주소
 
+const cancel = () => {
+  router.push(`/mypage/seller`);
+};
 // 파일 변경 시 미리보기 이미지 처리
 const handleFileChange = (event) => {
   const files = event.target.files;
@@ -51,6 +55,7 @@ onMounted(async () => {
   await StoresStore.getSellerStoresList();  // 식당 리스트 가져오기
   const storeId = route.path.split('/').pop();  // URL 맨 뒤에 있는 ID를 추출
   store.value = StoresStore.stores.find(s => s.id === parseInt(storeId));  // 해당 id에 맞는 식당 정보 찾기
+  address.value = store.value?.address || "";  
   loadPostcodeScript();  // 우편번호 스크립트 로드
 });
 
@@ -63,104 +68,100 @@ const closePostcodeModal = () => {
 const submitForm = () => {
   console.log("식당 수정 폼이 제출되었습니다.");
 };
-
 </script>
 
 <template>
-<main>
-  <div id="contents">
-    <section class="insert_store_box">
-      <form @submit.prevent="submitForm" enctype="multipart/form-data">
-        <fieldset>
-          <div><label class="insert_store_info">식당 정보 수정</label></div>
+  <main>
+    <div id="contents">
+      <section class="insert_store_box">
+        <form @submit.prevent="submitForm" enctype="multipart/form-data">
+          <fieldset>
+            <div><label class="insert_store_info">식당 정보 수정</label></div>
 
-          <!-- 대표 사진 (최대 4개) -->
-          <div class="image_group">
-            <label for="restaurantImages"><strong>대표 사진 (최대 4개)</strong></label>
-            <input type="file" class="store_image" id="restaurantImages" name="restaurantImages" accept="image/*"
-              multiple @change="handleFileChange">
-            <p>최대 4개의 이미지를 선택할 수 있습니다.</p>
+            <!-- 대표 사진 (최대 4개) -->
+            <div class="image_group">
+              <label for="restaurantImages"><strong>대표 사진 (최대 4개)</strong></label>
+              <input type="file" class="store_image" id="restaurantImages" name="restaurantImages" accept="image/*"
+                multiple @change="handleFileChange">
+              <p>최대 4개의 이미지를 선택할 수 있습니다.</p>
 
-            <!-- 미리보기 공간 -->
-            <div class="preview_container">
-              <div v-for="(image, index) in previewImages" :key="index" class="preview_box">
-                <img :src="image" alt="preview" class="preview_image" />
-              </div>
+              <!-- 미리보기 공간 -->
+              <div class="preview_container">
+                <div v-for="(image, index) in previewImages" :key="index" class="preview_box">
+                  <img :src="image" alt="preview" class="preview_image" />
+                </div>
 
-              <div v-for="index in 4 - previewImages.length" :key="'empty' + index" class="preview_box">
-                미리보기 {{ previewImages.length + index }}
-              </div>
-            </div>
-          </div>
-
-          <!-- 식당 이름 (최대 30자) -->
-          <div class="form_group">
-            <label for="restaurantName"><strong>식당 이름</strong></label>
-            <input type="text" id="restaurantName" name="restaurantName" :value="store?.name" maxlength="30" required>
-          </div>
-
-          <!-- 소개 (최대 200자) -->
-          <div class="form_group">
-            <label for="restaurantDescription"><strong>식당 소개</strong></label>
-            <textarea id="restaurantDescription" name="restaurantDescription" :value="store?.description"
-              maxlength="200" rows="4" required></textarea>
-          </div>
-
-          <div class="form_group">
-            <label for="restaurantPhone"><strong>식당 전화번호</strong></label>
-            <input type="text" id="restaurantPhone" name="restaurantPhone" :value="store?.call_number"
-              maxlength="13" required>
-          </div>
-
-          <!-- 영업시간 (최대 50자) -->
-          <div class="form_group">
-            <label for="restaurantHours"><strong>영업시간</strong></label>
-            <input type="text" id="restaurantHours" name="restaurantHours" :value="store?.opening_hours"
-              maxlength="50" required>
-          </div>
-
-          <!-- 예약 가능 시간 (최대 50자) -->
-          <div class="form_group">
-            <label for="reservationHours"><strong>예약 가능 시간</strong></label>
-            <input type="text" id="reservationHours" name="reservationHours"
-              :value="`${store?.start_time} ~ ${store?.end_time}`" maxlength="50" required>
-          </div>
-
-          <div class="address_box">
-            <strong>주소</strong>
-
-            <div class="address_input">
-              <div class="member_warning">
-                <input type="text" :value="store?.address" readonly />
-                <button type="button" class="btn_post_search" @click="openPostcodeModal">
-                  우편번호검색
-                </button>
-              </div>
-              <div class="detail_address_input">
-                <input type="text" v-model="detailAddress" placeholder="상세 주소" />
+                <div v-for="index in 4 - previewImages.length" :key="'empty' + index" class="preview_box">
+                  미리보기 {{ previewImages.length + index }}
+                </div>
               </div>
             </div>
 
-            <!-- 제출 버튼 -->
-            <div class="button_group">
-              <button type="button" class="cancel_store">취소</button>
-              <button type="submit" class="submit_store">식당 수정</button>
+            <!-- 식당 이름 (최대 30자) -->
+            <div class="form_group">
+              <label for="restaurantName"><strong>식당 이름</strong></label>
+              <input type="text" id="restaurantName" name="restaurantName" :value="store?.name" maxlength="30" required>
             </div>
-          </div>
-        </fieldset>
-      </form>
-    </section>
-  </div>
 
-  <div class="layer_wrap" v-show="isPostcodeModalVisible" @click="closePostcodeModal">
-    <div class="layer_area">
-      <!-- 우편번호 모달 내용 -->
+            <!-- 소개 (최대 200자) -->
+            <div class="form_group">
+              <label for="restaurantDescription"><strong>식당 소개</strong></label>
+              <textarea id="restaurantDescription" name="restaurantDescription" :value="store?.description"
+                maxlength="200" rows="4" required></textarea>
+            </div>
+
+            <div class="form_group">
+              <label for="restaurantPhone"><strong>식당 전화번호</strong></label>
+              <input type="text" id="restaurantPhone" name="restaurantPhone" :value="store?.call_number" maxlength="13"
+                required>
+            </div>
+
+            <!-- 영업시간 (최대 50자) -->
+            <div class="form_group">
+              <label for="restaurantHours"><strong>영업시간</strong></label>
+              <input type="text" id="restaurantHours" name="restaurantHours" :value="store?.opening_hours"
+                maxlength="50" required>
+            </div>
+
+            <!-- 예약 가능 시간 (최대 50자) -->
+            <div class="form_group">
+              <label for="reservationHours"><strong>예약 가능 시간</strong></label>
+              <input type="text" id="reservationHours" name="reservationHours"
+                :value="`${store?.start_time} ~ ${store?.end_time}`" maxlength="50" required>
+            </div>
+
+            <div class="address_box">
+              <strong>주소</strong>
+              <div class="address_input">
+                <div class="member_warning">
+                  <input type="text" v-model="address" readonly />
+                  <button type="button" class="btn_post_search" @click="openPostcodeModal">
+                    우편번호검색
+                  </button>
+                </div>
+                <div class="detail_address_input">
+                  <input type="text" v-model="detailAddress" placeholder="상세 주소" />
+                </div>
+              </div>
+
+              <!-- 제출 버튼 -->
+              <div class="button_group">
+                <button type="button" @click="cancel" class="cancel_store">취소</button>
+                <button type="submit" class="submit_store">식당 수정</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </section>
     </div>
-  </div>
-</main>
 
+    <div class="layer_wrap" v-show="isPostcodeModalVisible" @click="closePostcodeModal">
+      <div class="layer_area">
+        <!-- 우편번호 모달 내용 -->
+      </div>
+    </div>
+  </main>
 </template>
-
 
 <style scoped>
 .address_box {
@@ -175,7 +176,6 @@ const submitForm = () => {
   gap: .625rem;
 }
 
-
 .btn_post_search {
   margin: 0 0 0 0.625rem;
   height: 3.375rem;
@@ -189,7 +189,6 @@ const submitForm = () => {
   border: .0625rem solid #00a7b3;
   flex-shrink: 0;
 }
-
 
 /* 폼 스타일 */
 form {

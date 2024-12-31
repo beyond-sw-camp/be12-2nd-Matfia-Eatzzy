@@ -8,7 +8,6 @@ const previewImages = ref([]);  // 미리보기 이미지들을 저장할 배열
 const StoresStore = useStoresStore();
 
 const isPostcodeModalVisible = ref(false); // 우편번호 검색 모달 여부
-const postcode = ref(""); // 우편번호
 const address = ref(""); // 주소
 const detailAddress = ref(""); // 상세주소
 
@@ -36,7 +35,6 @@ const openPostcodeModal = () => {
   isPostcodeModalVisible.value = true;
   new daum.Postcode({
     oncomplete: function (data) {
-      postcode.value = data.zonecode; // 우편번호
       address.value = data.roadAddress; // 도로명 주소
       isPostcodeModalVisible.value = false; // 모달 닫기
     }
@@ -111,37 +109,34 @@ const submitForm = () => {
 
             <div class="form_group">
               <label for="restaurantPhone"><strong>식당 전화번호</strong></label>
-              <input type="text" id="restaurantPhone" name="restaurantPhone" placeholder="예: 010-1234-5678" maxlength="13"
-                required>
+              <input type="text" id="restaurantPhone" name="restaurantPhone" placeholder="예: 010-1234-5678"
+                maxlength="13" required>
             </div>
 
             <!-- 영업시간 (최대 50자) -->
             <div class="form_group">
               <label for="restaurantHours"><strong>영업시간</strong></label>
-              <input type="text" id="restaurantHours" name="restaurantHours" placeholder="예: 10:00 ~ 22:00" maxlength="50"
-                required>
+              <input type="text" id="restaurantHours" name="restaurantHours" placeholder="예: 10:00 ~ 22:00"
+                maxlength="50" required>
             </div>
 
             <!-- 예약 가능 시간 (최대 50자) -->
             <div class="form_group">
               <label for="reservationHours"><strong>예약 가능 시간</strong></label>
-              <input type="text" id="reservationHours" name="reservationHours" placeholder="예: 10:00 ~ 20:00" maxlength="50"
-                required>
+              <input type="text" id="reservationHours" name="reservationHours" placeholder="예: 10:00 ~ 20:00"
+                maxlength="50" required>
             </div>
-            
+
             <!-- 나머지 입력 필드들 ... -->
 
             <div class="address_box">
               <strong>주소</strong>
-              <div class="address_postcode">
-                <input type="text" v-model="postcode" placeholder="우편번호" readonly />
-                <button type="button" class="btn_post_search" @click="openPostcodeModal">
-                  우편번호검색
-                </button>
-              </div>
               <div class="address_input">
                 <div class="member_warning">
-                  <input type="text" v-model="address" placeholder="도로명 주소" readonly />
+                  <input type="text" :value="address" readonly />
+                  <button type="button" class="btn_post_search" @click="openPostcodeModal">
+                    우편번호검색
+                  </button>
                 </div>
                 <div class="detail_address_input">
                   <input type="text" v-model="detailAddress" placeholder="상세 주소" />
@@ -166,19 +161,28 @@ const submitForm = () => {
 </template>
 
 <style scoped>
-.address_box {
-    display: flex;
-    flex-direction: column;
-    gap: .625rem;
-}
-.address_input{
+.member_warning {
   display: flex;
-    flex-direction: column;
-    gap: .625rem;
+  justify-content: space-between;
+  /* 요소들 사이에 일정 간격을 둡니다. */
+  align-items: center;
+  /* 세로 방향으로 가운데 정렬 */
 }
 
+.address_box {
+  display: flex;
+  flex-direction: column;
+  gap: .625rem;
+}
+
+.address_input {
+  display: flex;
+  flex-direction: column;
+  gap: .625rem;
+}
 
 .btn_post_search {
+  margin: 0 0 0 0.625rem;
   height: 3.375rem;
   border-radius: .5rem;
   padding: 0 1.125rem;
@@ -190,7 +194,6 @@ const submitForm = () => {
   border: .0625rem solid #00a7b3;
   flex-shrink: 0;
 }
-
 
 /* 폼 스타일 */
 form {
