@@ -8,7 +8,7 @@ export const useMenuStore = defineStore("menu", {
   actions: {
     async getMenusList() {
       const response = await axios.get(
-        "https://28953cd5-1d7d-4987-b0bd-d7c0dc5512be.mock.pstmn.io/menulist"
+        "https://run.mocky.io/v3/072e0c1f-690b-4b4d-a609-45369e1fc386"
 
       );
       this.menus = response.data;
