@@ -76,7 +76,7 @@
               <!-- TODO : emit 와 props 추가 장바구니 체크 리스트 기능 때문 -->
               <CartCard
                 v-for="cartProduct in cartStore.cartProducts"
-                :cartProduct="cartProduct"
+                :cartProduct="{ ...cartProduct }"
                 :key="cartProduct.productId"
                 v-model:isChecked="
                   findCheckedItem(cartProduct.productId).isChecked
@@ -214,13 +214,14 @@ const allCheck = () => {
 };
 const updateCartProduct = (updatedProduct) => {
   const index = cartStore.cartProducts.findIndex(
-    (product) => product.id === updatedProduct.id
+    (product) => product.productId === updatedProduct.productId
   );
   if (index !== -1) {
-    cartStore.cartProducts[index] = updatedProduct; // 배열의 특정 항목 업데이트
-    cartStore.cartProducts[index].totalPrice =
-      cartStore.cartProducts[index].price *
-      cartStore.cartProducts[index].quantity;
+    cartStore.cartProducts.splice(index, 1, {
+      ...cartStore.cartProducts[index],
+      ...updatedProduct,
+      totalPrice: updatedProduct.price * updatedProduct.quantity,
+    });
   }
 };
 
