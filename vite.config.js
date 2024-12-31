@@ -14,8 +14,13 @@ export default defineConfig({
       },
       "/psy": {
         target: "http://192.0.200.214:3000",
-        changeOrigin: true, 
-        rewrite: (path) => path.replace(/^\/psy/, ""), 
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/psy/, ""),
+      },
+      "/ysh": {
+        target: "http://192.0.200.132:3000",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/ysh/, ""),
       },
     },
   },
