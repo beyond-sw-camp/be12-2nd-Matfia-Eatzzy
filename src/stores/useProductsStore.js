@@ -15,9 +15,7 @@ export const useProductsStore = defineStore("products", {
   }),
   actions: {
     async getProductBestList() {
-      const response = await axios.get(
-        "https://run.mocky.io/v3/9b0cb90a-9d78-42bf-8e24-531296905990"
-      );
+      const response = await axios.get("/api/productBest");
 
       this.productsBest = response.data;
     },
@@ -38,7 +36,7 @@ export const useProductsStore = defineStore("products", {
 
     async addProduct() {
       const response = await axios.post(
-        "https://785d3be0-6ccd-486d-89c2-15310bc84a45.mock.pstmn.io/product/add",
+        "/ysh/product/add",
         {
           name: "pizza",
           price: 16000,
@@ -55,7 +53,7 @@ export const useProductsStore = defineStore("products", {
 
     async ModifyProduct() {
       const response = await axios.post(
-        "https://785d3be0-6ccd-486d-89c2-15310bc84a45.mock.pstmn.io/product/modify",
+        "/ysh/product/modify",
         {
           name: "pizza",
           price: 18000,
@@ -69,7 +67,7 @@ export const useProductsStore = defineStore("products", {
 
     async RegisterDelivery() {
       const response = await axios.post(
-        "https://785d3be0-6ccd-486d-89c2-15310bc84a45.mock.pstmn.io/product/delivery",
+        "/ysh/product/delivery",
         {
           courier_company: "한진택배",
           tracking_number: 69012481,
@@ -81,21 +79,21 @@ export const useProductsStore = defineStore("products", {
 
     async getSellerProduct() {
       const response = await axios.get(
-        "https://785d3be0-6ccd-486d-89c2-15310bc84a45.mock.pstmn.io/seller/product"
+        "/ysh/seller/product"
       );
       return response.data;
     },
 
     async getOrderProduct() {
       const response = await axios.get(
-        "https://785d3be0-6ccd-486d-89c2-15310bc84a45.mock.pstmn.io/order/product"
+        "/ysh/order/product"
       );
       return response.data;
     },
 
     async getOrderDetails() {
       const response = await axios.get(
-        "https://785d3be0-6ccd-486d-89c2-15310bc84a45.mock.pstmn.io/order/details"
+        "/ysh/order/details"
       );
       return response.data;
     },

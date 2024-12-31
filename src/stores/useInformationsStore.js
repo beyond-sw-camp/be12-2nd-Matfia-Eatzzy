@@ -8,7 +8,7 @@ export const useInformationsStore = defineStore("informations", {
   actions: {
     async getInformationsList() {
       const response = await axios.get(
-        "https://28953cd5-1d7d-4987-b0bd-d7c0dc5512be.mock.pstmn.io/mypageinfo"
+        "https://run.mocky.io/v3/f79fe920-ccf3-4dd5-91e6-a706ec06c2da"
 
       );
       this.informations = response.data;
