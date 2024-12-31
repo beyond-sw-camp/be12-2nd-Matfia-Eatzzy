@@ -3,7 +3,8 @@ import axios from "axios";
 
 export const useCartStore = defineStore("carts", {
   state: () => ({
-    cartProducts:[],
+    cartProducts: [],
+    isMadal: false,
   }),
   actions: {
     async getCartProducts() {
@@ -13,6 +14,12 @@ export const useCartStore = defineStore("carts", {
 
       this.cartProducts = response.data.cartProducts;
       // console.log(this.cartProducts)
+    },
+    openModal() {
+      this.isMadal = true;
+    },
+    closeModal() {
+      this.isMadal = false;
     },
   },
 });
