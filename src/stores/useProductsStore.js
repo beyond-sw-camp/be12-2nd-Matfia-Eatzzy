@@ -50,7 +50,7 @@ export const useProductsStore = defineStore("products", {
     },
 
     async addProduct() {
-      const response = await axios.post("/ysh/product/add", {
+      const response = await axios.post("/api/product/add", {
         name: "pizza",
         price: 16000,
         stock: 1,
@@ -64,7 +64,7 @@ export const useProductsStore = defineStore("products", {
     },
 
     async ModifyProduct() {
-      const response = await axios.post("/ysh/product/modify", {
+      const response = await axios.post("/api/product/modify", {
         name: "pizza",
         price: 18000,
         stock: 3,
@@ -75,7 +75,7 @@ export const useProductsStore = defineStore("products", {
     },
 
     async RegisterDelivery() {
-      const response = await axios.post("/ysh/product/delivery", {
+      const response = await axios.post("/api/product/delivery", {
         courier_company: "한진택배",
         tracking_number: 69012481,
         order_id: "ord2",
@@ -84,17 +84,17 @@ export const useProductsStore = defineStore("products", {
     },
 
     async getSellerProduct() {
-      const response = await axios.get("/ysh/seller/product");
+      const response = await axios.get("/api/seller/product");
       return response.data;
     },
 
     async getOrderProduct() {
-      const response = await axios.get("/ysh/order/product");
+      const response = await axios.get("/api/order/product");
       return response.data;
     },
 
     async getOrderDetails() {
-      const response = await axios.get("/ysh/order/details");
+      const response = await axios.get("/api/order/details");
       return response.data;
     },
 

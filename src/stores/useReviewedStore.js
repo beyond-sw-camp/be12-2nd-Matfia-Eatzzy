@@ -8,7 +8,7 @@ export const useReviewedStore = defineStore("reviewed", {
   }),
   actions: {
     async getreviewedStores() {
-      const response = await axios.get("/osj/reviewed");
+      const response = await axios.get("/api/reviewed");
 
       this.reviewedStores = response.data.stores;
       this.reviewedProducts = response.data.products;
