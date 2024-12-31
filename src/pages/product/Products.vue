@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container page_product">
     <div class="main">
       <h1>밀키트</h1>
       <div class="category_box">
@@ -38,6 +38,7 @@
       <div class="store_list">
         <Product v-for="product of productsStore.products" :product="product" />
       </div>
+      <CartModal v-if="cartStore.isMadal"></CartModal>
     </div>
   </div>
 </template>
@@ -47,9 +48,11 @@ import "../../assets/products/products.css";
 import Product from "./components/Product.vue";
 import { useProductsStore } from "../../stores/useProductsStore";
 import { onMounted } from "vue";
+import CartModal from "../cart/CartModal.vue";
+import { useCartStore } from "../../stores/useCartStore";
 
 const productsStore = useProductsStore();
-
+const cartStore = useCartStore();
 onMounted(async () => {
   await productsStore.getProductsList();
 });
