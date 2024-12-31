@@ -103,13 +103,15 @@ addProduct();
       </div>
       <div class="form_group">
         <label for="category">카테고리</label>
-        <div class="input_box">
+        <div id="select" class="input_box">
           <select
             v-model="productData.category"
             id="category"
             name="category"
             required
+            class="select_category"
           >
+            <option value="" selected disabled>-- 카테고리 선택 --</option>
             <option value="Korean">한식</option>
             <option value="Chinese">중식</option>
             <option value="Japanese">일식</option>
@@ -117,7 +119,7 @@ addProduct();
             <option value="Asian">아시안</option>
             <option value="Snacks">분식</option>
             <option value="Fastfood">패스트푸드</option>
-          </select>
+          </select> 
         </div>
       </div>
 
@@ -138,13 +140,15 @@ addProduct();
         <input type="file" id="image" name="image" accept="image/*" required />
       </div>
     </form>
-    <button @click="registerProduct" class="button">등록하기</button>
+    <button @click="registerProduct" class="register_btn">등록하기</button>
   </div>
 </template>
 
 <style scoped>
 .register_wrap {
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .register_wrap > h1 {
@@ -219,19 +223,33 @@ label {
   padding: 0;
 }
 
-button {
-  width: 100%;
-  padding: 15px;
-  background-color: #00a7b3;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 20px;
+#select {
+  padding: 0;
+  height: 2.625rem;
 }
-button:hover {
-  background-color: #008a92;
+
+.select_category {
+  width: 100%;
+  height: 100%;
+  padding: 0.3rem 0.8rem;
+  border: none;
+  outline: none;
+  border-radius: 1rem;
+}
+
+.register_btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 0.6rem 0;
+  background-color: #ff7400;
+  color: white;
+  border-radius: 0.8rem;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: background-color 0.3s ease;
+  align-self: center;
+}
+.register_btn:hover {
+  background-color: #c96208;
 }
 </style>
