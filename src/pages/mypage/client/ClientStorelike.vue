@@ -43,18 +43,27 @@ table tr:first-child th {
   font-size: 1.25rem;
 }
 .col1 {
+  width: 30%;
+  min-width: 10%;
+}
+.col2 {
   width: 20%;
+  min-width: 10%;
 }
-.col1 {
+.col3 {
   width: 30%;
-}
-.col1 {
-  width: 30%;
+  min-width: 10%;
 }
 .col4 {
   width: 20%;
+  min-width: 10%;
 }
 .like_table th {
   font-weight: bold;
+}
+@media (max-width: 960px) {
+  .like_table thead {
+    display: none; /* 헤더 숨기기 */
+  }
 }
 </style>
