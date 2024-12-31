@@ -1,13 +1,18 @@
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';  // 라우터에서 params 사용을 위해 추가
+import { useMenuStore } from '../../../stores/useMenuStore';
 
-const router = useRouter()
+const router = useRouter();
 // 반응형 상태 변수 정의
 const menuName = ref('');
 const menuImage = ref(null);
 const menuDescription = ref('');
 const menuPrice = ref('');
+const menu = ref(null);  // 현재 수정할 식당 정보
+
+const route = useRoute();  // 라우터 파라미터 사용
+const MenuStore = useMenuStore();
 
 const cancel = () => {
   router.push(`/mypage/seller`);
@@ -35,9 +40,7 @@ const submitMenu = () => {
     description: menuDescription.value,
     price: menuPrice.value
   };
-
   console.log("메뉴 추가:", menuData);
-
   resetForm();
 };
 
@@ -48,6 +51,12 @@ const resetForm = () => {
   menuDescription.value = '';
   menuPrice.value = '';
 };
+
+onMounted(async () => {
+  await MenuStore.getMenusList();  // 식당 리스트 가져오기
+  const menuId = route.path.split('/').pop();  // URL 맨 뒤에 있는 ID를 추출
+  menu.value = MenuStore.menus.find(s => s.id === parseInt(menuId));
+});
 </script>
 
 <template>
@@ -61,7 +70,7 @@ const resetForm = () => {
         <!-- 메뉴명 -->
         <div class="form_group">
           <label for="menuName"><strong>메뉴명 (30자 이내)</strong></label>
-          <input type="text" id="menuName" v-model="menuName" maxlength="30" placeholder="메뉴명을 입력하세요" required />
+          <input type="text" id="menuName" maxlength="30" :value="menu?.name" required />
         </div>
 
         <div class="image_group">
@@ -86,24 +95,22 @@ const resetForm = () => {
         <!-- 메뉴 소개 -->
         <div class="form_group">
           <label for="menuDescription"><strong>메뉴 소개 (150자 이내)</strong></label>
-          <textarea id="menuDescription" v-model="menuDescription" maxlength="150" placeholder="메뉴 소개를 입력하세요"
-            required></textarea>
+          <textarea id="menuDescription" maxlength="150" :value="menu?.info" required></textarea>
         </div>
 
         <!-- 가격 -->
         <div class="form_group">
           <label for="menuPrice"><strong>가격</strong></label>
           <div class="price_container">
-            <input type="number" id="menuPrice" v-model="menuPrice" placeholder="가격을 입력하세요" required />
+            <input type="number" id="menuPrice" :value="menu?.price" required />
             <span class="currency">원</span>
           </div>
         </div>
 
         <!-- 제출 버튼 -->
         <div class="button_group">
-
           <button type="button" @click="cancel" class="cancel_button">취소</button>
-          <button type="button" @click="submitMenu" class="submit_menu">메뉴 추가</button>
+          <button type="button" @click="submitMenu" class="submit_menu">메뉴 수정</button>
         </div>
       </fieldset>
     </section>
@@ -128,7 +135,6 @@ const resetForm = () => {
   font-weight: 800;
   margin: 3rem 0 1.875rem;
 }
-
 
 /* 각 폼 그룹 스타일 */
 .form_group {
@@ -193,11 +199,15 @@ input[type="number"] {
   color: #333;
 }
 
-
-
 /* 메뉴 등록 버튼 스타일 */
-.submit_menu {
+.cancel_button {
+  border: .0625rem solid #00a7b3;
+  width: 13.5rem;
+  background: #fff;
+  cursor: pointer;
+}
 
+.submit_menu {
   font-size: .875rem;
   font-weight: 400;
   width: 13.5rem;
@@ -207,24 +217,12 @@ input[type="number"] {
   background: #00a7b3;
 }
 
-.cancel_button {
-  border: .0625rem solid #00a7b3;
-  width: 13.5rem;
-  background: #fff;
-  cursor: pointer;
-}
-
 .button_group {
   margin: 3.125rem 0 1.875rem;
   display: flex;
   justify-content: center;
   gap: .625rem;
 }
-
-
-
-/* 이미지 등록 관련 */
-
 
 /* 이미지 그룹 전체 스타일 */
 .image_group {

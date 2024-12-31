@@ -23,5 +23,17 @@ export const useReviewStore = defineStore("review", {
 
       return response.data;
     },
+
+    async registerReview() {
+      const response = await axios.post(
+        "https://785d3be0-6ccd-486d-89c2-15310bc84a45.mock.pstmn.io/mypage/review",
+        {
+          title: "고도식 고깃집",
+          content: "너무 맛있어요~",
+          image: "",
+        }
+      );
+      return response.data;
+    },
   },
 });

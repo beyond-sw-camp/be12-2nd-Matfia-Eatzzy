@@ -185,8 +185,8 @@ header .search_area .header_search {
 
 header .search_area .logo {
   display: block;
-  background: url(https://thenaum.cdn-nhncommerce.com/data/img/allnew/layout/n_fd_logo.gif)
-    no-repeat 0 0;
+  /* background: url(https://thenaum.cdn-nhncommerce.com/data/img/allnew/layout/n_fd_logo.gif) no-repeat 0 0; */
+  background: url(/src/assets/icons/logo.png) no-repeat 0 0;
   font-size: 0;
 }
 header .search_area .logo a {

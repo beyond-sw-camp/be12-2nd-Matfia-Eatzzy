@@ -1,6 +1,9 @@
 <script setup>
 import ClientSummary from "../client/components/ClientSummary.vue";
 import SellerMenu from "./components/SellerMenu.vue";
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
 </script>
 
 <template>

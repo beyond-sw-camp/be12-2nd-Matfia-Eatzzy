@@ -25,7 +25,7 @@ export const useStoresStore = defineStore("stores", {
     async getStoreBestList() {
       await axios
         .get(
-          "https://02bbbbe3-c971-4a76-b853-6bbbc83b2afd.mock.pstmn.io/storeBest",
+          "https://run.mocky.io/v3/1dafc773-b286-4735-ac99-62ab0a08bc64",
           {
             sort: "HOT",
             place: "서울",

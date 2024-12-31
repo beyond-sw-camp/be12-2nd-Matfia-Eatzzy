@@ -36,7 +36,7 @@ getOrderProduct();
             <thead>
               <tr>
                 <th>주문번호</th>
-                <th>상품명</th>
+                <th>상품명/사진</th>
                 <th>상품금액</th>
                 <th>수량</th>
                 <th>결제상태</th>

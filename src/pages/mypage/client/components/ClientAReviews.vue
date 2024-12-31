@@ -34,7 +34,7 @@ onMounted(fetchAReviews);
         <img v-for="n in 5 - Areview.score" src="/src/assets/icons/star_empty.svg" alt="star" />
       </div>
       <p class="review_text">{{ Areview.content }}</p>
-      <img src="https://thenaum.cdn-nhncommerce.com/data/goods/15/01/26/1000000463/1000000463_magnify_07.jpg" alt="Review Image" class="review_image" />
+      <img :src="Areview.review_image" alt="Review Image" class="review_image" />
     </div>
     <div class="review_right after_right">
       <div class="review_date">{{ Areview.reservation }}</div>
@@ -61,6 +61,8 @@ onMounted(fetchAReviews);
   font-size: 1.125rem;
 }
 .review_image {
+  width: 6.25rem;
+  height: 6.25rem;
   max-width: 6.25rem;
   max-height: 6.25rem;
   margin-top: 0.625rem;
