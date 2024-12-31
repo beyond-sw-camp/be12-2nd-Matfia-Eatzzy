@@ -1,18 +1,10 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
+import { useLoveStore } from "../../../../stores/useLoveStore";
 
-const userId = 1;
-const apiUrl = `https://abc5b35f-117e-49a2-9442-364017e60701.mock.pstmn.io/my/reservation/stores/?userId=${userId}`;
-const rezs = ref([]);
-const fetchRezs = async () => {
-  try {
-    const response = await axios.get(apiUrl);
-    rezs.value = response.data.stores;
-  } catch (error) {
-    console.error("리뷰 데이터를 가져오는 중 오류 발생:", error);
-  }
-};
+const loveStore = useLoveStore();
+
 const handleCancelClick = (reviewId) => {
   // JavaScript 기본 confirm 대화상자 표시
   const isConfirmed = confirm("정말로 예약을 취소하시겠습니까?");
@@ -23,11 +15,13 @@ const handleCancelClick = (reviewId) => {
   }
 };
 
-onMounted(fetchRezs);
+onMounted(() => {
+  loveStore.getloveStores();
+});
 </script>
 
 <template>
-  <div class="storeRez_item" v-for="(review, index) in rezs" :key="index">
+  <div class="storeRez_item" v-for="(review, index) in loveStore.rezStores" :key="index">
     <a class="storeRez_left" href="/stores/1">
       <div class="store_name">{{ review.store_name }}</div>
       <div class="rez_category store_address">{{ review.store_address }}</div>
