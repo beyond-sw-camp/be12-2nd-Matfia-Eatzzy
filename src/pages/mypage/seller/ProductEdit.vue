@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useProductsStore } from "../../../stores/useProductsStore";
 
@@ -10,6 +10,7 @@ const currentPath = computed(() => route.path);
 const productsStore = useProductsStore();
 const productAction = ref("");
 const productData = ref({
+  idx: 0,
   name: "",
   price: 0,
   stock: 0,
@@ -34,7 +35,7 @@ const editProduct = async (event) => {
       alert("상품이 등록되었습니다.");
     }
   } else {
-    const result = confirm("상품을 수정정하시겠습니까?");
+    const result = confirm("상품을 수정하시겠습니까?");
     if (result) {
       alert("상품이 수정되었습니다.");
     }
@@ -53,7 +54,10 @@ watch(
   }
 );
 
-updateProductAction();
+onMounted(() => {
+  updateProductAction();
+  productData.value = productsStore.modifyProduct;
+});
 </script>
 
 <template>
@@ -139,13 +143,13 @@ updateProductAction();
             class="select_category"
           >
             <option value="" selected disabled>-- 카테고리 선택 --</option>
-            <option value="Korean">한식</option>
-            <option value="Chinese">중식</option>
-            <option value="Japanese">일식</option>
-            <option value="Western">양식</option>
-            <option value="Asian">아시안</option>
-            <option value="Snacks">분식</option>
-            <option value="Fastfood">패스트푸드</option>
+            <option value="한식">한식</option>
+            <option value="중식">중식</option>
+            <option value="일식">일식</option>
+            <option value="양식">양식</option>
+            <option value="아시안">아시안</option>
+            <option value="분식">분식</option>
+            <option value="패스트푸드">패스트푸드</option>
           </select>
         </div>
       </div>
@@ -165,6 +169,9 @@ updateProductAction();
       </div>
       <div class="form_group">
         <label for="image">상품 이미지</label>
+        <div class="image_preview">
+          <img :src="productData.image || ''" alt="상품 이미지 미리보기" />
+        </div>
         <input type="file" id="image" name="image" accept="image/*" required />
       </div>
     </form>
@@ -264,6 +271,7 @@ label {
   outline: none;
   resize: none;
   padding: 0;
+  color: black;
 }
 
 #select {
@@ -278,6 +286,16 @@ label {
   border: none;
   outline: none;
   border-radius: 1rem;
+}
+
+.image_preview {
+  margin-bottom: 1rem;
+}
+.image_preview > img {
+  width: 6rem;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 0.5rem;
 }
 
 .btn_box {

@@ -3,6 +3,7 @@ import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useOrderStore } from "../../../stores/useOrderStore";
 import ProductItem from "./components/ProductItem.vue";
+import { formatPrice } from "../../../utils/formatPrice.js";
 
 const route = useRoute();
 const router = useRouter();
@@ -24,11 +25,6 @@ const orderData = ref({
   paymentName: "",
   products: [],
 });
-
-// 금액 formatting
-const formatPrice = (price) => {
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-};
 
 const cancelOrder = () => {
   const result = confirm("주문을 취소하시겠습니까?");
