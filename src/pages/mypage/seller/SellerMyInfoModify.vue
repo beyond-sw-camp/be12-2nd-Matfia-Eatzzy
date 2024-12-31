@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed, watch} from "vue";
 import { useInformationsStore } from '../../../stores/useInformationsStore';
 import { useRouter } from 'vue-router'
 const router = useRouter()
@@ -26,15 +26,28 @@ const isPasswordChangeVisible = ref(false);
 const emailUsername = ref("");
 const selectedEmailDomain = ref("self");
 
+const placeholderText = computed(() => {
+    return selectedEmailDomain.value === 'self'
+        ? '이메일 입력'
+        : `이메일 입력 (예: 아이디@${selectedEmailDomain.value})`;
+});
+
+// selectedEmailDomain 변경 시 emailUsername에 도메인 추가
+watch(selectedEmailDomain, (newDomain) => {
+    if (newDomain !== 'self') {
+        const username = emailUsername.value.split('@')[0]; // '@' 제거 후 아이디만 추출
+        emailUsername.value = `${username}@${newDomain}`;
+    }
+});
 // 우편번호 검색 모달 열기
 const openPostcodeModal = () => {
-  isPostcodeModalVisible.value = true;
-  new daum.Postcode({
-    oncomplete: function (data) {
-      address.value = data.roadAddress; // 도로명 주소
-      isPostcodeModalVisible.value = false; // 모달 닫기
-    }
-  }).open();
+    isPostcodeModalVisible.value = true;
+    new daum.Postcode({
+        oncomplete: function (data) {
+            address.value = data.roadAddress; // 도로명 주소
+            isPostcodeModalVisible.value = false; // 모달 닫기
+        }
+    }).open();
 };
 
 // 우편번호 스크립트 로드
@@ -197,7 +210,7 @@ const updateEmail = () => {
                                             <strong>이메일</strong>
                                             <div class="member_email">
                                                 <div class="member_warning">
-                                                    <input type="text" v-model="emailUsername" placeholder="이메일 입력" />
+                                                    <input type="text" v-model="emailUsername" :placeholder="placeholderText" />
                                                     <select v-model="selectedEmailDomain" class="chosen-select">
                                                         <option value="self">직접입력</option>
                                                         <option value="naver.com">naver.com</option>
@@ -262,13 +275,14 @@ const updateEmail = () => {
 
 
 <style scoped>
-.member_post{
+.member_post {
     display: flex;
-  justify-content: space-between;
-  /* 요소들 사이에 일정 간격을 둡니다. */
-  align-items: center;
-  /* 세로 방향으로 가운데 정렬 */
+    justify-content: space-between;
+    /* 요소들 사이에 일정 간격을 둡니다. */
+    align-items: center;
+    /* 세로 방향으로 가운데 정렬 */
 }
+
 .modal {
     position: fixed;
     top: 0;
@@ -411,17 +425,17 @@ td {
 }
 
 .btn_post_search {
-  margin: 0 0 0 0.625rem;
-  height: 3.375rem;
-  border-radius: .5rem;
-  padding: 0 1.125rem;
-  font-size: 1rem;
-  color: #00a7b3;
-  box-shadow: none;
-  display: flex;
-  align-items: center;
-  border: .0625rem solid #00a7b3;
-  flex-shrink: 0;
+    margin: 0 0 0 0.625rem;
+    height: 3.375rem;
+    border-radius: .5rem;
+    padding: 0 1.125rem;
+    font-size: 1rem;
+    color: #00a7b3;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    border: .0625rem solid #00a7b3;
+    flex-shrink: 0;
 }
 
 #contents .member_address .address_postcode .btn_post_search {
