@@ -100,6 +100,21 @@ const submitForm = () => {
                 required>
             </div>
 
+            <!-- 식당 카테고리 -->
+            <div class="form_group">
+              <label for="restaurantCategory"><strong>식당 카테고리</strong></label>
+              <select id="restaurantCategory" v-model="selectedCategory" required>
+                <option value="" disabled>카테고리를 선택하세요</option>
+                <option value="korean">한식</option>
+                <option value="western">양식</option>
+                <option value="chinese">중식</option>
+                <option value="japanese">일식</option>
+                <option value="cafe">카페</option>
+                <option value="fastfood">패스트푸드</option>
+                <option value="other">기타</option>
+              </select>
+            </div>
+
             <!-- 소개 (최대 200자) -->
             <div class="form_group">
               <label for="restaurantDescription"><strong>식당 소개</strong></label>
@@ -240,6 +255,7 @@ label {
 
 
 /* 입력 필드 스타일 */
+select,
 input[type="text"],
 input[type="tel"] {
   font-size: 1rem;
