@@ -31,7 +31,7 @@ const gnbOpen = () => {
         <div v-if="!loginStatus">
           <router-link to="/join">회원가입</router-link>
         </div>
-        <div><router-link to="/">주문조회</router-link></div>
+        <div v-if="loginStatus"><router-link to="/">주문조회</router-link></div>
         <div v-if="loginStatus">
           <router-link :to="mypage">마이페이지</router-link>
         </div>
@@ -104,7 +104,7 @@ const gnbOpen = () => {
                 >장바구니</router-link
               >
             </li>
-            <li class="delevery_btn">
+            <li class="delevery_btn" v-if="loginStatus">
               <router-link to="/">배송조회</router-link>
             </li>
           </ul>
