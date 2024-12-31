@@ -10,8 +10,12 @@ export const useProductsStore = defineStore("products", {
       price: 0,
       image: "",
       expirationDate: "",
+      description: "",
+      reviewCnt: 0,
+      startPoint: 0,
     },
     products: [],
+    productTab: "description",
   }),
   actions: {
     async getProductBestList() {
