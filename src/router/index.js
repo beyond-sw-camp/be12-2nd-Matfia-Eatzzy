@@ -36,6 +36,8 @@ import SellerMyInfoModify from "../pages/mypage/seller/SellerMyInfoModify.vue";
 import SellerReservationCard from "../pages/mypage/seller/SellerReservationCard.vue";
 import SellerStoreItem from "../pages/mypage/seller/SellerStoreItem.vue";
 import SellerModifyStore from "../pages/mypage/seller/SellerModifyStore.vue";
+import SellerMenuCard from "../pages/mypage/seller/components/SellerMenuCard.vue";
+import SellerModifyMenu from "../pages/mypage/seller/SellerModifyMenu.vue";
 
 const checkUserType = (from, to, next) => {
   // 고객인지 점주인지 확인 후 경로 이동
@@ -101,7 +103,9 @@ const routes = [
           { path: "modify", component: ProductModify },
           { path: "sregister", component: ShippingRegister },
           { path: "product", component: ProductList },
-          { path: "pregister", component: ProductRegister }
+          { path: "pregister", component: ProductRegister },
+          { path: "store_menu/:id", component: SellerMenuCard },
+          { path: "menu_modify/:id", component: SellerModifyMenu }
         ],
       },
       { path: "/carts", component: Carts },

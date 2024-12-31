@@ -49,7 +49,7 @@ const loadPostcodeScript = () => {
 
 onMounted(async () => {
   await StoresStore.getSellerStoresList();  // 식당 리스트 가져오기
-  const storeId = route.params.id;  // URL에서 id 파라미터 가져오기
+  const storeId = route.path.split('/').pop();  // URL 맨 뒤에 있는 ID를 추출
   store.value = StoresStore.stores.find(s => s.id === parseInt(storeId));  // 해당 id에 맞는 식당 정보 찾기
   loadPostcodeScript();  // 우편번호 스크립트 로드
 });

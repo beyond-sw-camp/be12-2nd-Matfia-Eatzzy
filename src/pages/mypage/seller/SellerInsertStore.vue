@@ -1,6 +1,8 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useStoresStore } from '../../../stores/useStoresStore';
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 const previewImages = ref([]);  // 미리보기 이미지들을 저장할 배열
 const StoresStore = useStoresStore();
@@ -9,6 +11,10 @@ const isPostcodeModalVisible = ref(false); // 우편번호 검색 모달 여부
 const postcode = ref(""); // 우편번호
 const address = ref(""); // 주소
 const detailAddress = ref(""); // 상세주소
+
+const cancel = () => {
+  router.push(`/mypage/seller`);
+};
 
 // 파일 변경 시 미리보기 이미지 처리
 const handleFileChange = (event) => {
@@ -144,7 +150,7 @@ const submitForm = () => {
             </div>
             <!-- 제출 버튼 -->
             <div class="button_group">
-              <button type="button" class="cancel_store">취소</button>
+              <button type="button" class="cancel_store" @click="cancel">취소</button>
               <button type="submit" class="submit_store">식당 등록</button>
             </div>
           </fieldset>
