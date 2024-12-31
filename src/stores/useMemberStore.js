@@ -12,9 +12,13 @@ export const useMemberStore = defineStore("member", {
 
       if (userData) {
         // POST 요청: 로그인 처리
-        response = await axios.post("/api/login", userData, {
-          withCredentials: true, // 쿠키 전달 허용
-        });
+        response = await axios.post(
+          "/api/4f1f505a-6902-44d5-a12b-933042228046",
+          userData,
+          {
+            withCredentials: true, // 쿠키 전달 허용
+          }
+        );
         console.log("로그인 응답 데이터:", response.data);
 
         if (response.data.isLogin) {

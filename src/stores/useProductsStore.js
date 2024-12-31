@@ -16,7 +16,7 @@ export const useProductsStore = defineStore("products", {
   actions: {
     async getProductBestList() {
       const response = await axios.get(
-        "https://02bbbbe3-c971-4a76-b853-6bbbc83b2afd.mock.pstmn.io/productBest"
+        "https://run.mocky.io/v3/9b0cb90a-9d78-42bf-8e24-531296905990"
       );
 
       this.productsBest = response.data;
@@ -99,6 +99,5 @@ export const useProductsStore = defineStore("products", {
       );
       return response.data;
     },
-
   },
 });
