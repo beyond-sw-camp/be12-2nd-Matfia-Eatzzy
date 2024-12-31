@@ -175,4 +175,9 @@ section:not(:last-child) {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+@media (max-width: 500px) {
+  .product-grid-6 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
 </style>
