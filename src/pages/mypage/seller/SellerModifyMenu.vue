@@ -64,7 +64,7 @@ onMounted(async () => {
     <section class="insert_menu_box">
       <fieldset>
         <div>
-          <label class="insert_menu_title">식당 메뉴 추가</label>
+          <label class="insert_menu_title">식당 메뉴 수정</label>
         </div>
 
         <!-- 메뉴명 -->
