@@ -2,7 +2,7 @@
 import { ref, onMounted } from "vue";
 import { useReviewableStore } from "../../../../stores/useReviewableStore";
 
-const reviewableStore = useReviewableStore;
+const reviewableStore = useReviewableStore();
 
 onMounted(() => {
   reviewableStore.getreviewableStores();
