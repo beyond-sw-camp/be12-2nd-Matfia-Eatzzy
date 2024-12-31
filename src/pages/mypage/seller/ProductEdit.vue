@@ -1,22 +1,14 @@
 <script setup>
-import { ref } from "vue";
+import { computed, ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { useProductsStore } from "../../../stores/useProductsStore";
 
+const route = useRoute();
+const router = useRouter();
+const currentPath = computed(() => route.path);
+
 const productsStore = useProductsStore();
-const addProduct = async () => {
-  const result = await productsStore.addProduct();
-  console.log(result);
-};
-
-const registerProduct = (event) => {
-  event.preventDefault();
-  const result = confirm("상품을 등록하시겠습니까?");
-  console.log(result);
-  if (result) {
-    alert("상품이 등록되었습니다.");
-  }
-};
-
+const productAction = ref("");
 const productData = ref({
   name: "",
   price: 0,
@@ -28,12 +20,45 @@ const productData = ref({
   image: "",
 });
 
-addProduct();
+const updateProductAction = () => {
+  const match = currentPath.value.match(/\/product\/([^/]+)/);
+  productAction.value = match ? match[1] : "";
+};
+
+const editProduct = async (event) => {
+  event.preventDefault();
+  if (productAction.value === "register") {
+    const result = confirm("상품을 등록하시겠습니까?");
+    if (result) {
+      await productsStore.addProduct();
+      alert("상품이 등록되었습니다.");
+    }
+  } else {
+    const result = confirm("상품을 수정정하시겠습니까?");
+    if (result) {
+      alert("상품이 수정되었습니다.");
+    }
+  }
+};
+
+const cancelEdit = () => {
+  router.back();
+};
+
+// 경로 변경 감지
+watch(
+  () => route.path,
+  () => {
+    updateProductAction();
+  }
+);
+
+updateProductAction();
 </script>
 
 <template>
-  <div class="register_wrap">
-    <h1>상품 등록</h1>
+  <div class="edit_wrap">
+    <h1>상품 {{ productAction === "register" ? "등록" : "수정" }}</h1>
     <div class="line"></div>
     <form class="form_box">
       <div class="form_group">
@@ -45,6 +70,7 @@ addProduct();
             id="name"
             name="name"
             required
+            maxlength="50"
           />
         </div>
       </div>
@@ -98,6 +124,7 @@ addProduct();
             name="cooking_time"
             required
             min="0"
+            step="10"
           />
         </div>
       </div>
@@ -119,7 +146,7 @@ addProduct();
             <option value="Asian">아시안</option>
             <option value="Snacks">분식</option>
             <option value="Fastfood">패스트푸드</option>
-          </select> 
+          </select>
         </div>
       </div>
 
@@ -132,6 +159,7 @@ addProduct();
             name="description"
             rows="4"
             required
+            maxlength="500"
           ></textarea>
         </div>
       </div>
@@ -140,18 +168,33 @@ addProduct();
         <input type="file" id="image" name="image" accept="image/*" required />
       </div>
     </form>
-    <button @click="registerProduct" class="register_btn">등록하기</button>
+    <div class="btn_box">
+      <button
+        @click="editProduct"
+        class="btn"
+        :class="{ modify: productAction === 'modify' }"
+      >
+        {{ productAction === "register" ? "등록하기" : "수정" }}
+      </button>
+      <button
+        v-if="productAction === 'modify'"
+        @click="cancelEdit"
+        class="cancel_btn"
+      >
+        취소
+      </button>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.register_wrap {
+.edit_wrap {
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.register_wrap > h1 {
+.edit_wrap > h1 {
   font-size: 1.4rem;
   margin-bottom: 1rem;
 }
@@ -237,9 +280,15 @@ label {
   border-radius: 1rem;
 }
 
-.register_btn {
-  width: 100%;
+.btn_box {
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn {
+  width: 100%;
   padding: 0.6rem 0;
   background-color: #ff7400;
   color: white;
@@ -247,9 +296,28 @@ label {
   font-size: 1rem;
   font-weight: 700;
   transition: background-color 0.3s ease;
-  align-self: center;
 }
-.register_btn:hover {
+
+.btn:hover {
   background-color: #c96208;
+}
+
+.btn.modify {
+  width: auto;
+  padding: 0.6rem 2.3rem;
+}
+
+.cancel_btn {
+  padding: 0.6rem 2.3rem;
+  border-radius: 0.8rem;
+  color: #9e9e9e;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: background-color 0.3s ease;
+}
+
+.cancel_btn:hover {
+  background-color: rgba(0, 0, 0, 0.07);
 }
 </style>

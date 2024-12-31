@@ -1,41 +1,40 @@
-import { createWebHistory, createRouter } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 
+import Carts from "../pages/cart/Carts.vue";
 import MainView from "../pages/common/Main.vue";
-import Stores from "../pages/store/Stores.vue";
-import StoreDetail from "../pages/store/StoreDetail.vue";
-import Login from "../pages/user/LoginView.vue";
-import Join from "../pages/user/Join.vue";
-import JoinAgreement from "../pages/user/JoinAgreement.vue";
-import ProductDetail from "../pages/product/components/ProductDetail.vue";
-import JoinForm from "../pages/user/JoinForm.vue";
-import Products from "../pages/product/Products.vue";
 import Mypage from "../pages/mypage/Mypage.vue";
 import Client from "../pages/mypage/client/Client.vue";
-import Seller from "../pages/mypage/seller/Seller.vue";
-import { useMemberStore } from "../stores/useMemberStore";
-import ClientOrder from "../pages/mypage/client/ClientOrder.vue";
-import ClientOrderDetail from "../pages/mypage/client/ClientOrderDetail.vue"
 import ClientInfo from "../pages/mypage/client/ClientInfo.vue";
-import ClientStoreRez from "../pages/mypage/client/ClientStoreRez.vue";
-import ClientStorelike from "../pages/mypage/client/ClientStorelike.vue";
-import ClientStoreReview from "../pages/mypage/client/ClientStoreReview.vue";
+import ClientOrder from "../pages/mypage/client/ClientOrder.vue";
+import ClientOrderDetail from "../pages/mypage/client/ClientOrderDetail.vue";
 import ClientProductInfo from "../pages/mypage/client/ClientProductInfo.vue";
 import ClientProductsReview from "../pages/mypage/client/ClientProductsReview.vue";
-import ProductModify from "../pages/mypage/seller/ProductModify.vue";
-import ProductOrder from "../pages/mypage/seller/ProductOrder.vue";
-import ShippingRegister from "../pages/mypage/seller/ShippingRegister.vue";
-import ProductList from "../pages/mypage/seller/ProductList.vue";
-import ProductRegister from "../pages/mypage/seller/ProductRegister.vue";
-import OrderDetails from "../pages/mypage/seller/OrderDetails.vue";
-import Carts from "../pages/cart/Carts.vue";
+import ClientStoreReview from "../pages/mypage/client/ClientStoreReview.vue";
+import ClientStoreRez from "../pages/mypage/client/ClientStoreRez.vue";
+import ClientStorelike from "../pages/mypage/client/ClientStorelike.vue";
 import CreateReview from "../pages/mypage/client/CreateReview.vue";
+import OrderDetails from "../pages/mypage/seller/OrderDetails.vue";
+import ProductList from "../pages/mypage/seller/ProductList.vue";
+import ProductOrder from "../pages/mypage/seller/ProductOrder.vue";
+import Seller from "../pages/mypage/seller/Seller.vue";
+import ShippingRegister from "../pages/mypage/seller/ShippingRegister.vue";
+import Products from "../pages/product/Products.vue";
+import ProductDetail from "../pages/product/components/ProductDetail.vue";
+import StoreDetail from "../pages/store/StoreDetail.vue";
+import Stores from "../pages/store/Stores.vue";
+import Join from "../pages/user/Join.vue";
+import JoinAgreement from "../pages/user/JoinAgreement.vue";
+import JoinForm from "../pages/user/JoinForm.vue";
+import Login from "../pages/user/LoginView.vue";
+import { useMemberStore } from "../stores/useMemberStore";
 
+import ProductEdit from "../pages/mypage/seller/ProductEdit.vue";
 import SellerInsertMenu from "../pages/mypage/seller/SellerInsertMenu.vue";
 import SellerInsertStore from "../pages/mypage/seller/SellerInsertStore.vue";
+import SellerModifyStore from "../pages/mypage/seller/SellerModifyStore.vue";
 import SellerMyInfoModify from "../pages/mypage/seller/SellerMyInfoModify.vue";
 import SellerReservationCard from "../pages/mypage/seller/SellerReservationCard.vue";
 import SellerStoreItem from "../pages/mypage/seller/SellerStoreItem.vue";
-import SellerModifyStore from "../pages/mypage/seller/SellerModifyStore.vue";
 
 const checkUserType = (from, to, next) => {
   // 고객인지 점주인지 확인 후 경로 이동
@@ -90,18 +89,18 @@ const routes = [
         path: "seller",
         component: Seller,
         children: [
-          { path: "menu/insert", component: SellerInsertMenu },
-          { path: "store/create", component: SellerInsertStore },
           { path: "my-info/modify", component: SellerMyInfoModify },
-          { path: "store/rsv", component: SellerReservationCard },
           { path: "store", component: SellerStoreItem },
+          { path: "store/rsv", component: SellerReservationCard },
+          { path: "store/create", component: SellerInsertStore },
           { path: "store/modify", component: SellerModifyStore },
+          { path: "menu/insert", component: SellerInsertMenu },
           { path: "order", component: ProductOrder },
-          { path: "order/:id", component: OrderDetails},
-          { path: "product/modify", component: ProductModify },
+          { path: "order/:id", component: OrderDetails },
           { path: "delivery/register", component: ShippingRegister },
           { path: "product", component: ProductList },
-          { path: "product/register", component: ProductRegister }
+          { path: "product/register", component: ProductEdit },
+          { path: "product/modify", component: ProductEdit },
         ],
       },
       { path: "/carts", component: Carts },
