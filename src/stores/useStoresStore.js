@@ -12,12 +12,13 @@ export const useStoresStore = defineStore("stores", {
     async getStoreList(filter) {
       const response = await axios
         .get(
-          "https://run.mocky.io/v3/c4012d8c-a313-494d-b215-88fcaa7a99d8",
+          "/psy/stores",
           filter
         )
         .catch((error) => {
           console.error("Error fetching data:", error);
         });
+      console.log(response.data)
       return response.data;
     },
 
@@ -45,9 +46,9 @@ export const useStoresStore = defineStore("stores", {
         });
     },
 
-    async getStoreDetail(storeId) {
+    async getStoreDetail(storeId = 1) {
       const response = await axios
-        .get(`https://run.mocky.io/v3/762d58f3-4f9a-46b2-b371-149cc8dde27f`)
+        .get(`/psy/stores/${storeId}`)
         .catch((error) => {
           console.error("getStoreDetail api error", error);
         });

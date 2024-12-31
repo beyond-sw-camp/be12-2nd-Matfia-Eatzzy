@@ -1,18 +1,9 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import axios from "axios";
+import { useReviewedStore } from "../../../../stores/useReviewedStore";
 
-const userId = 1;
-const apiUrl = `https://abc5b35f-117e-49a2-9442-364017e60701.mock.pstmn.io/my/areview/products/?userId=${userId}`;
-const PAreviews = ref([]);
-const fetchPAReviews = async () => {
-  try {
-    const response = await axios.get(apiUrl);
-    PAreviews.value = response.data.products;
-  } catch (error) {
-    console.error("리뷰 데이터를 가져오는 중 오류 발생:", error);
-  }
-};
+const reviewedStore = useReviewedStore();
+
 const handleCancelClick = (likeId) => {
   // JavaScript 기본 confirm 대화상자 표시
   const isConfirmed = confirm("정말로 이 상품의 리뷰를 삭제할까요?");
@@ -22,11 +13,13 @@ const handleCancelClick = (likeId) => {
     // 예: API 호출 후 목록 갱신
   }
 };
-onMounted(fetchPAReviews);
+onMounted(() => {
+  reviewedStore.getreviewedStores();
+});
 </script>
 
 <template>
-  <div class="review_item" v-for="(PAreview, index) in PAreviews" :key="index">
+  <div class="review_item" v-for="(PAreview, index) in reviewedStore.products" :key="index">
     <div class="review_left">
       <div class="review_itemName">{{ PAreview.product_name }}</div>
       <div class="star_box">
@@ -63,6 +56,8 @@ onMounted(fetchPAReviews);
   font-size: 1.125rem;
 }
 .review_image {
+  width: 6.25rem;
+  height: 6.25rem;
   max-width: 6.25rem;
   max-height: 6.25rem;
   margin-top: 0.625rem;

@@ -13,6 +13,16 @@ const editStore = (storeId) => {
   // 해당 가게의 id를 URL 경로로 전달하여 이동
   router.push(`/mypage/seller/store_modify/${storeId}`);
 };
+
+const insertmenu = () => {
+  // 해당 가게의 id를 URL 경로로 전달하여 이동
+  router.push(`/mypage/seller/insert_menu`);
+};
+
+const menuStore = (storeId) => {
+  // 해당 가게의 id를 URL 경로로 전달하여 이동
+  router.push(`/mypage/seller/store_menu/${storeId}`);
+};
 </script>
 
 <template>
@@ -52,8 +62,10 @@ const editStore = (storeId) => {
             </div>
             <!-- 수정, 삭제 버튼 추가 -->
             <div class="store_buttons">
-              <button class="edit_button" @click="editStore(store.id)">수정</button>
-              <button class="delete_button" @click="deleteStore">삭제</button>
+              <button class="edit_button" @click="menuStore(store.id)">메뉴조회</button>
+              <button class="edit_button" @click="insertmenu">메뉴추가</button>
+              <button class="edit_button" @click="editStore(store.id)">가게수정</button>
+              <button class="delete_button" @click="deleteStore">가게삭제</button>
             </div>
           </div>
         </div>
@@ -64,14 +76,8 @@ const editStore = (storeId) => {
 
 
 <style scoped>
-.mystore_box {
-    width: 37.5rem;
-    margin: 0 auto;
-    text-align: left;
-}
-
 .content{
-    width: 100%;
+    width: 45rem;
     margin: 1.875rem 0 0 0;
 }
 

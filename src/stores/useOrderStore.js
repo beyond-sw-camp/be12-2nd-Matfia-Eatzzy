@@ -6,16 +6,14 @@ export const useOrderStore = defineStore("order", {
 
   actions: {
     async getClientOrderList() {
-      const response = await axios
-        .get("https://run.mocky.io/v3/534f645d-2021-4841-8d3f-433b257bbd93")
-        .catch((error) => {
-          console.error("고객 주문 내역 전체 조회 에러 ", error);
-        });
+      const response = await axios.get("/psy/client/orders").catch((error) => {
+        console.error("고객 주문 내역 전체 조회 에러 ", error);
+      });
       return response.data;
     },
-    async getClientOrderDetail(orderId) {
+    async getClientOrderDetail(orderId = 1) {
       const response = await axios
-        .get(`https://run.mocky.io/v3/b51e2dce-142b-4d80-b93b-f2ff5e6aa6db`)
+        .get(`/psy/client/orders/${orderId}`)
         .catch((error) => {
           console.error("고객 주문 내역 상세 조회 에러", error);
         });

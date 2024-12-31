@@ -1,23 +1,16 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import axios from "axios";
+import { useReviewableStore } from "../../../../stores/useReviewableStore";
 
-const userId = 1;
-const apiUrl = `https://abc5b35f-117e-49a2-9442-364017e60701.mock.pstmn.io/my/breview/stores/?userId=${userId}`;
-const Breviews = ref([]);
-const fetchBReviews = async () => {
-  try {
-    const response = await axios.get(apiUrl);
-    Breviews.value = response.data.stores;
-  } catch (error) {
-    console.error("리뷰 데이터를 가져오는 중 오류 발생:", error);
-  }
-};
-onMounted(fetchBReviews);
+const reviewableStore = useReviewableStore;
+
+onMounted(() => {
+  reviewableStore.getreviewableStores();
+});
 </script>
 
 <template>
-  <div class="review_item" v-for="(Breview, index) in Breviews" :key="index">
+  <div class="review_item" v-for="(Breview, index) in reviewableStore.stores" :key="index">
     <a href="/stores/1" class="review_left">
       <div class="review_itemName">{{ Breview.store_name }}</div>
       <img :src="Breview.review_image" alt="Review Image" class="review_image" />

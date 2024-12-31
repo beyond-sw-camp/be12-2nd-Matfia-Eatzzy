@@ -1,18 +1,9 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import axios from "axios";
+import { useLoveStore } from "../../../../stores/useLoveStore";
 
-const userId = 1;
-const apiUrl = `https://abc5b35f-117e-49a2-9442-364017e60701.mock.pstmn.io/my/like/stores/?userId=${userId}`;
-const likes = ref([]);
-const fetchLikes = async () => {
-  try {
-    const response = await axios.get(apiUrl);
-    likes.value = response.data.stores;
-  } catch (error) {
-    console.error("리뷰 데이터를 가져오는 중 오류 발생:", error);
-  }
-};
+const loveStore = useLoveStore();
+
 const handleCancelClick = (likeId) => {
   // JavaScript 기본 confirm 대화상자 표시
   const isConfirmed = confirm("정말로 좋아요 항목에서 삭제할까요?");
@@ -26,11 +17,14 @@ const moveClick = (likeId) => {
   // JavaScript 기본 confirm 대화상자 표시
   location.href = "/stores/1";
 };
-onMounted(fetchLikes);
+
+onMounted(() => {
+  loveStore.getloveStores();
+});
 </script>
 
 <template>
-  <tr v-for="(like, index) in likes" :key="index">
+  <tr v-for="(like, index) in loveStore.likeStores" :key="index">
     <td>
       <a href="/stores/1" class="likeStore_info">
         <img :src="like.store_image" class="like_images" />
@@ -56,7 +50,7 @@ onMounted(fetchLikes);
   align-items: center;
   text-align: left;
 }
-.likeStore_info img {
+.like_images {
   width: 6.25rem;
   height: 6.25rem;
   object-fit: cover;
@@ -69,7 +63,7 @@ onMounted(fetchLikes);
   font-size: 0.9375rem;
 }
 .address {
-  font-size: 1.125rem;
+  font-size: 0.9375rem;
 }
 .phone {
   color: #28a745;
@@ -97,9 +91,36 @@ onMounted(fetchLikes);
 }
 tr,
 td {
-  border-top: 0.0625rem solid #cecece;
-  padding: 1.875rem;
+  border-top: 1px solid #cecece;
+  padding: 1.25rem;
   text-align: center;
   vertical-align: middle;
+}
+tr {
+  display: table-row;
+}
+
+td {
+  display: table-cell;
+}
+@media (max-width: 960px) {
+  tr {
+    display: grid;
+    grid-template-columns: 1fr; /* 두 열로 구성 */
+    padding: 0;
+  }
+
+  td {
+    display: block;
+    text-align: left;
+    border: none;
+    padding: 0;
+  }
+  .likeStore_info {
+    display: block;
+  }
+  .likeStore_buttons button {
+    margin: 0 0.625rem 0 0;
+  }
 }
 </style>
