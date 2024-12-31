@@ -21,7 +21,7 @@ const insertmenu = () => {
 
 const menuStore = (storeId) => {
   // 해당 가게의 id를 URL 경로로 전달하여 이동
-  router.push(`/mypage/seller/store_menu/${storeId}`);
+  router.push(`/mypage/seller/store/${storeId}/menu`);
 };
 </script>
 
