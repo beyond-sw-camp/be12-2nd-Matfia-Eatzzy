@@ -76,6 +76,7 @@ const routes = [
       {
         path: "client",
         component: Client,
+        redirect: "/mypage/client/info",
         children: [
           { path: "orders", component: ClientOrder },
           { path: "orders/:id", component: ClientOrderDetail },

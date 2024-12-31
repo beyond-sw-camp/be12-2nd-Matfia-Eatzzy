@@ -19,7 +19,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="review_item" v-for="(PAreview, index) in reviewedStore.products" :key="index">
+  <div class="review_item" v-for="(PAreview, index) in reviewedStore.reviewedProducts" :key="index">
     <div class="review_left">
       <div class="review_itemName">{{ PAreview.product_name }}</div>
       <div class="star_box">
