@@ -241,7 +241,7 @@ updateProductAction();
 label {
   font-weight: bold;
   color: #333;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
   display: block;
 }
 
@@ -281,7 +281,7 @@ label {
 }
 
 .btn_box {
-  margin-top: 20px;
+  margin-top: 1.25rem;
   display: flex;
   justify-content: center;
   gap: 0.5rem;
