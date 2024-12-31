@@ -23,7 +23,7 @@
         <ul class="eachList">
           <router-link to="/mypage/seller/product/register"><li>- 상품 등록</li></router-link>
           <router-link to="/mypage/seller/product"><li>- 내가 등록한 상품 조회</li></router-link>
-          <router-link to="/mypage/seller/order"><li>- 주문 내역 확인</li></router-link>  
+          <router-link to="/mypage/seller/orders"><li>- 주문 내역 확인</li></router-link>  
         </ul>
       </li>
     </ul>

@@ -1,6 +1,7 @@
 <script setup>
-import { ref } from 'vue';
-import { useProductsStore } from '../../../stores/useProductsStore';
+import { onMounted, ref } from "vue";
+import { useProductsStore } from "../../../stores/useProductsStore";
+import { formatPrice } from "../../../utils/formatPrice";
 
 const orderList = ref([]);
 
@@ -8,161 +9,125 @@ const productsStore = useProductsStore();
 const getOrderProduct = async () => {
   const result = await productsStore.getOrderProduct();
   orderList.value = result.orders;
-}
+};
 
-getOrderProduct();
+onMounted(() => {
+  getOrderProduct();
+});
 </script>
 
 <template>
-  <div class="mypage_cont">
-    <div class="mypage_order_list">
-      <div class="mypage_zone_tit">
-        <h3>주문 내역</h3>
-      </div>
-      <div class="mypage_table_type">
-        <form id="frmOrder" name="frmOrder" method="post" target="ifrmProcess">
-          <input type="hidden" name="mode" value="" />
-          <input type="hidden" name="isCart" value="false" />
-          <table>
-            <colgroup>
-              <col style="width: 10%" />
-              <col style="width: 30%" />
-              <col style="width: 10%" />
-              <col style="width: 7%" />
-              <col style="width: 10%" />
-              <col style="width: 10%" />
-              <col style="width: 17%" />
-            </colgroup>
-            <thead>
-              <tr>
-                <th>주문번호</th>
-                <th>상품명/사진</th>
-                <th>상품금액</th>
-                <th>수량</th>
-                <th>결제상태</th>
-                <th>결제수단</th>
-                <th>주문상세내역</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="orders in orderList">
-                <td>{{ orders.주문번호 }}</td>
-                <td>
-                  <div class="pick_add_cont">
-                    <img
-                      src="https://godomall.speedycdn.net/ec5d2a1c8483712efb957784c858b320/goods/1000008350/image/list/1000008350_list_082.jpg"
-                      alt="한우대창 순살곱도리탕 490g"
-                    />
-                    <div class="pick_add_info">
-                      <a href="../goods/goods_view.php?goodsNo=1000008350">
-                        <em>{{ orders.name }}</em>
-                      </a>
-                    </div>
-                  </div>
-                </td>
-                <td><strong>{{ orders.price }}</strong><em>원</em></td>
-                <td><strong>{{ orders.quantity }}</strong><em>개</em></td>
-                <td><strong>{{ orders.status }}</strong></td>
-                <td><strong>{{ orders.payment }}</strong></td>
-                <td>
-                  <div class="btn_box">
-                    <router-link to="/mypage/seller/order/:id" class="btn_details"><em>상세보기</em></router-link>
-                  </div>
-                </td>
-              </tr>
-
-      
-            </tbody>
-          </table>
-        </form>
-      </div>
+  <div class="order_container">
+    <h1>주문 내역</h1>
+    <div class="grid header">
+      <div>주문번호/날짜</div>
+      <div>상품명/사진</div>
+      <div>수량</div>
+      <div>상품 금액</div>
+      <div>주문 상태</div>
     </div>
+
+    <router-link
+      :to="`/mypage/seller/orders/${order.idx}`"
+      v-for="order in orderList"
+      class="grid order_item"
+    >
+      <div class="order_info">
+        <p>{{ order.idx }}</p>
+        <p>{{ order.createdAt }}</p>
+      </div>
+
+      <div class="product">
+        <img :src="order.image" alt="상품 이미지" />
+        <p>
+          {{ order.name }} <span>외 {{ order.productCnt - 1 }}개</span>
+        </p>
+      </div>
+
+      <p>{{ order.quantity }}개</p>
+      <p>{{ formatPrice(order.price) }}원</p>
+      <p class="status">{{ order.status }}</p>
+    </router-link>
   </div>
 </template>
 
 <style scoped>
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
-}
-
-.mypage_cont {
-  margin-top: 42px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.mypage_order_list {
-  width: 120%;
-  max-width: 1200px;
-  background-color: #fff;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.mypage_zone_tit h3 {
-  font-size: 28px;
-  margin-bottom: 30px;
-  text-align: center;
-  color: #00a7b3;
-}
-
-.mypage_table_type {
+.order_container {
   width: 100%;
-  border-collapse: collapse;
 }
 
-.mypage_table_type th,
-.mypage_table_type td {
-  padding: 10px;
+.order_container > h1 {
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
+}
+
+.header {
+  background-color: rgba(0, 0, 0, 0.05);
+  font-weight: bold;
+  padding: 0.5rem 0;
   text-align: center;
-  border: 1px solid #ddd;
+  border-bottom: 2px solid #bbbbbb;
 }
 
-.mypage_table_type th {
-  background-color: #f7f7f7;
-  font-size: 16px;
+.grid {
+  display: grid;
+  grid-template-columns: 1.5fr 3fr 1fr 1fr 1fr;
+  gap: 0.5rem;
+  width: 100%;
 }
 
-.mypage_table_type td {
-  font-size: 14px;
-  color: #777;
+.order_item {
+  padding: 0.7rem 0;
+  border-bottom: 1px solid #e6e6e6;
 }
 
-.mypage_table_type td .btn_details {
-  background-color: #00a7b3;
-  color: white;
-  padding: 4px 18px; 
-  border-radius: 5px;
-  font-size: 15px;
-  text-decoration: none;
-  display: inline-block;
-  margin: 5px 0;
+.order_item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
-.mypage_table_type td .btn_details:hover {
-  background-color: #007a85;
-  transition: background-color 0.3s ease;
-}
-
-.mypage_table_type img {
-  width: 100px;
-  height: auto;
-}
-
-.mypage_table_type td .btn_box {
+.order_info {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  gap: 15px;
+  padding: 0 1rem;
 }
 
-.mypage_table_type colgroup col:nth-child(7) {
-  width: 40%;
+.order_info > p:first-child {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.order_info > p:last-child {
+  color: #aaaaaa;
+  font-size: 0.8rem;
+}
+
+.product {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.product > img {
+  width: 4.5rem;
+  aspect-ratio: 1 / 1;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+
+.product > p {
+  font-weight: 700;
+}
+
+.order_item > p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status {
+  font-weight: 700;
+  color: #ff7400;
 }
 </style>
-

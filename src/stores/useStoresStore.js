@@ -10,7 +10,7 @@ export const useStoresStore = defineStore("stores", {
 
   actions: {
     async getStoreList(filter) {
-      const response = await axios.get("/psy/stores", filter).catch((error) => {
+      const response = await axios.get("/api/stores", filter).catch((error) => {
         console.error("Error fetching data:", error);
       });
       console.log(response.data);
@@ -43,7 +43,7 @@ export const useStoresStore = defineStore("stores", {
 
     async getStoreDetail(storeId = 1) {
       const response = await axios
-        .get(`/psy/stores/${storeId}`)
+        .get(`/api/stores/${storeId}`)
         .catch((error) => {
           console.error("getStoreDetail api error", error);
         });

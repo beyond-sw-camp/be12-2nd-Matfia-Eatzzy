@@ -75,6 +75,7 @@ onMounted(() => {
             name="name"
             required
             maxlength="50"
+            placeholder="상품명을 입력해주세요."
           />
         </div>
       </div>
@@ -164,12 +165,13 @@ onMounted(() => {
             rows="4"
             required
             maxlength="500"
+            placeholder="상품 설명을 입력해주세요."
           ></textarea>
         </div>
       </div>
       <div class="form_group">
         <label for="image">상품 이미지</label>
-        <div class="image_preview">
+        <div v-if="productData.image" class="image_preview">
           <img :src="productData.image || ''" alt="상품 이미지 미리보기" />
         </div>
         <input type="file" id="image" name="image" accept="image/*" required />
