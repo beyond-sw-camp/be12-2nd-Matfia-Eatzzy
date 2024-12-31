@@ -1,21 +1,11 @@
 <script setup>
 import { ref } from "vue";
 import { useProductsStore } from "../../../stores/useProductsStore";
+import { useRoute, useRouter } from "vue-router";
 
+const route = useRoute();
+const router = useRouter();
 const productsStore = useProductsStore();
-const RegisterDelivery = async () => {
-  const result = await productsStore.RegisterDelivery();
-  console.log(result);
-};
-
-const registerDelivery = (event) => {
-  event.preventDefault();
-  const result = confirm("배송등록을 하시겠습니까?");
-  console.log(result);
-  if (result) {
-    alert("배송등록되었습니다.");
-  }
-};
 
 const deliveryData = ref({
   courier_company: "",
@@ -23,7 +13,16 @@ const deliveryData = ref({
   order_id: null,
 });
 
-RegisterDelivery();
+const registerDelivery = async (event) => {
+  event.preventDefault();
+  const result = confirm("배송등록을 하시겠습니까?");
+  console.log(result);
+  if (result) {
+    await productsStore.RegisterDelivery();
+    alert("배송 등록되었습니다.");
+    router.push(`/mypage/seller/orders/${route.params.id}`);
+  }
+};
 </script>
 
 <template>
