@@ -8,6 +8,14 @@ const logout = () => {
 
 const mypage = "/mypage/" + sessionStorage.getItem("UserType");
 const loginStatus = sessionStorage.getItem("LOGIN");
+
+const gnbOpen = () => {
+  let gnb = document.querySelector("#gnb");
+  if (gnb) {
+    gnb.classList.toggle("hide");
+    button.classList.toggle("off");
+  }
+};
 </script>
 
 <template>
@@ -101,7 +109,9 @@ const loginStatus = sessionStorage.getItem("LOGIN");
       </div>
       <nav>
         <ul class="l_nav_wrap">
-          <li class="first_nav gnb_all_btn" id="gnb_all_btn">카테고리</li>
+          <li class="first_nav gnb_all_btn" id="gnb_all_btn" @click="gnbOpen">
+            카테고리
+          </li>
           <li><router-link to="/stores">맛집리스트</router-link></li>
           <li class="last_nav">
             <router-link to="/products">밀키트 상품</router-link>
@@ -175,8 +185,8 @@ header .search_area .header_search {
 
 header .search_area .logo {
   display: block;
-  background: url(https://thenaum.cdn-nhncommerce.com/data/img/allnew/layout/n_fd_logo.gif)
-    no-repeat 0 0;
+  /* background: url(https://thenaum.cdn-nhncommerce.com/data/img/allnew/layout/n_fd_logo.gif) no-repeat 0 0; */
+  background: url(/src/assets/icons/logo.png) no-repeat 0 0;
   font-size: 0;
 }
 header .search_area .logo a {

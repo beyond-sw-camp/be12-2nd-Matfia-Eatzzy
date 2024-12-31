@@ -1,8 +1,24 @@
 <script setup>
 import { useReviewStore } from '../../../stores/useReviewStore';
 import ProductItem from './components/ProductItem.vue';
+import{ref} from 'vue';
 
 const reviewStore = useReviewStore();
+const createReview = async () => {
+  const result = await reviewStore.registerReview();
+  console.log(result);
+}
+
+const handleFileChange = (event) => {
+      const file = event.target.files[0];
+      reviewData.value.image = file;
+    };
+
+const reviewData = ref({
+  title: "",
+  content: "",
+  image: ""
+});
 
 </script>
 
@@ -17,19 +33,20 @@ const reviewStore = useReviewStore();
 
     <div class="input_box">
       <p>제목</p>
-      <input type="text">
+      <input v-model="reviewData.title" type="text">
     </div>
     
-    <div  class="input_box">
+    <div class="input_box">
       <p>내용</p>
-      <textarea name="review"></textarea>
+      <textarea v-model="reviewData.content" name="review"></textarea>
     </div>
 
     <div  class="input_box">
       <p>사진 등록</p>
-      <input type="file" name="" id="">
+      <input type="file" @change="handleFileChange">
     </div>
   </div>
+  <button @click="createReview">등록</button>
   </div>
       </div>
 </template>
