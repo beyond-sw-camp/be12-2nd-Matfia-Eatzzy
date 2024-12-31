@@ -95,7 +95,7 @@ const routes = [
           { path: "store", component: SellerStoreItem },
           { path: "store/rsv", component: SellerReservationCard },
           { path: "store/create", component: SellerInsertStore },
-          { path: "store/modify", component: SellerModifyStore },
+          { path: "store/modify/:id", component: SellerModifyStore },
           { path: "menu/insert", component: SellerInsertMenu },
           { path: "order", component: ProductOrder },
           { path: "order/:id", component: OrderDetails },
