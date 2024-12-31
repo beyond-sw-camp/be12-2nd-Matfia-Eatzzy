@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useProductsStore } from "../../../stores/useProductsStore";
 import { formatPrice } from "../../../utils/formatPrice";
 
@@ -11,7 +11,9 @@ const getOrderProduct = async () => {
   orderList.value = result.orders;
 };
 
-getOrderProduct();
+onMounted(() => {
+  getOrderProduct();
+});
 </script>
 
 <template>
@@ -26,7 +28,7 @@ getOrderProduct();
     </div>
 
     <router-link
-      :to="`/mypage/seller/order/${order.idx}`"
+      :to="`/mypage/seller/orders/${order.idx}`"
       v-for="order in orderList"
       class="grid order_item"
     >
