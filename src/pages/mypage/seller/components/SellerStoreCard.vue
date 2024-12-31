@@ -1,6 +1,6 @@
 <script setup>
-import { useRouter } from 'vue-router'
-const router = useRouter()
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 const props = defineProps({
   store: {
@@ -26,172 +26,155 @@ const menuStore = (storeId) => {
 </script>
 
 <template>
-  <main>
-    <div class="content">
-      <div class="stores_list">
-        <div class="stores">
-          <div class="store">
-            <div class="store_image_box">
-              <img :src="store.image" class="store_image" alt="Store image" />
-            </div>
-            <div class="store_info_box">
-              <div class="store_stars">
-                <!-- 채워진 별 -->
-                <div v-for="n in store.stars" :key="'filled-' + n" class="star_image_box">
-                  <img 
-                    src="../../../../assets/icons/star_fill.svg" 
-                    class="star_image" 
-                    alt="Filled star" />
-                </div>
-                <!-- 비어있는 별 -->
-                <div 
-                  v-for="n in (5 - store.stars)" 
-                  :key="'empty-' + n" 
-                  class="star_image_box">
-                  <img 
-                    src="../../../../assets/icons/star_empty.svg" 
-                    class="star_image" 
-                    alt="Empty star" />
-                </div>
-                <div class="review_score_write">{{ store.stars }}</div>
-              </div>
-              <div class="store_title">{{ store.name }}</div>
-              <div class="store_content">
-                <p>{{ store.description }}</p>
-              </div>
-            </div>
-            <!-- 수정, 삭제 버튼 추가 -->
-            <div class="store_buttons">
-              <button class="edit_button" @click="menuStore(store.id)">메뉴조회</button>
-              <button class="edit_button" @click="insertmenu">메뉴추가</button>
-              <button class="edit_button" @click="editStore(store.id)">가게수정</button>
-              <button class="delete_button" @click="deleteStore">가게삭제</button>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="store">
+    <div class="store_image_box">
+      <img :src="store.image" class="store_image" alt="Store image" />
     </div>
-  </main>
+    <div class="store_info_box">
+      <router-link :to="`/stores/${store.id}`" class="store_title">{{ store.name }}</router-link>
+      <div class="store_stars">
+        <!-- 채워진 별 -->
+        <div
+          v-for="n in store.stars"
+          :key="'filled-' + n"
+          class="star_image_box"
+        >
+          <img
+            src="../../../../assets/icons/star_fill.svg"
+            class="star_image"
+            alt="Filled star"
+          />
+        </div>
+        <!-- 비어있는 별 -->
+        <div
+          v-for="n in 5 - store.stars"
+          :key="'empty-' + n"
+          class="star_image_box"
+        >
+          <img
+            src="../../../../assets/icons/star_empty.svg"
+            class="star_image"
+            alt="Empty star"
+          />
+        </div>
+        <div class="review_score_write">{{ store.stars }}</div>
+      </div>
+      <p>서울 동작구</p>
+    </div>
+    <div class="store_buttons">
+      <button class="edit_button" @click="menuStore(store.id)">메뉴조회</button>
+      <button class="edit_button" @click="editStore(store.id)">가게수정</button>
+      <button class="delete_button" @click="deleteStore">가게삭제</button>
+    </div>
+  </div>
 </template>
 
-
 <style scoped>
-.content{
-    width: 45rem;
-    margin: 1.875rem 0 0 0;
-}
-
-.mystore_title_style {
-    margin: 5rem 0 1.875rem;
-}
-
-.mystore_title {
-    font-size: 1.875rem;
-    font-weight: 800;
-}
-
 .store {
-    display: flex;
-    /* 왼쪽과 오른쪽 배치 */
-    align-items: flex-start;
-    /* 수직 정렬 */
-    margin-bottom: 1.25rem;
-    /* 각 식당 간의 간격 */
-    padding: .9375rem;
-    border: .0625rem solid #ddd; /* 연한 회색 테두리 추가 */
-    border-radius: .5rem; /* 테두리 둥글게 처리 */
-    background-color: #fff; /* 배경색 흰색 */
+  display: flex;
+  align-items: flex-start;
+  padding: 1.4rem;
+  border: 0.0625rem solid #ddd; /* 연한 회색 테두리 추가 */
+  border-radius: 0.5rem; /* 테두리 둥글게 처리 */
+  background-color: #fff; /* 배경색 흰색 */
+  gap: 1rem;
 }
 
 .store_image_box {
-    flex-shrink: 0;
-    /* 이미지 크기 고정 */
-    margin-right: 1.25rem;
-    /* 이미지와 정보 사이 간격 */
+  flex-shrink: 0;
+  /* 이미지 크기 고정 */
 }
 
 .store_image {
-    width: 7.5rem; /* 이미지 크기 키우기 */
-    height: 7.5rem;
-    object-fit: cover;
-    /* 비율 맞추기 */
-    border-radius: .5rem;
+  width: 5.5rem; /* 이미지 크기 키우기 */
+  height: 5.5rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
 }
 
 .store_info_box {
-    flex-grow: 1;
-    /* 남은 공간 차지 */
+  height: 5.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.store_info_box > p {
+  color: #666;
+  font-size: 0.8rem;
 }
 
 .store_stars {
-    display: flex;
-    align-items: center;
+  display: flex;
 }
 
 .star_image {
-    width: 1.25rem;
-    height: 1.25rem;
-    margin-right: .3125rem;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .review_score_write {
-    margin-left: .3125rem;
-    font-weight: bold;
+  margin-left: 0.3125rem;
+  font-weight: bold;
 }
 
 .store_title {
-    font-size: 1.25rem; /* 제목 크기 키우기 */
-    font-weight: bold;
-    margin-top: .625rem;
+  font-size: 1.13rem; /* 제목 크기 키우기 */
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+  cursor: pointer;
 }
 
+.store_title:hover {
+  text-decoration: underline;
+}
 .store_content {
-    font-size: 1rem; /* 내용 크기 키우기 */
-    color: #666;
-    margin-top: .625rem;
+  font-size: 1rem; /* 내용 크기 키우기 */
+  color: #666;
 }
 
 .store_buttons {
-    display: flex;
-    justify-content: flex-start;
-    /* 왼쪽 정렬 */
-    gap: .625rem;
-    /* 버튼 사이 간격 */
-    margin-top: .9375rem;
+  height: 5.5rem;
+  display: flex;
+  align-items: center;
+  /* 왼쪽 정렬 */
+  gap: 0.625rem;
+  /* 버튼 사이 간격 */
 }
 
 .edit_button,
 .delete_button {
-    padding: .5rem 1rem;
-    font-size: .875rem;
-    cursor: pointer;
-    border: none;
-    border-radius: .3125rem;
-    transition: background-color 0.3s;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 0.3125rem;
+  transition: background-color 0.3s;
 }
 
 /* 수정 버튼 스타일 */
 .edit_button {
-    background-color: #4CAF50;
-    /* 초록색 */
-    color: white;
+  background-color: white;
+  color: black;
+  border: 1px solid #666;
+  font-weight: 500;
 }
 
 .edit_button:hover {
-    background-color: #45a049;
-    /* 마우스 오버 시 더 어두운 초록 */
+  background-color: rgba(0, 0, 0, 0.07);
+  /* 마우스 오버 시 더 어두운 초록 */
 }
 
 /* 삭제 버튼 스타일 */
 .delete_button {
-    background-color: #f44336;
-    /* 빨간색 */
-    color: white;
+  color: rgb(244, 67, 54);
+  background-color: white;
+  border: 1px solid #f44336;
 }
 
 .delete_button:hover {
-    background-color: #e53935;
-    /* 마우스 오버 시 더 어두운 빨간색 */
+  background-color: rgba(244,67,54,0.1);
+  /* 마우스 오버 시 더 어두운 빨간색 */
 }
-
-  </style>
+</style>

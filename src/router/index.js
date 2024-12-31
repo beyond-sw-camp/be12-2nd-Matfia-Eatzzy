@@ -4,7 +4,6 @@ import Carts from "../pages/cart/Carts.vue";
 import MainView from "../pages/common/Main.vue";
 import Mypage from "../pages/mypage/Mypage.vue";
 import Client from "../pages/mypage/client/Client.vue";
-import ClientInfo from "../pages/mypage/client/ClientInfo.vue";
 import ClientOrder from "../pages/mypage/client/ClientOrder.vue";
 import ClientProductInfo from "../pages/mypage/client/ClientProductInfo.vue";
 import ClientProductsReview from "../pages/mypage/client/ClientProductsReview.vue";
@@ -30,13 +29,14 @@ import ProductEdit from "../pages/mypage/seller/ProductEdit.vue";
 import SellerInsertMenu from "../pages/mypage/seller/SellerInsertMenu.vue";
 import SellerInsertStore from "../pages/mypage/seller/SellerInsertStore.vue";
 import SellerModifyStore from "../pages/mypage/seller/SellerModifyStore.vue";
-import SellerMyInfoModify from "../pages/mypage/seller/SellerMyInfoModify.vue";
 import SellerReservationCard from "../pages/mypage/seller/SellerReservationCard.vue";
-import SellerStoreItem from "../pages/mypage/seller/SellerStoreItem.vue";
+import SellerStoreItem from "../pages/mypage/seller/SellerStores.vue";
 import SellerMenuCard from "../pages/mypage/seller/components/SellerMenuCard.vue";
 import SellerModifyMenu from "../pages/mypage/seller/SellerModifyMenu.vue";
 import Order from "../pages/order/Order.vue";
 import OrderDetail from "../pages/mypage/components/OrderDetail.vue";
+import MyInfo from "../pages/mypage/components/MyInfo.vue";
+
 
 const checkUserType = (from, to, next) => {
   // 고객인지 점주인지 확인 후 경로 이동
@@ -83,73 +83,32 @@ const routes = [
         redirect: "/mypage/client/info",
         children: [
           { path: "orders", component: ClientOrder },
-          {
-            path: "orders/:id",
-            component: OrderDetail,
-          },
-          { path: "info", component: ClientInfo },
-          {
-            path: "store/rsv",
-            component: ClientStoreRez,
-          },
-          {
-            path: "store/like",
-            component: ClientStorelike,
-          },
-          {
-            path: "store/review",
-            component: ClientStoreReview,
-          },
-          {
-            path: "product/info",
-            component: ClientProductInfo,
-          },
-          {
-            path: "product/review",
-            component: ClientProductsReview,
-          },
-          {
-            path: "product/review/create",
-            component: CreateReview,
-          },
+          { path: "orders/:id", component: OrderDetail },
+          { path: "info", component: MyInfo },
+          { path: "store/rsv", component: ClientStoreRez },
+          { path: "store/like", component: ClientStorelike },
+          { path: "store/review", component: ClientStoreReview },
+          { path: "product/info", component: ClientProductInfo },
+          { path: "product/review", component: ClientProductsReview },
+          { path: "product/review/create", component: CreateReview },
         ],
       },
       {
         path: "seller",
         component: Seller,
+        redirect: "/mypage/seller/info",
         children: [
+          { path: "info", component: MyInfo },
+          { path: "store", component: SellerStoreItem },
+          { path: "store/rsv", component: SellerReservationCard },
+          { path: "store/create", component: SellerInsertStore },
+          { path: "store/modify/:id", component: SellerModifyStore },
+          { path: "menu/insert", component: SellerInsertMenu },
+          { path: "orders", component: ProductOrder },
+          { path: "orders/:id", component: OrderDetail },
           {
-            path: "my-info/modify",
-            component: SellerMyInfoModify,
-          },
-          {
-            path: "store",
-            component: SellerStoreItem,
-          },
-          {
-            path: "store/rsv",
-            component: SellerReservationCard,
-          },
-          {
-            path: "store/create",
-            component: SellerInsertStore,
-          },
-          {
-            path: "store/modify/:id",
-            component: SellerModifyStore,
-          },
-          {
-            path: "menu/insert",
-            component: SellerInsertMenu,
-          },
-          { path: "order", component: ProductOrder },
-          {
-            path: "order/:id",
-            component: OrderDetail,
-          },
-          {
-            path: "delivery/register",
-            component: ShippingRegister,
+            path: "orders/:id/delivery/register",
+            component: DeliveryRegister,
           },
           { path: "product", component: ProductList },
           {
