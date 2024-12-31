@@ -8,7 +8,7 @@ export const useReviewableStore = defineStore("reviewable", {
   }),
   actions: {
     async getreviewableStores() {
-      const response = await axios.get("https://193e67e5-10ed-40ed-ad63-dc23723ce82b.mock.pstmn.io/carts");
+      const response = await axios.get("/osj/reviewable");
 
       this.reviewableStores = response.data.stores;
       this.reviewableProducts = response.data.products;

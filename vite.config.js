@@ -21,6 +21,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/ysh/, ""),
       },
+      "/osj": {
+        target: "http://192.0.200.18:3000",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/osj/, ""),
+      },
     },
   },
 });
