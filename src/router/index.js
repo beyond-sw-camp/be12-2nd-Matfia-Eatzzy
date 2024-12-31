@@ -81,120 +81,99 @@ const routes = [
         path: "client",
         component: Client,
         redirect: "/mypage/client/info",
-        beforeEnter: checkLogin,
         children: [
-          { path: "orders", component: ClientOrder, beforeEnter: checkLogin },
+          { path: "orders", component: ClientOrder },
           {
             path: "orders/:id",
             component: OrderDetail,
-            beforeEnter: checkLogin,
           },
-          { path: "info", component: ClientInfo, beforeEnter: checkLogin },
+          { path: "info", component: ClientInfo },
           {
             path: "store/rsv",
             component: ClientStoreRez,
-            beforeEnter: checkLogin,
           },
           {
             path: "store/like",
             component: ClientStorelike,
-            beforeEnter: checkLogin,
           },
           {
             path: "store/review",
             component: ClientStoreReview,
-            beforeEnter: checkLogin,
           },
           {
             path: "product/info",
             component: ClientProductInfo,
-            beforeEnter: checkLogin,
           },
           {
             path: "product/review",
             component: ClientProductsReview,
-            beforeEnter: checkLogin,
           },
           {
             path: "product/review/create",
             component: CreateReview,
-            beforeEnter: checkLogin,
           },
         ],
       },
       {
         path: "seller",
         component: Seller,
-        beforeEnter: checkLogin,
         children: [
           {
             path: "my-info/modify",
             component: SellerMyInfoModify,
-            beforeEnter: checkLogin,
           },
           {
             path: "store",
             component: SellerStoreItem,
-            beforeEnter: checkLogin,
           },
           {
             path: "store/rsv",
             component: SellerReservationCard,
-            beforeEnter: checkLogin,
           },
           {
             path: "store/create",
             component: SellerInsertStore,
-            beforeEnter: checkLogin,
           },
           {
             path: "store/modify/:id",
             component: SellerModifyStore,
-            beforeEnter: checkLogin,
           },
           {
             path: "menu/insert",
             component: SellerInsertMenu,
-            beforeEnter: checkLogin,
           },
-          { path: "order", component: ProductOrder, beforeEnter: checkLogin },
+          { path: "order", component: ProductOrder },
           {
             path: "order/:id",
             component: OrderDetail,
-            beforeEnter: checkLogin,
           },
           {
             path: "delivery/register",
             component: ShippingRegister,
-            beforeEnter: checkLogin,
           },
-          { path: "product", component: ProductList, beforeEnter: checkLogin },
+          { path: "product", component: ProductList },
           {
             path: "product/register",
             component: ProductEdit,
-            beforeEnter: checkLogin,
           },
           {
             path: "product/modify",
             component: ProductEdit,
-            beforeEnter: checkLogin,
           },
           {
             path: "store_menu/:id",
             component: SellerMenuCard,
-            beforeEnter: checkLogin,
           },
           {
             path: "menu_modify/:id",
             component: SellerModifyMenu,
-            beforeEnter: checkLogin,
           },
         ],
       },
-      { path: "/carts", component: Carts },
-      { path: "/order", component: Order, beforeEnter: checkLogin },
     ],
   },
+  { path: "/carts", component: Carts },
+  { path: "/order", component: Order, beforeEnter: checkLogin },
 ];
 
 const router = createRouter({
