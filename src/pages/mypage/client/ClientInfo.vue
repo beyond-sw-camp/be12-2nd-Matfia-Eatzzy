@@ -133,7 +133,7 @@ const deleteAccount = () => {
         <div class="mypage_cont">
           <div class="join_base_wrap">
             <section class="profile_box join_common">
-              <div class="modify_title" style="margin: 3.125rem 0 1.875rem 0.625rem">
+              <div class="modify_title" style="margin: 0 0 1.875rem 0.625rem">
                 <strong>내 정보 수정</strong>
               </div>
 
