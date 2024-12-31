@@ -8,10 +8,7 @@ export const useReservationStore = defineStore("reservation", {
 
   actions: {
     async reservation(rsvData) {
-      const response = await axios.post(
-        "/psy/reservation",
-        rsvData
-      );
+      const response = await axios.post("/api/reservation", rsvData);
       return response.data;
     },
 
@@ -21,6 +18,5 @@ export const useReservationStore = defineStore("reservation", {
       );
       this.reservations = response.data;
     },
-
   },
 });

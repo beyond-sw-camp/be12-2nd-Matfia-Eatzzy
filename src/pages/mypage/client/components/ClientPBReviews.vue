@@ -2,7 +2,7 @@
 import { ref, onMounted } from "vue";
 import { useReviewableStore } from "../../../../stores/useReviewableStore";
 
-const reviewableStore = useReviewableStore;
+const reviewableStore = useReviewableStore();
 
 onMounted(() => {
   reviewableStore.getreviewableStores();
@@ -10,7 +10,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="review_item" v-for="(PBreview, index) in reviewableStore.products" :key="index">
+  <div class="review_item" v-for="(PBreview, index) in reviewableStore.reviewableProducts" :key="index">
     <a href="/products/1" class="review_left">
       <div class="review_itemName">{{ PBreview.product_name }}</div>
       <img :src="PBreview.review_images" alt="Review Image" class="review_image" />

@@ -10,8 +10,12 @@ export const useProductsStore = defineStore("products", {
       price: 0,
       image: "",
       expirationDate: "",
+      description: "",
+      reviewCnt: 0,
+      startPoint: 0,
     },
     products: [],
+    productTab: "description",
     modifyProduct: {
       idx: 0,
       name: "",
@@ -26,9 +30,7 @@ export const useProductsStore = defineStore("products", {
   }),
   actions: {
     async getProductBestList() {
-      const response = await axios.get(
-        "https://run.mocky.io/v3/9b0cb90a-9d78-42bf-8e24-531296905990"
-      );
+      const response = await axios.get("/api/productBest");
 
       this.productsBest = response.data;
     },
@@ -48,7 +50,7 @@ export const useProductsStore = defineStore("products", {
     },
 
     async addProduct() {
-      const response = await axios.post("/ysh/product/add", {
+      const response = await axios.post("/api/product/add", {
         name: "pizza",
         price: 16000,
         stock: 1,
@@ -62,7 +64,7 @@ export const useProductsStore = defineStore("products", {
     },
 
     async ModifyProduct() {
-      const response = await axios.post("/ysh/product/modify", {
+      const response = await axios.post("/api/product/modify", {
         name: "pizza",
         price: 18000,
         stock: 3,
@@ -73,7 +75,7 @@ export const useProductsStore = defineStore("products", {
     },
 
     async RegisterDelivery() {
-      const response = await axios.post("/ysh/product/delivery", {
+      const response = await axios.post("/api/product/delivery", {
         courier_company: "한진택배",
         tracking_number: 69012481,
         order_id: "ord2",
@@ -82,17 +84,17 @@ export const useProductsStore = defineStore("products", {
     },
 
     async getSellerProduct() {
-      const response = await axios.get("/ysh/seller/product");
+      const response = await axios.get("/api/seller/product");
       return response.data;
     },
 
     async getOrderProduct() {
-      const response = await axios.get("/ysh/order/product");
+      const response = await axios.get("/api/order/product");
       return response.data;
     },
 
     async getOrderDetails() {
-      const response = await axios.get("/ysh/order/details");
+      const response = await axios.get("/api/order/details");
       return response.data;
     },
 

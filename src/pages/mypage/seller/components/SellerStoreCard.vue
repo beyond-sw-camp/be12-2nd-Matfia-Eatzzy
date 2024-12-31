@@ -11,12 +11,12 @@ const props = defineProps({
 
 const editStore = (storeId) => {
   // 해당 가게의 id를 URL 경로로 전달하여 이동
-  router.push(`/mypage/seller/store_modify/${storeId}`);
+  router.push(`/mypage/seller/store/modify/${storeId}`);
 };
 
 const insertmenu = () => {
   // 해당 가게의 id를 URL 경로로 전달하여 이동
-  router.push(`/mypage/seller/insert_menu`);
+  router.push(`/mypage/seller/menu/insert`);
 };
 
 const menuStore = (storeId) => {

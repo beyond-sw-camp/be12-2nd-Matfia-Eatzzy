@@ -125,27 +125,27 @@ const gnbOpen = () => {
           <div class="ctg_wrap">
             <ul class="depth1">
               <li>
-                <router-link to="/">맛집리스트</router-link>
+                <router-link to="/stores">맛집리스트</router-link>
                 <ul class="depth2">
-                  <li><router-link to="/">한식</router-link></li>
-                  <li><router-link to="/">중식</router-link></li>
-                  <li><router-link to="/">일식</router-link></li>
-                  <li><router-link to="/">양식</router-link></li>
-                  <li><router-link to="/">아시아</router-link></li>
-                  <li><router-link to="/">분식</router-link></li>
-                  <li><router-link to="/">패스트푸드</router-link></li>
+                  <li><router-link to="/stores">한식</router-link></li>
+                  <li><router-link to="/stores">중식</router-link></li>
+                  <li><router-link to="/stores">일식</router-link></li>
+                  <li><router-link to="/stores">양식</router-link></li>
+                  <li><router-link to="/stores">아시아</router-link></li>
+                  <li><router-link to="/stores">분식</router-link></li>
+                  <li><router-link to="/stores">패스트푸드</router-link></li>
                 </ul>
               </li>
               <li>
-                <router-link to="/">밀키트 상품</router-link>
+                <router-link to="/products">밀키트 상품</router-link>
                 <ul class="depth2">
-                  <li><router-link to="/">한식</router-link></li>
-                  <li><router-link to="/">중식</router-link></li>
-                  <li><router-link to="/">일식</router-link></li>
-                  <li><router-link to="/">양식</router-link></li>
-                  <li><router-link to="/">아시아</router-link></li>
-                  <li><router-link to="/">분식</router-link></li>
-                  <li><router-link to="/">패스트푸드</router-link></li>
+                  <li><router-link to="/products">한식</router-link></li>
+                  <li><router-link to="/products">중식</router-link></li>
+                  <li><router-link to="/products">일식</router-link></li>
+                  <li><router-link to="/products">양식</router-link></li>
+                  <li><router-link to="/products">아시아</router-link></li>
+                  <li><router-link to="/products">분식</router-link></li>
+                  <li><router-link to="/products">패스트푸드</router-link></li>
                 </ul>
               </li>
             </ul>

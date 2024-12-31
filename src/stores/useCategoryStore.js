@@ -14,7 +14,7 @@ export const useCategoryStore = defineStore("category", {
   actions: {
     async getBigCategory() {
       await axios
-        .get("/psy/bigCategory")
+        .get("/api/bigCategory")
         .then((response) => {
           this.bigCategory = response.data.category;
           return response.data.category;
@@ -26,7 +26,7 @@ export const useCategoryStore = defineStore("category", {
 
     async getSmallCategory(refId = 1) {
       await axios
-        .get("/psy/smallCategory", {
+        .get("/api/smallCategory", {
           ref_id: refId,
         })
         .then((response) => {

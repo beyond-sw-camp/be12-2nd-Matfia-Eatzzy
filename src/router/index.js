@@ -36,6 +36,7 @@ import SellerMyInfoModify from "../pages/mypage/seller/SellerMyInfoModify.vue";
 import SellerReservationCard from "../pages/mypage/seller/SellerReservationCard.vue";
 import SellerStoreItem from "../pages/mypage/seller/SellerStoreItem.vue";
 import SellerMenuCard from "../pages/mypage/seller/components/SellerMenuCard.vue";
+import Order from "../pages/order/Order.vue";
 
 const checkUserType = (from, to, next) => {
   // 고객인지 점주인지 확인 후 경로 이동
@@ -74,6 +75,7 @@ const routes = [
       {
         path: "client",
         component: Client,
+        redirect: "/mypage/client/info",
         children: [
           { path: "orders", component: ClientOrder },
           { path: "orders/:id", component: ClientOrderDetail },
@@ -94,7 +96,7 @@ const routes = [
           { path: "store", component: SellerStoreItem },
           { path: "store/rsv", component: SellerReservationCard },
           { path: "store/create", component: SellerInsertStore },
-          { path: "store/modify", component: SellerModifyStore },
+          { path: "store/modify/:id", component: SellerModifyStore },
           { path: "menu/insert", component: SellerInsertMenu },
           { path: "orders", component: ProductOrder },
           { path: "orders/:id", component: ClientOrderDetail },
@@ -110,6 +112,7 @@ const routes = [
         ],
       },
       { path: "/carts", component: Carts },
+      { path: "/order", component: Order },
     ],
   },
 ];

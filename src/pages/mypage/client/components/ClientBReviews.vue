@@ -2,15 +2,16 @@
 import { ref, onMounted } from "vue";
 import { useReviewableStore } from "../../../../stores/useReviewableStore";
 
-const reviewableStore = useReviewableStore;
+const reviewableStore = useReviewableStore();
 
 onMounted(() => {
   reviewableStore.getreviewableStores();
+  console.log(reviewableStore.reviewableStores);
 });
 </script>
 
 <template>
-  <div class="review_item" v-for="(Breview, index) in reviewableStore.stores" :key="index">
+  <div class="review_item" v-for="(Breview, index) in reviewableStore.reviewableStores" :key="index">
     <a href="/stores/1" class="review_left">
       <div class="review_itemName">{{ Breview.store_name }}</div>
       <img :src="Breview.review_image" alt="Review Image" class="review_image" />

@@ -16,7 +16,7 @@ export const useReviewStore = defineStore("review", {
   actions: {
     async getStoreReview(storeId = 1) {
       const response = await axios
-        .get(`/psy/stores/${storeId}/review`)
+        .get(`/api/stores/${storeId}/review`)
         .catch((error) => {
           console.error("Error fetching data:", error);
         });

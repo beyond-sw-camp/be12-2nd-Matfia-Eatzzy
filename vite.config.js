@@ -8,19 +8,9 @@ export default defineConfig({
     proxy: {
       "/api": {
         // 프록시할 경로
-        target: "https://run.mocky.io/v3", // 대상 서버
+        target: "https://www.eatzzy.kro.kr:3000", // 대상 서버
         changeOrigin: true, // 대상 서버의 호스트 헤더 변경 여부
-        rewrite: (path) => path.replace(/^\/api/, ""), // '/api' 부분 제거
-      },
-      "/psy": {
-        target: "http://192.0.200.214:3000",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/psy/, ""),
-      },
-      "/ysh": {
-        target: "http://192.0.200.132:3000",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/ysh/, ""),
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   },
