@@ -15,9 +15,7 @@ export const useProductsStore = defineStore("products", {
   }),
   actions: {
     async getProductBestList() {
-      const response = await axios.get(
-        "https://run.mocky.io/v3/9b0cb90a-9d78-42bf-8e24-531296905990"
-      );
+      const response = await axios.get("/api/productBest");
 
       this.productsBest = response.data;
     },
