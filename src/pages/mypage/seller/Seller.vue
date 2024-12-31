@@ -1,13 +1,16 @@
 <script setup>
 import ClientSummary from "../client/components/ClientSummary.vue";
 import SellerMenu from "./components/SellerMenu.vue";
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
 </script>
 
 <template>
   <div class="main">
     <SellerMenu></SellerMenu>
     <div class="SellerContainer">
-      <ClientSummary></ClientSummary>
+      <ClientSummary v-if="route.path === '/mypage/seller'" />
       <router-view></router-view>
     </div>
   </div>
