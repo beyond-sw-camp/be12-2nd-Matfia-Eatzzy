@@ -1,21 +1,24 @@
 <script setup>
-import { defineProps, defineEmits } from "vue";
+import { useCartStore } from "../../../stores/useCartStore";
 const props = defineProps({
   product: {
     type: Object,
     required: true,
   },
-  isModal: {
-    type: Boolean, // `v-model` 값 정의
-    required: true,
-  },
+  // isModal: {
+  //   type: Boolean, // `v-model` 값 정의
+  //   required: true,
+  // },
 });
-const emit = defineEmits(["update:isModal"]);
+// const emit = defineEmits(["update:isModal"]);
 
-const openModal = () => {
-  emit("update:isModal", true); // 부모에게 isModal 값을 true로 전달
-};
-
+// const openModal = () => {
+//   emit("update:isModal", true); // 부모에게 isModal 값을 true로 전달
+// };
+const cartStore = useCartStore();
+// const openModal = () => {
+//   cartStore.isMadal = true;
+// };
 // export { isModal }; // 부모가 이 값을 참조할 수 있도록 내보냄
 </script>
 <template>
@@ -48,7 +51,7 @@ const openModal = () => {
           </div>
           <!-- 장바구니 버튼 -->
           <button
-            @click="openModal"
+            @click="cartStore.openModal"
             type="button"
             href="#optionViewLayer"
             class="n_list_cart btn_add_cart btn_open_layer list_basket_cart"
