@@ -47,9 +47,9 @@
         />
 
         <span class="pick_add_img">
-          <router-link :to="`/products/${cartProduct.id}`">
+          <router-link :to="`/products/${cartProduct.productId}`">
             <img
-              src="https://godomall.speedycdn.net/ec5d2a1c8483712efb957784c858b320/goods/1000016025/image/list/1000016025_list_027.jpg"
+              :src="cartProduct.productImg"
               width="40"
               alt="패션후르츠 샤베트 300ml (50ml x 6ea)_겨울에도 식을줄 모르는 디저트샤벳"
               title="패션후르츠 샤베트 300ml (50ml x 6ea)_겨울에도 식을줄 모르는 디저트샤벳"
@@ -59,9 +59,9 @@
         </span>
         <div class="pick_add_info">
           <em>
-            <a href="../goods/goods_view.php?goodsNo=1000016025">{{
-              cartProduct.name
-            }}</a>
+            <router-link :to="`/products/${cartProduct.productId}`">{{
+              cartProduct.productName
+            }}</router-link>
           </em>
 
           <!-- //icon_pick_list -->
