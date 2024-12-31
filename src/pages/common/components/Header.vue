@@ -1,6 +1,8 @@
 <script setup>
+import { useCartStore } from "../../../stores/useCartStore";
 import { useMemberStore } from "../../../stores/useMemberStore";
 const memberStore = useMemberStore();
+const cartStore = useCartStore();
 
 const logout = () => {
   memberStore.logout();
@@ -98,7 +100,8 @@ const gnbOpen = () => {
             </li>
             <li class="cart_btn">
               <router-link to="/carts"
-                ><span class="num">0</span>장바구니</router-link
+                ><span class="num">{{ cartStore.cartProducts.length }}</span
+                >장바구니</router-link
               >
             </li>
             <li class="delevery_btn">

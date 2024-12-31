@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">
+  <div class="wrap page_cart">
     <header id="header"></header>
     <div class="location_wrap inner_wrap">
       <div class="location_cont">
@@ -58,7 +58,7 @@
                       class="gd_select_all_goods"
                       data-target-id="cartSno1_"
                       data-target-form="#frmCart"
-                      checked="checked"
+                      :checked="cartStore.isAllChecked"
                       data-gtm-form-interact-field-id="0"
                       @click="allCheck"
                     />
@@ -77,8 +77,10 @@
               <CartCard
                 v-for="cartProduct in cartStore.cartProducts"
                 :cartProduct="cartProduct"
-                :key="cartProduct.id"
-                v-model:isChecked="findCheckedItem(cartProduct.id).isChecked"
+                :key="cartProduct.productId"
+                v-model:isChecked="
+                  findCheckedItem(cartProduct.productId).isChecked
+                "
                 @update:cartProduct="updateCartProduct"
               ></CartCard>
             </tbody>
@@ -166,13 +168,16 @@
           >
             선택 상품 주문
           </button>
-          <button
-            type="button"
-            class="btn_order_whole_buy"
-            onclick="gd_order_all();"
-          >
-            전체 상품 주문
-          </button>
+          <router-link to="/order">
+            <button
+              type="button"
+              class="btn_order_whole_buy"
+              onclick="gd_order_all();"
+            >
+              전체 상품 주문
+            </button>
+          </router-link>
+
           <em class="chk_none"
             ><img
               src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/icon/etc/icon_warning_new.png"
@@ -194,22 +199,21 @@ const cartStore = useCartStore();
 const cartProductCheckList = ref([]);
 const initalProductCheckList = () => {
   cartProductCheckList.value = cartStore.cartProducts.map((product) => ({
-    id: product.id,
+    id: product.productId,
     isChecked: true,
   }));
 };
-const allCheckFlag = ref(true);
 const allCheck = () => {
-  if (allCheckFlag.value) {
+  if (cartStore.isAllChecked) {
     for (const cartProductCheck of cartProductCheckList.value) {
       cartProductCheck.isChecked = false;
     }
-    allCheckFlag.value = false;
+    cartStore.isAllChecked = false;
   } else {
     for (const cartProductCheck of cartProductCheckList.value) {
       cartProductCheck.isChecked = true;
     }
-    allCheckFlag.value = true;
+    cartStore.isAllChecked = true;
   }
 };
 const updateCartProduct = (updatedProduct) => {
@@ -234,7 +238,8 @@ const findCheckedItem = (id) => {
 const totalPriceInCarts = computed(() => {
   let totalPrice = 0;
   for (const product of cartStore.cartProducts) {
-    if (findCheckedItem(product.id).isChecked) totalPrice += product.totalPrice;
+    if (findCheckedItem(product.productId).isChecked)
+      totalPrice += product.totalPrice;
   }
   return totalPrice;
 });

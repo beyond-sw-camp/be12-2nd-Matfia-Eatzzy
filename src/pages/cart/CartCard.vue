@@ -5,7 +5,7 @@
         <input
           @click="onClick"
           type="checkbox"
-          :id="`cartSno1_${cartProduct.id}`"
+          :id="`cartSno1_${cartProduct.productId}`"
           name="cartSno[]"
           value="4556515"
           :checked="isChecked"
@@ -28,7 +28,7 @@
           data-f-firstsample="n"
           class="foo_firstSampleCheck"
         />
-        <label :for="`cartSno1_${cartProduct.id}`"></label>
+        <label :for="`cartSno1_${cartProduct.productId}`"></label>
       </div>
     </td>
     <td class="td_left">
@@ -118,11 +118,8 @@
 
 <script setup>
 import { ref, computed } from "vue";
-// import { useCartStore } from "../../stores/useCartStore";
 import { useCartStore } from "../../stores/useCartStore";
-
 const cartStore = useCartStore();
-
 const props = defineProps({
   cartProduct: {
     type: Object,
@@ -135,8 +132,10 @@ const props = defineProps({
 });
 const emit = defineEmits(["update:isChecked", "update:cartProduct"]);
 const onClick = () => {
-  console.log(!props.isChecked);
+  // console.log(!props.isChecked);
   emit("update:isChecked", !props.isChecked);
+  if (!props.isChecked == false) cartStore.isAllChecked = false;
+  if (!props.isChecked == true) cartStore.isAllChecked = true;
 };
 const totalPrice = computed(() => {
   const price = props.cartProduct?.price || 0; // 가격이 없을 경우 기본값 0

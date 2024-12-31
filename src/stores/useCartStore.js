@@ -5,7 +5,22 @@ export const useCartStore = defineStore("carts", {
   state: () => ({
     cartProducts: [],
     isMadal: false,
+    isAllChecked: true,
+    deliveryFee: 4000,
   }),
+  getters: {
+    calTotalPrice() {
+      return this.cartProducts.reduce(
+        (sum, product) => sum + (product.totalPrice || 0),
+        0
+      );
+    },
+
+    getTotalPrice() {
+      console.log(this.calTotalPrice);
+      return this.calTotalPrice + this.deliveryFee;
+    },
+  },
   actions: {
     async getCartProducts() {
       const response = await axios.get(
@@ -13,8 +28,8 @@ export const useCartStore = defineStore("carts", {
       );
 
       this.cartProducts = response.data.cartProducts;
-      // console.log(this.cartProducts)
     },
+
     openModal() {
       this.isMadal = true;
     },

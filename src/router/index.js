@@ -104,7 +104,7 @@ const routes = [
           { path: "product/register", component: ProductEdit },
           { path: "product/modify", component: ProductEdit },
           { path: "store_menu/:id", component: SellerMenuCard },
-          { path: "menu_modify/:id", component: SellerModifyMenu }
+          { path: "menu_modify/:id", component: SellerModifyMenu },
         ],
       },
       { path: "/carts", component: Carts },
