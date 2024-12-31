@@ -1,8 +1,5 @@
 <script setup>
-// 금액 formatting
-const formatPrice = (price) => {
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-};
+import { formatPrice } from "../../../../utils/formatPrice";
 
 const props = defineProps({
   product: {
@@ -10,7 +7,7 @@ const props = defineProps({
     required: true,
   },
 });
-console.log(props.product)
+console.log(props.product);
 </script>
 
 <template>
