@@ -9,7 +9,7 @@ const route = useRoute();
 <template>
   <div class="main">
     <SellerMenu></SellerMenu>
-    <div class="SellerContainer">
+    <div class="seller_container">
       <router-view></router-view>
     </div>
   </div>
@@ -20,8 +20,8 @@ const route = useRoute();
   padding: 0;
   display: flex;
 }
-.SellerContainer {
+.seller_container {
   width: 100%;
-  padding: 3.125rem 3.125rem;
+  padding: 3.125rem 4rem;
 }
 </style>
