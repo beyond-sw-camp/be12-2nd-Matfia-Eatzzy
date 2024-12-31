@@ -38,7 +38,7 @@
                     class="crema_product_reviews_score__container"
                     style="display: inline-block; font-family: inherit"
                   >
-                    0.0
+                    {{ productStore.product.startPoint }}
                   </div></span
                 >
                 <span
@@ -48,7 +48,7 @@
                   data-install-method="hardcoded"
                   data-observed-install="false"
                   data-applied-widgets='[".crema-product-reviews-count"]'
-                  >(0건)</span
+                  >{{ productStore.product.reviewCnt }}</span
                 >
               </dd>
             </dl>
@@ -665,23 +665,18 @@
         </div>
         <ul class="submenu_list">
           <li
-            class="submenu_item"
+            class="product_tab_item"
+            @click="changeTab('description')"
+            :class="{ picked: productStore.productTab === 'description' }"
             data-target="intro_box"
-            style="font-weight: 700; color: rgb(255, 116, 0)"
           >
             소개
           </li>
           <li
-            class="submenu_item"
-            data-target="menu_box"
-            style="font-weight: 400; color: rgb(26, 26, 26)"
-          >
-            메뉴
-          </li>
-          <li
-            class="submenu_item"
+            class="product_tab_item"
+            @click="changeTab('review')"
+            :class="{ picked: productStore.productTab === 'review' }"
             data-target="review_box"
-            style="font-weight: 400; color: rgb(26, 26, 26)"
           >
             리뷰
           </li>
@@ -692,132 +687,48 @@
             밀키트
           </li>
         </ul>
+        <ProductDescription
+          v-if="productStore.productTab === 'description'"
+          :description="productStore.product.description"
+        />
+        <ProductReviewList v-if="productStore.productTab === 'review'" />
 
-        <div id="intro_box" class="content_box">
-          <div class="intro_item">
-            <h2>매장 소개</h2>
-            <p>
-              "돼지고기 등심과 가브리살, 삼겹살을 한 번에 맛볼 수 있는 '알등심'
-              전문점 [고도식] 잠실점입니다. 모든 고기는 직화 그릴에서 초벌 후
-              무쇠팬에서 고기마다 최적의 굽기로 구워드립니다. 오직
-              [고도식]에서만 맛볼 수 있는 소스부터 하이볼, 식사 메뉴까지 준비돼
-              있습니다. 정성 가득한 음식과 친절한 서비스로 보답하겠습니다.
-              감사합니다.
-            </p>
-          </div>
-          <div class="intro_item">
-            <h2>찾아오는 방법</h2>
-            <p>송파나루역에서 도보 6분, 석촌역에서 도보 11분</p>
-          </div>
-          <div class="intro_item">
-            <h2>주차 안내</h2>
-            <p>매장 내 주차공간이 없어 인근 민영 주차장을 이용 부탁드립니다.</p>
-          </div>
-        </div>
-        <div id="menu_box" class="content_box">
-          <h2>메뉴판</h2>
-          <ul>
-            <li class="menu_list">
-              <p>삼겹살 160g</p>
-              <div class="menu_dots"></div>
-              <p>17,000원</p>
-            </li>
-            <li class="menu_list">
-              <p>메밀냉면(물)</p>
-              <div class="menu_dots"></div>
-              <p>7,000원</p>
-            </li>
-            <li class="menu_list">
-              <p>메밀냉면(비빔)</p>
-              <div class="menu_dots"></div>
-              <p>8,000원</p>
-            </li>
-            <li class="menu_list">
-              <p>얼큰 순두부찌개</p>
-              <div class="menu_dots"></div>
-              <p>7,000원</p>
-            </li>
-            <li class="menu_list">
-              <p>차돌 된장찌개</p>
-              <div class="menu_dots"></div>
-              <p>8,000원</p>
-            </li>
-          </ul>
-        </div>
+        <!-- <div id="intro_box" class="content_box">
+          
+        </div> -->
 
-        <div id="review_box" class="content_box">
-          <div class="review_header">
-            <img src="/src/assets/icons/star_fill.svg" alt="star" />
-            <div>
-              <p>4.7</p>
-              <span>53개의 리뷰</span>
-            </div>
-          </div>
-
-          <ul class="review_list">
-            <li class="review_item">
-              <div class="star_box">
-                <img src="/src/assets/icons/star_fill.svg" alt="star" />
-                <img src="/src/assets/icons/star_fill.svg" alt="star" />
-                <img src="/src/assets/icons/star_fill.svg" alt="star" />
-                <img src="/src/assets/icons/star_fill.svg" alt="star" />
-                <img src="/src/assets/icons/star_empty.svg" alt="star" />
+        <div id="addCartLayer" v-if="isModal" class="layer_wrap">
+          <div
+            class="box add_cart_layer"
+            style="position: absolute; margin: 0px; top: 211.5px; left: 551px"
+          >
+            <div class="view">
+              <h2>장바구니 담기</h2>
+              <div class="scroll_box">
+                <p class="success">
+                  <strong>상품이 장바구니에 담겼습니다.</strong><br />바로
+                  확인하시겠습니까?
+                </p>
               </div>
-              <div class="review_user">
-                <span id="userName">박**</span>
-                <span id="createdAt">24.12.17</span>
-              </div>
-              <div class="review_image_box">
-                <img
-                  src="https://d12zq4w4guyljn.cloudfront.net/750_750_20241123105001_photo1_394db3cb2fa0.jpg"
-                  alt="review image1"
-                />
-                <img
-                  src="https://d12zq4w4guyljn.cloudfront.net/750_750_20241123105001_photo1_394db3cb2fa0.jpg"
-                  alt="review image2"
-                />
-              </div>
-              <p>
-                세트메뉴로 나름 저렴하게 먹었습니다! 직원분들이 고기 부위
-                설명해주시고 다 구워주십니다. 두툼한 고기가 정말 맛있었어요!
-                송리단길 고기집으로 추천드립니다!
-              </p>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div id="addCartLayer" v-if="isModal" class="layer_wrap">
-        <div
-          class="box add_cart_layer"
-          style="position: absolute; margin: 0px; top: 211.5px; left: 551px"
-        >
-          <div class="view">
-            <h2>장바구니 담기</h2>
-            <div class="scroll_box">
-              <p class="success">
-                <strong>상품이 장바구니에 담겼습니다.</strong><br />바로
-                확인하시겠습니까?
-              </p>
-            </div>
-            <div class="btn_box">
-              <button @click="closeModal" class="btn_cancel">
-                <span>취소</span>
-              </button>
-              <router-link to="/carts">
-                <button class="btn_confirm btn_move_cart">
-                  <span>확인</span>
+              <div class="btn_box">
+                <button @click="closeModal" class="btn_cancel">
+                  <span>취소</span>
                 </button>
-              </router-link>
+                <router-link to="/carts">
+                  <button class="btn_confirm btn_move_cart">
+                    <span>확인</span>
+                  </button>
+                </router-link>
+              </div>
+              <button
+                @click="closeModal"
+                title="닫기"
+                class="close layer_close"
+                type="button"
+              >
+                닫기
+              </button>
             </div>
-            <button
-              @click="closeModal"
-              title="닫기"
-              class="close layer_close"
-              type="button"
-            >
-              닫기
-            </button>
           </div>
         </div>
       </div>
@@ -830,12 +741,17 @@ import { onMounted } from "vue";
 import { useProductsStore } from "../../../stores/useProductsStore";
 import { useRoute } from "vue-router";
 import { ref } from "vue";
+import ProductDescription from "./ProductDescription.vue";
+import ProductReviewList from "./ProductReviewList.vue";
 const productStore = useProductsStore();
 const route = useRoute();
 const productId = route.params.id;
 const isModal = ref(false);
 const productCnt = ref(1);
 
+const changeTab = (str) => {
+  productStore.productTab = str;
+};
 const addCart = () => {
   productCnt.value = productCnt.value + 1;
 };
@@ -1198,21 +1114,6 @@ onMounted(async () => {
   color: #ff7400;
 }
 
-/* 매장 소개 */
-#intro_box {
-  display: none;
-  padding: 0 1.5rem;
-}
-
-.intro_item {
-  margin-bottom: 2rem;
-}
-
-.intro_item > h2 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-}
-
 /* 메뉴 리스트 */
 
 #menu_box {
@@ -1249,65 +1150,6 @@ onMounted(async () => {
   height: 1px;
   margin: auto 1rem;
   border-top: 1px dashed #ccc;
-}
-
-/* 리뷰  */
-#review_box {
-  display: none;
-}
-
-.review_header {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  border: 1px solid #ccc;
-  padding: 1.5rem 0;
-}
-
-.review_header > img {
-  width: 3rem;
-  height: 3rem;
-}
-
-.review_header > div > p {
-  font-size: 1.2rem;
-  font-weight: 700;
-}
-
-/* 리뷰 아이템 */
-.review_item {
-  padding: 1.5rem 1rem;
-  border-bottom: 1px solid #d8dde5;
-}
-
-.star_box {
-  display: flex;
-  margin: 0 0 0.2rem -0.2rem;
-}
-
-.review_user {
-  color: #7e7e7e;
-  font-size: 0.8rem;
-  margin-bottom: 1rem;
-}
-
-.review_user > #userName::after {
-  content: "•";
-  margin-left: 0.3rem;
-  color: #ccc;
-}
-
-.review_image_box {
-  width: 30rem;
-  display: flex;
-  justify-content: flex-start;
-  gap: 1rem;
-  margin: 1rem 0;
-}
-
-.review_image_box > img {
-  width: 10rem;
-  border-radius: 1rem;
 }
 
 /* 장바구니에 담으시겠습니까? */
@@ -1416,5 +1258,20 @@ element.style {
 .add_wish_layer .btn_box {
   padding: 29px 0 0 0;
   text-align: center;
+}
+
+.product_tab_item {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: content-box;
+  font-size: 1rem;
+}
+
+.product_tab_item.picked {
+  font-weight: 700;
 }
 </style>

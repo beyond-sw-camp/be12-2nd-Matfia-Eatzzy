@@ -37,6 +37,7 @@ import SellerReservationCard from "../pages/mypage/seller/SellerReservationCard.
 import SellerStoreItem from "../pages/mypage/seller/SellerStoreItem.vue";
 import SellerMenuCard from "../pages/mypage/seller/components/SellerMenuCard.vue";
 import SellerModifyMenu from "../pages/mypage/seller/SellerModifyMenu.vue";
+import Order from "../pages/order/Order.vue";
 
 const checkUserType = (from, to, next) => {
   // 고객인지 점주인지 확인 후 경로 이동
@@ -109,6 +110,7 @@ const routes = [
         ],
       },
       { path: "/carts", component: Carts },
+      { path: "/order", component: Order },
     ],
   },
 ];

@@ -169,11 +169,7 @@
             선택 상품 주문
           </button>
           <router-link to="/order">
-            <button
-              type="button"
-              class="btn_order_whole_buy"
-              onclick="gd_order_all();"
-            >
+            <button type="button" class="btn_order_whole_buy">
               전체 상품 주문
             </button>
           </router-link>
