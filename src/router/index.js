@@ -17,7 +17,7 @@ import OrderDetails from "../pages/mypage/seller/OrderDetails.vue";
 import ProductList from "../pages/mypage/seller/ProductList.vue";
 import ProductOrder from "../pages/mypage/seller/ProductOrder.vue";
 import Seller from "../pages/mypage/seller/Seller.vue";
-import ShippingRegister from "../pages/mypage/seller/ShippingRegister.vue";
+import ShippingRegister from "../pages/mypage/seller/DeliveryRegister.vue";
 import Products from "../pages/product/Products.vue";
 import ProductDetail from "../pages/product/components/ProductDetail.vue";
 import StoreDetail from "../pages/store/StoreDetail.vue";
