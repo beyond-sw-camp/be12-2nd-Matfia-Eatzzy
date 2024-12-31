@@ -8,7 +8,7 @@ export const useLoveStore = defineStore("loves", {
   }),
   actions: {
     async getloveStores() {
-      const response = await axios.get("/osj/love");
+      const response = await axios.get("/api/love");
       console.log(response);
       this.rezStores = response.data.rez;
       this.likeStores = response.data.like;
