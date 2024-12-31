@@ -10,22 +10,17 @@ export const useStoresStore = defineStore("stores", {
 
   actions: {
     async getStoreList(filter) {
-      const response = await axios
-        .get(
-          "/psy/stores",
-          filter
-        )
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-        });
-      console.log(response.data)
+      const response = await axios.get("/psy/stores", filter).catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+      console.log(response.data);
       return response.data;
     },
 
     async getStoreBestList() {
       await axios
         .get(
-          "https://run.mocky.io/v3/1dafc773-b286-4735-ac99-62ab0a08bc64",
+          "/api/storeBest",
           {
             sort: "HOT",
             place: "서울",
