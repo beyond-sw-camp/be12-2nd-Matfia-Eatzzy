@@ -8,22 +8,20 @@ export const useMemberStore = defineStore("member", {
   },
   actions: {
     async login(userData) {
-      let response;
-
-      if (userData) {
+      try {
         // POST 요청: 로그인 처리
-        response = await axios.post(
-          "/api/4f1f505a-6902-44d5-a12b-933042228046",
-          userData,
-          {
-            withCredentials: true, // 쿠키 전달 허용
-          }
-        );
-        console.log("로그인 응답 데이터:", response.data);
+        const response = await axios.post("/api/login", userData, {
+          withCredentials: true, // 쿠키 전달 허용
+        });
 
-        if (response.data.isLogin) {
-          const cookieValue = this.getCookie("LOGIN");
-          const userTypeValue = userData.id === "seller" ? "seller" : "client";
+        if (response.status === 200) {
+          const userTypeValue = response.data.userType;
+
+          const cookieValue = document.cookie
+            .split("; ")
+            .find((row) => row.startsWith("LOGIN="))
+            ?.split("=")[1];
+
           if (cookieValue) {
             sessionStorage.setItem("LOGIN", cookieValue);
             sessionStorage.setItem("UserType", userTypeValue);
@@ -31,20 +29,15 @@ export const useMemberStore = defineStore("member", {
             window.location.href = "/";
           }
         }
-      }
-
-      return response.data;
-    },
-
-    getCookie(cookieName) {
-      const cookies = document.cookie.split("; ");
-      for (const cookie of cookies) {
-        const [name, value] = cookie.split("=");
-        if (name === cookieName) {
-          return decodeURIComponent(value);
+        return response;
+      } catch (error) {
+        // 서버 오류 처리
+        if (error.response && error.response.status === 401) {
+          alert("아이디나 비밀번호가 맞지 않습니다.");
+        } else {
+          alert(error);
         }
       }
-      return null;
     },
 
     logout() {
