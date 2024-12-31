@@ -6,18 +6,16 @@ import Mypage from "../pages/mypage/Mypage.vue";
 import Client from "../pages/mypage/client/Client.vue";
 import ClientInfo from "../pages/mypage/client/ClientInfo.vue";
 import ClientOrder from "../pages/mypage/client/ClientOrder.vue";
-import ClientOrderDetail from "../pages/mypage/client/ClientOrderDetail.vue";
+import ClientOrderDetail from "../pages/mypage/components/OrderDetail.vue";
 import ClientProductInfo from "../pages/mypage/client/ClientProductInfo.vue";
 import ClientProductsReview from "../pages/mypage/client/ClientProductsReview.vue";
 import ClientStoreReview from "../pages/mypage/client/ClientStoreReview.vue";
 import ClientStoreRez from "../pages/mypage/client/ClientStoreRez.vue";
 import ClientStorelike from "../pages/mypage/client/ClientStorelike.vue";
 import CreateReview from "../pages/mypage/client/CreateReview.vue";
-import OrderDetails from "../pages/mypage/seller/OrderDetails.vue";
 import ProductList from "../pages/mypage/seller/ProductList.vue";
 import ProductOrder from "../pages/mypage/seller/ProductOrder.vue";
 import Seller from "../pages/mypage/seller/Seller.vue";
-import ShippingRegister from "../pages/mypage/seller/DeliveryRegister.vue";
 import Products from "../pages/product/Products.vue";
 import ProductDetail from "../pages/product/components/ProductDetail.vue";
 import StoreDetail from "../pages/store/StoreDetail.vue";
@@ -28,15 +26,16 @@ import JoinForm from "../pages/user/JoinForm.vue";
 import Login from "../pages/user/LoginView.vue";
 import { useMemberStore } from "../stores/useMemberStore";
 
+import DeliveryRegister from "../pages/mypage/seller/DeliveryRegister.vue";
 import ProductEdit from "../pages/mypage/seller/ProductEdit.vue";
 import SellerInsertMenu from "../pages/mypage/seller/SellerInsertMenu.vue";
 import SellerInsertStore from "../pages/mypage/seller/SellerInsertStore.vue";
+import SellerModifyMenu from "../pages/mypage/seller/SellerModifyMenu.vue";
 import SellerModifyStore from "../pages/mypage/seller/SellerModifyStore.vue";
 import SellerMyInfoModify from "../pages/mypage/seller/SellerMyInfoModify.vue";
 import SellerReservationCard from "../pages/mypage/seller/SellerReservationCard.vue";
 import SellerStoreItem from "../pages/mypage/seller/SellerStoreItem.vue";
 import SellerMenuCard from "../pages/mypage/seller/components/SellerMenuCard.vue";
-import SellerModifyMenu from "../pages/mypage/seller/SellerModifyMenu.vue";
 import Order from "../pages/order/Order.vue";
 
 const checkUserType = (from, to, next) => {
@@ -129,68 +128,24 @@ const routes = [
         component: Seller,
         beforeEnter: checkLogin,
         children: [
+          { path: "my-info/modify", component: SellerMyInfoModify, beforeEnter: checkLogin },
+          { path: "store", component: SellerStoreItem, beforeEnter: checkLogin },
+          { path: "store/rsv", component: SellerReservationCard, beforeEnter: checkLogin },
+          { path: "store/create", component: SellerInsertStore, beforeEnter: checkLogin },
+          { path: "store/modify/:id", component: SellerModifyStore, beforeEnter: checkLogin },
+          { path: "menu/insert", component: SellerInsertMenu, beforeEnter: checkLogin },
+          { path: "orders", component: ProductOrder, beforeEnter: checkLogin },
+          { path: "orders/:id", component: ClientOrderDetail, beforeEnter: checkLogin },
           {
-            path: "my-info/modify",
-            component: SellerMyInfoModify,
-            beforeEnter: checkLogin,
-          },
-          {
-            path: "store",
-            component: SellerStoreItem,
-            beforeEnter: checkLogin,
-          },
-          {
-            path: "store/rsv",
-            component: SellerReservationCard,
-            beforeEnter: checkLogin,
-          },
-          {
-            path: "store/create",
-            component: SellerInsertStore,
-            beforeEnter: checkLogin,
-          },
-          {
-            path: "store/modify/:id",
-            component: SellerModifyStore,
-            beforeEnter: checkLogin,
-          },
-          {
-            path: "menu/insert",
-            component: SellerInsertMenu,
-            beforeEnter: checkLogin,
-          },
-          { path: "order", component: ProductOrder, beforeEnter: checkLogin },
-          {
-            path: "order/:id",
-            component: OrderDetails,
-            beforeEnter: checkLogin,
-          },
-          {
-            path: "delivery/register",
-            component: ShippingRegister,
-            beforeEnter: checkLogin,
+            path: "orders/:id/delivery/register",
+            component: DeliveryRegister,
+            , beforeEnter: checkLogin
           },
           { path: "product", component: ProductList, beforeEnter: checkLogin },
-          {
-            path: "product/register",
-            component: ProductEdit,
-            beforeEnter: checkLogin,
-          },
-          {
-            path: "product/modify",
-            component: ProductEdit,
-            beforeEnter: checkLogin,
-          },
-          {
-            path: "store_menu/:id",
-            component: SellerMenuCard,
-            beforeEnter: checkLogin,
-          },
-          {
-            path: "menu_modify/:id",
-            component: SellerModifyMenu,
-            beforeEnter: checkLogin,
-          },
+          { path: "product/register", component: ProductEdit, beforeEnter: checkLogin },
+          { path: "product/modify", component: ProductEdit, beforeEnter: checkLogin },
+          { path: "store_menu/:id", component: SellerMenuCard, beforeEnter: checkLogin },
+          { path: "menu_modify/:id", component: SellerModifyMenu, beforeEnter: checkLogin },
         ],
       },
       { path: "/carts", component: Carts },
