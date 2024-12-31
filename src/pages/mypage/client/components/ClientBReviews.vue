@@ -20,7 +20,7 @@ onMounted(fetchBReviews);
   <div class="review_item" v-for="(Breview, index) in Breviews" :key="index">
     <a href="/stores/1" class="review_left">
       <div class="review_itemName">{{ Breview.store_name }}</div>
-      <img src="https://thenaum.cdn-nhncommerce.com/data/goods/15/01/26/1000000463/1000000463_magnify_07.jpg" alt="Review Image" class="review_image" />
+      <img :src="Breview.review_image" alt="Review Image" class="review_image" />
     </a>
     <div class="review_right notYet_right">
       <div class="review_date">{{ Breview.reservation }}</div>
@@ -44,6 +44,8 @@ onMounted(fetchBReviews);
   margin-bottom: 0.3125rem;
 }
 .review_image {
+  width: 6.25rem;
+  height: 6.25rem;
   max-width: 6.25rem;
   max-height: 6.25rem;
   margin-top: 0.625rem;

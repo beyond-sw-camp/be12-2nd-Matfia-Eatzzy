@@ -45,32 +45,6 @@ const login = async () => {
                 v-model="loginData.password"
               />
             </div>
-            <div class="id_chk">
-              <span class="form_element">
-                <input
-                  type="checkbox"
-                  id="saveId"
-                  name="saveId"
-                  value="y"
-                  checked=""
-                />
-                <label for="saveId" class="">아이디 저장</label>
-              </span>
-              <span class="form_element">
-                <input
-                  type="checkbox"
-                  class="fd_checkbox"
-                  name="saveAutoLogin"
-                  value="y"
-                  id="saveAutoLogin"
-                  checked="checked"
-                />
-                <label for="saveAutoLogin">자동로그인</label>
-              </span>
-              <p class="dn js_caution_msg1">
-                아이디, 비밀번호가 일치하지 않습니다. 다시 입력해 주세요.
-              </p>
-            </div>
             <button class="btn_submit" @click="login">로그인</button>
             <ul class="btn_login_box">
               <li>
@@ -80,7 +54,7 @@ const login = async () => {
           </div>
           <!-- //login_box -->
 
-          <div class="easy_login">
+          <!-- <div class="easy_login">
             <h3>SNS 간편 로그인</h3>
             <div class="sns_list">
               <a
@@ -113,7 +87,7 @@ const login = async () => {
                 />
               </a>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
