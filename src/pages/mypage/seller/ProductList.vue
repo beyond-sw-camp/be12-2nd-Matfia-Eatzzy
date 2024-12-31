@@ -135,6 +135,7 @@ onMounted(() => {
   border-radius: 0.3rem;
   background-color: white;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .btn:hover {

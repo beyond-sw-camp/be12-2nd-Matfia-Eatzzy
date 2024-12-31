@@ -6,7 +6,6 @@ import Mypage from "../pages/mypage/Mypage.vue";
 import Client from "../pages/mypage/client/Client.vue";
 import ClientInfo from "../pages/mypage/client/ClientInfo.vue";
 import ClientOrder from "../pages/mypage/client/ClientOrder.vue";
-import ClientOrderDetail from "../pages/mypage/components/OrderDetail.vue";
 import ClientProductInfo from "../pages/mypage/client/ClientProductInfo.vue";
 import ClientProductsReview from "../pages/mypage/client/ClientProductsReview.vue";
 import ClientStoreReview from "../pages/mypage/client/ClientStoreReview.vue";
@@ -32,11 +31,12 @@ import SellerInsertMenu from "../pages/mypage/seller/SellerInsertMenu.vue";
 import SellerInsertStore from "../pages/mypage/seller/SellerInsertStore.vue";
 import SellerModifyMenu from "../pages/mypage/seller/SellerModifyMenu.vue";
 import SellerModifyStore from "../pages/mypage/seller/SellerModifyStore.vue";
-import SellerMyInfoModify from "../pages/mypage/seller/SellerMyInfoModify.vue";
 import SellerReservationCard from "../pages/mypage/seller/SellerReservationCard.vue";
-import SellerStoreItem from "../pages/mypage/seller/SellerStoreItem.vue";
+import SellerStoreItem from "../pages/mypage/seller/SellerStores.vue";
 import SellerMenuCard from "../pages/mypage/seller/components/SellerMenuCard.vue";
 import Order from "../pages/order/Order.vue";
+import OrderDetail from "../pages/mypage/components/OrderDetail.vue";
+import MyInfo from "../pages/mypage/components/MyInfo.vue";
 
 const checkUserType = (from, to, next) => {
   // 고객인지 점주인지 확인 후 경로 이동
@@ -78,8 +78,8 @@ const routes = [
         redirect: "/mypage/client/info",
         children: [
           { path: "orders", component: ClientOrder },
-          { path: "orders/:id", component: ClientOrderDetail },
-          { path: "info", component: ClientInfo },
+          { path: "orders/:id", component: OrderDetail },
+          { path: "info", component: MyInfo },
           { path: "store/rsv", component: ClientStoreRez },
           { path: "store/like", component: ClientStorelike },
           { path: "store/review", component: ClientStoreReview },
@@ -91,15 +91,16 @@ const routes = [
       {
         path: "seller",
         component: Seller,
+        redirect: "/mypage/seller/info",
         children: [
-          { path: "my-info/modify", component: SellerMyInfoModify },
+          { path: "info", component: MyInfo },
           { path: "store", component: SellerStoreItem },
           { path: "store/rsv", component: SellerReservationCard },
           { path: "store/create", component: SellerInsertStore },
           { path: "store/modify/:id", component: SellerModifyStore },
           { path: "menu/insert", component: SellerInsertMenu },
           { path: "orders", component: ProductOrder },
-          { path: "orders/:id", component: ClientOrderDetail },
+          { path: "orders/:id", component: OrderDetail },
           {
             path: "orders/:id/delivery/register",
             component: DeliveryRegister,

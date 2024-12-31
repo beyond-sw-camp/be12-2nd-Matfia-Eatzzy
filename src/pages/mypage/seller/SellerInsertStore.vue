@@ -59,8 +59,9 @@ const closePostcodeModal = () => {
   isPostcodeModalVisible.value = false;
 };
 // 폼 제출 시 처리
-const submitForm = () => {
-  console.log("식당 등록 폼이 제출되었습니다.");
+const submitForm = () => { 
+  alert("등록되었습니다.");
+  router.push("/mypage/seller/store");
 };
 </script>
 
@@ -202,18 +203,18 @@ const submitForm = () => {
   border-radius: .5rem;
   padding: 0 1.125rem;
   font-size: 1rem;
-  color: #00a7b3;
+  color: #ff7400;
   box-shadow: none;
   display: flex;
   align-items: center;
-  border: .0625rem solid #00a7b3;
+  border: .0625rem solid #ff7400;
   flex-shrink: 0;
 }
 
 /* 폼 스타일 */
 form {
   background-color: white;
-  padding: 1.875rem;
+  padding: 0 1.875rem;
 }
 
 /* 필드셋 및 레전드 스타일 */
@@ -222,9 +223,9 @@ fieldset {
 }
 
 .insert_store_info {
-  font-size: 1.875rem;
+  font-size: 1.4rem;
   font-weight: 800;
-  margin: 0 0 1.875rem;
+  margin: 0.5rem 0 2rem 0;
 }
 
 
@@ -235,6 +236,14 @@ fieldset {
   display: flex;
   justify-content: center;
   gap: .625rem;
+}
+
+.button_group > button {
+  width: 11rem;
+  height: 3.1875rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
 }
 
 /* 라벨 스타일 */
@@ -261,7 +270,7 @@ input[type="tel"] {
   font-size: 1rem;
   height: 3.375rem !important;
   border: .0625rem solid #E8E8E8;
-  padding: 0 .5rem;
+  padding: 0 1rem;
   border-radius: .5rem;
   background-color: #fff;
   margin: 0 !important;
@@ -296,7 +305,7 @@ textarea {
   height: 12.5rem;
   padding: .625rem !important;
   font-size: 1rem !important;
-  border: .0625rem solid #ccc;
+  border: .0625rem solid #E8E8E8;
   font-weight: 400;
   border-radius: .25rem;
   margin-bottom: .5rem;
@@ -311,11 +320,13 @@ input[type="file"] {
 
 /* 버튼 스타일 */
 .cancel_store {
-  font-size: .875rem;
-  font-weight: 400;
-  width: 13.5rem;
-  height: 3.1875rem;
-  border: .0625rem solid #00a7b3;
+  border: .0625rem solid #ccc;
+  color: #777;
+  transition: background-color 0.3s;
+}
+
+.cancel_store:hover {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .submit_store {
@@ -324,8 +335,13 @@ input[type="file"] {
   width: 13.5rem;
   height: 3.1875rem;
   color: #ffffff;
-  border: .0625rem solid #00a7b3;
-  background: #00a7b3;
+  border: .0625rem solid #ff7400;
+  background: #ff7400;
+  transition: background-color 0.3s;
+}
+
+.submit_store:hover {
+  background-color: #c96208;
 }
 
 
@@ -337,7 +353,7 @@ p {
 }
 
 .insert_store_box {
-  width: 31.25rem;
+  width: 90%;
   margin: 0 auto;
   text-align: left;
 }

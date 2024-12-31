@@ -1,13 +1,19 @@
 <script setup>
 import { ref, onMounted, computed, watch } from "vue";
 import { useInformationsStore } from '../../../stores/useInformationsStore';
-import { useRouter } from 'vue-router'
-const router = useRouter()
+import { useRoute, useRouter } from 'vue-router'
 
 const myinfoStore = useInformationsStore();
-const cancel = () => {
-    router.push(`/mypage/seller`);
-}
+
+const route = useRoute();
+const router = useRouter();
+
+const userType = computed(() => {
+    const pathSegments = route.path.split("/");
+    if (pathSegments[2] === "seller") return "사업자";
+    else return "일반";
+});
+
 
 // 모달 상태 및 관련 변수 정의
 const isPostcodeModalVisible = ref(false); // 우편번호 검색 모달 여부
@@ -86,6 +92,23 @@ const updateEmail = () => {
         myinfoStore.email = `${emailUsername.value}@${selectedEmailDomain.value}`;
     }
 };
+
+const updateUserInfo = (() => { 
+    const result = confirm("정보를 수정하시겠습니까?");
+    if (result) {
+        alert("수정되었습니다.");
+    }
+})
+
+const deleteAccount = (() => { 
+    const result = confirm("탈퇴하시겠습니까? 계정과 관련된 모든 정보는 삭제됩니다.");
+    if (result) {
+        alert("탈퇴되었습니다.");
+        router.push({ path: "/" }).then(() => {
+            history.pushState(null, "", "/"); // 브라우저 히스토리 대체
+        });
+    }
+})
 </script>
 <template>
     <div id="wrap">
@@ -94,7 +117,7 @@ const updateEmail = () => {
           <div class="mypage_cont">
             <div class="join_base_wrap">
               <section class="profile_box join_common">
-                <div class="modify_title" style="margin: 3.125rem 0 1.875rem 0.625rem">
+                <div class="modify_title">
                   <strong>내 정보 수정</strong>
                 </div>
   
@@ -107,6 +130,10 @@ const updateEmail = () => {
                   <dl>
                     <dt>휴대폰번호</dt>
                     <dd>{{ myinfoStore.informations[0]?.phone }}</dd>
+                  </dl>
+                  <dl>
+                    <dt>유형</dt>
+                    <dd>{{ userType }} 회원</dd>
                   </dl>
                 </div>
   
@@ -233,7 +260,6 @@ const updateEmail = () => {
               </section>
   
               <div class="btn_center_box">
-                <button type="button" class="btn_member_cancel" @click="cancelChanges">취소</button>
                 <button type="button" class="btn_comfirm" @click="updateUserInfo">정보수정</button>
                 <button type="button" class="btn_member_out" @click="deleteAccount">회원탈퇴</button>
               </div>
@@ -356,7 +382,7 @@ const updateEmail = () => {
   }
   
   .join_common {
-    width: 31.25rem;
+    width: 34rem;
     margin: 0 auto;
     text-align: left;
   }
@@ -442,11 +468,11 @@ const updateEmail = () => {
     border-radius: 0.5rem;
     padding: 0 1.125rem;
     font-size: 1rem;
-    color: #00a7b3;
+    color: #ff7400;
     box-shadow: none;
     display: flex;
     align-items: center;
-    border: 0.0625rem solid #00a7b3;
+    border: 0.0625rem solid #ff7400;
     flex-shrink: 0;
   }
   
@@ -455,11 +481,11 @@ const updateEmail = () => {
     border-radius: 0.5rem;
     padding: 0 1.125rem;
     font-size: 1rem;
-    color: #00a7b3;
+    color: #ff7400;
     box-shadow: none;
     display: flex;
     align-items: center;
-    border: 0.0625rem solid #00a7b3;
+    border: 0.0625rem solid #ff7400;
     flex-shrink: 0;
   }
   
@@ -475,28 +501,40 @@ const updateEmail = () => {
   }
   
   .mypage_wrap .mypage_cont .join_base_wrap .btn_center_box {
-    margin: 3.75rem 0 0 0;
+    margin-top: 3rem;
   }
   
   .join_base_wrap .btn_center_box button {
-    font-size: 1.125rem;
-    font-weight: 400;
-    width: 13.5rem;
+    font-size: 1rem;
+    width: 11rem;
     height: 3.1875rem;
     margin-right: 1rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
   }
   
   .btn_member_cancel {
-    border: 0.0625rem solid #00a7b3;
+    border: 0.0625rem solid #ccc;
     background: #fff;
     cursor: pointer;
+    color: #777;
+      transition: background-color 0.3s;
+  }
+
+  .btn_member_cancel:hover{
+    background-color: rgba(0, 0, 0, 0.05);
   }
   
   .btn_comfirm {
     color: #ffffff;
-    border: 0.0625rem solid #00a7b3;
-    background: #00a7b3;
+    border: 0.0625rem solid #ff7400;
+    background: #ff7400;
     cursor: pointer;
+      transition: background-color 0.3s;
+  }
+
+  .btn_comfirm:hover {
+    background-color: #c96208;
   }
   
   .btn_member_out {
@@ -504,6 +542,11 @@ const updateEmail = () => {
     border: 0.0625rem solid #f33;
     background: #fff;
     cursor: pointer;
+      transition: background-color 0.3s;
+  }
+
+  .btn_member_out:hover {
+    background-color: rgba(255, 51, 51, 0.1);
   }
   
   .join_common table .member_email .member_warning input[type="text"] {
@@ -523,10 +566,11 @@ const updateEmail = () => {
   .chosen-select {
     border-radius: 0.5rem;
     font-size: 1rem;
+    padding: 0 0.5rem;
   }
   
   .modify_title {
-    font-size: 1.875rem;
+    font-size: 1.4rem;
   }
   .btn_gray_list {
     padding: 0.3125rem 0.6875rem 0.3125rem 0.6875rem;
