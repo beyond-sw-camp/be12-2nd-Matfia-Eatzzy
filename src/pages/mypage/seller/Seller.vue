@@ -10,7 +10,6 @@ const route = useRoute();
   <div class="main">
     <SellerMenu></SellerMenu>
     <div class="SellerContainer">
-      <ClientSummary v-if="route.path === '/mypage/seller'" />
       <router-view></router-view>
     </div>
   </div>

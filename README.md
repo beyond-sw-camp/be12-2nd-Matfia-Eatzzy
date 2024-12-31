@@ -3,7 +3,7 @@
 <h1 align="center" style="color: #FFD675;">🍽️ Eatzzy </h1>
 
 <div align="center">
-  <img src="/public/logo.png" alt="eatzzy logo" width="800" height="400" />
+  <img src="/public/image/logo.png" alt="eatzzy logo" width="800" height="400" />
 </div>
 
 <h4 align="center">3팀 - Team Matfia </h4>
@@ -14,7 +14,7 @@
 
 <div align="center">
 
-|   <img src="/public/bibim.png" width="100" height="100"/>   |   <img src="/public/tteok.png" width="100" height="100"/>   | <img src="/public/icecream.png" width="100" height="100"/>  |  <img src="/public/sushi.png" width="100" height="100"/>  |    <img src="/public/ramen.png" width="100" height="100"/>    |     <img src="/public/burger.png" width="100" height="100"/>      |
+|   <img src="/public/image/bibim.png" width="100" height="100"/>   |   <img src="/public/image/tteok.png" width="100" height="100"/>   | <img src="/public/image/icecream.png" width="100" height="100"/>  |  <img src="/public/image/sushi.png" width="100" height="100"/>  |    <img src="/public/image/ramen.png" width="100" height="100"/>    |     <img src="/public/image/burger.png" width="100" height="100"/>      |
 | :--------------------------------------------------------: | :--------------------------------------------------------: | :--------------------------------------------------------: | :------------------------------------------------------: | :----------------------------------------------------------: | :--------------------------------------------------------------: |
 | 🐰 **박상미**<br/>[@miyad927](https://github.com/miyad927) | 🧶 **박세연**<br/>[@yeon7485](https://github.com/yeon7485) | ⚽ **안규호**<br/>[@Ahngyuho](https://github.com/Ahngyuho) | 🤪 **오승재**<br/>[@dhtmdwo](https://github.com/dhtmdwo) | 🐢 **유승호**<br/>[@seungho99](https://github.com/seungho99) | 🐉 **천태훈**<br/>[@taehoon0518](https://github.com/taehoon0518) |
 

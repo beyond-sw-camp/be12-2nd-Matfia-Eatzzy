@@ -7,25 +7,25 @@
       <li>
         내 정보
         <ul class="eachList">
-          <router-link to="/mypage/seller/myinfo_modify"><li>- 내정보 수정</li></router-link>
+          <router-link to="/mypage/seller/my-info/modify"><li>- 내정보 수정</li></router-link>
         </ul>
       </li>
       <li>
         식당
         <ul class="eachList">
-          <router-link to="/mypage/seller/insert_store"><li>- 식당 등록</li></router-link>
-          <router-link to="/mypage/seller/seller_store"><li>- 식당 조회</li></router-link>
-          <router-link to="/mypage/seller/seller_rsv"><li>- 고객 예약 조회</li></router-link>
+          <router-link to="/mypage/seller/store/create"><li>- 식당 등록</li></router-link>
+          <router-link to="/mypage/seller/store"><li>- 식당 조회</li></router-link>
+          <router-link to="/mypage/seller/store/rsv"><li>- 고객 예약 조회</li></router-link>
         </ul>
       </li>
       <li>
         상품
         <ul class="eachList">
-          <router-link to="/mypage/seller/pregister"><li>- 상품 등록</li></router-link>
+          <router-link to="/mypage/seller/product/register"><li>- 상품 등록</li></router-link>
           <router-link to="/mypage/seller/product"><li>- 내가 등록한 상품 조회</li></router-link>
-          <router-link to="/mypage/seller/modify"><li>- 상품 수정</li></router-link>
+          <router-link to="/mypage/seller/product/modify"><li>- 상품 수정</li></router-link>
           <router-link to="/mypage/seller/order"><li>- 주문 내역 확인</li></router-link>
-          <router-link to="/mypage/seller/sregister"><li>- 배송 등록</li></router-link>
+          <router-link to="/mypage/seller/delivery/register"><li>- 배송 등록</li></router-link>
           
         </ul>
       </li>

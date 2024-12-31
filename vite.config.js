@@ -12,6 +12,11 @@ export default defineConfig({
         changeOrigin: true, // 대상 서버의 호스트 헤더 변경 여부
         rewrite: (path) => path.replace(/^\/api/, ""), // '/api' 부분 제거
       },
+      "/psy": {
+        target: "http://localhost:3000",
+        changeOrigin: true, 
+        rewrite: (path) => path.replace(/^\/psy/, ""), 
+      },
     },
   },
 });
