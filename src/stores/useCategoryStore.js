@@ -14,7 +14,7 @@ export const useCategoryStore = defineStore("category", {
   actions: {
     async getBigCategory() {
       await axios
-        .get("https://run.mocky.io/v3/411b95ab-4c34-4f25-8e81-bd5dfe5fb153")
+        .get("/psy/bigCategory")
         .then((response) => {
           this.bigCategory = response.data.category;
           return response.data.category;
@@ -26,7 +26,7 @@ export const useCategoryStore = defineStore("category", {
 
     async getSmallCategory(refId = 1) {
       await axios
-        .get("https://run.mocky.io/v3/62022424-b24d-4a1f-9454-8c02ae82bc20", {
+        .get("/psy/smallCategory", {
           ref_id: refId,
         })
         .then((response) => {
