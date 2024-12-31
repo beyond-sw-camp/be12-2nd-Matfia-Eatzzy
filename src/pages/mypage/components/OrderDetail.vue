@@ -1,9 +1,9 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useOrderStore } from "../../../stores/useOrderStore";
-import ProductItem from "./components/ProductItem.vue";
-import { formatPrice } from "../../../utils/formatPrice.js";
+import { formatPrice } from "../../../utils/formatPrice";
+import ProductItem from "../client/components/ProductItem.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -26,6 +26,11 @@ const orderData = ref({
   products: [],
 });
 
+const userType = computed(() => {
+  const pathSegments = route.path.split("/");
+  return pathSegments[2]; // 경로의 두 번째 부분 (client 또는 seller)
+});
+
 const cancelOrder = () => {
   const result = confirm("주문을 취소하시겠습니까?");
   if (result) {
@@ -34,10 +39,13 @@ const cancelOrder = () => {
   }
 };
 
+const registerDelivery = (orderId) => {
+  router.push(`/mypage/seller/orders/${orderId}/delivery/register`);
+};
+
 onMounted(async () => {
   const id = Number(route.params.id);
   const result = await orderStore.getClientOrderDetail(id);
-  console.log(result);
   orderData.value = result.order;
 });
 </script>
@@ -119,15 +127,26 @@ onMounted(async () => {
         </div>
       </div>
     </div>
-    <div id="cancel" class="box">
+    <div v-if="userType === 'client'" id="btn" class="box">
       <p>주문 취소는 [결제 완료] 상태일 때만 가능합니다.</p>
       <button
-        class="cancel_btn"
+        class="btn"
         :class="{ disabled: orderData.status !== '결제 완료' }"
         :disabled="orderData.status !== '결제 완료'"
         @click="cancelOrder"
       >
         전체 상품 주문 취소
+      </button>
+    </div>
+    <div v-if="userType === 'seller'" id="btn" class="box">
+      <p>배송 등록은 [결제 완료] 상태일 때만 가능합니다.</p>
+      <button
+        class="btn"
+        :class="{ disabled: orderData.status !== '결제 완료' }"
+        :disabled="orderData.status !== '결제 완료'"
+        @click="registerDelivery(orderData.idx)"
+      >
+        배송 등록하기
       </button>
     </div>
   </div>
@@ -224,12 +243,12 @@ h1 {
 }
 
 /* 주문 취소 */
-#cancel > p {
+#btn > p {
   color: #848f9a;
   margin-bottom: 0.7rem;
 }
 
-.cancel_btn {
+.btn {
   width: 100%;
   border: 1px solid #1a1a1a;
   border-radius: 0.5rem;
@@ -238,16 +257,16 @@ h1 {
   font-weight: 700;
 }
 
-.cancel_btn:hover {
+.btn:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-.cancel_btn.disabled {
+.btn.disabled {
   color: #ccc;
   border-color: #ccc;
 }
 
-.cancel_btn.disabled:hover {
+.btn.disabled:hover {
   background-color: white;
 }
 </style>
