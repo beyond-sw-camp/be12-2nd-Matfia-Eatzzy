@@ -9,8 +9,6 @@ onMounted(() => {
 });
 </script>
 
-</script>
-
 <template>
   <div class="review_item" v-for="(PBreview, index) in reviewableStore.products" :key="index">
     <a href="/products/1" class="review_left">
