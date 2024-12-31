@@ -680,12 +680,12 @@
           >
             리뷰
           </li>
-          <li
+          <!-- <li
             class="submenu_item"
             style="font-weight: 400; color: rgb(26, 26, 26)"
           >
             밀키트
-          </li>
+          </li> -->
         </ul>
         <ProductDescription
           v-if="productStore.productTab === 'description'"
