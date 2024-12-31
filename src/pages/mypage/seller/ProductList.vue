@@ -37,7 +37,6 @@ onMounted(() => {
 <template>
   <div class="product_container">
     <h1>내 상품 리스트</h1>
-    <div class="line"></div>
     <div class="grid header">
       <div>상품명</div>
       <div>상품금액</div>
@@ -101,6 +100,9 @@ onMounted(() => {
   gap: 1rem;
   align-items: center;
   padding: 0 0.5rem;
+}
+.product_name:hover {
+  text-decoration: underline;
 }
 
 .product_name > img {
