@@ -125,70 +125,7 @@ const props = defineProps({
     type: Object,
     required: true,
   },
-  isChecked: {
-    type: Boolean,
-    required: true,
-  },
 });
-const emit = defineEmits(["update:isChecked", "update:cartProduct"]);
-const onClick = () => {
-  // console.log(!props.isChecked);
-  emit("update:isChecked", !props.isChecked);
-  if (!props.isChecked == false) cartStore.isAllChecked = false;
-  if (!props.isChecked == true) cartStore.isAllChecked = true;
-};
-const totalPrice = computed(() => {
-  const price = props.cartProduct?.price || 0; // 가격이 없을 경우 기본값 0
-  return productCnt.value * price;
-});
-const productCnt = ref(props.cartProduct.quantity);
-// const addCart = () => {
-//   productCnt.value += 1;
-//   const newQuantity = props.cartProduct.quantity + 1;
-
-//   // 새로운 객체를 생성하여 emit
-//   const updatedProduct = { ...props.cartProduct, quantity: newQuantity };
-//   emit("update:cartProduct", updatedProduct);
-// };
-
-// const substactCart = () => {
-//   if (productCnt.value === 1) {
-//     alert("상품은 1개 이상 장바구니에 담아야 합니다.");
-//     return;
-//   }
-//   productCnt.value -= 1;
-//   const newQuantity = props.cartProduct.quantity - 1;
-
-//   // 새로운 객체를 생성하여 emit
-//   const updatedProduct = { ...props.cartProduct, quantity: newQuantity };
-//   emit("update:cartProduct", updatedProduct);
-// };
-
-const addCart = () => {
-  productCnt.value = productCnt.value + 1;
-  const newQuantity = props.cartProduct.quantity + 1;
-  const updatedProduct = {
-    ...props.cartProduct,
-    id: props.cartProduct.id,
-    quantity: newQuantity,
-  };
-  emit("update:cartProduct", updatedProduct);
-};
-const substactCart = () => {
-  if (productCnt.value == 1) {
-    alert("상품은 1개 이상 장바구니에 담을 수 있습니다.");
-    return;
-  } else {
-    productCnt.value = productCnt.value - 1;
-    const newQuantity = props.cartProduct.quantity - 1;
-    const updatedProduct = {
-      ...props.cartProduct,
-      id: props.cartProduct.id,
-      quantity: newQuantity,
-    };
-    emit("update:cartProduct", updatedProduct);
-  }
-};
 </script>
 
 <style></style>
