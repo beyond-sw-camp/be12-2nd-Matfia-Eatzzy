@@ -14,7 +14,7 @@ import CreateReview from "../pages/mypage/client/CreateReview.vue";
 import ProductList from "../pages/mypage/seller/ProductList.vue";
 import ProductOrder from "../pages/mypage/seller/ProductOrder.vue";
 import Seller from "../pages/mypage/seller/Seller.vue";
-import ShippingRegister from "../pages/mypage/seller/DeliveryRegister.vue";
+import DeliveryRegister from "../pages/mypage/seller/DeliveryRegister.vue";
 import Products from "../pages/product/Products.vue";
 import ProductDetail from "../pages/product/components/ProductDetail.vue";
 import StoreDetail from "../pages/store/StoreDetail.vue";
@@ -23,7 +23,6 @@ import Join from "../pages/user/Join.vue";
 import JoinAgreement from "../pages/user/JoinAgreement.vue";
 import JoinForm from "../pages/user/JoinForm.vue";
 import Login from "../pages/user/LoginView.vue";
-import { useMemberStore } from "../stores/useMemberStore";
 
 import ProductEdit from "../pages/mypage/seller/ProductEdit.vue";
 import SellerInsertMenu from "../pages/mypage/seller/SellerInsertMenu.vue";
@@ -36,7 +35,7 @@ import SellerModifyMenu from "../pages/mypage/seller/SellerModifyMenu.vue";
 import Order from "../pages/order/Order.vue";
 import OrderDetail from "../pages/mypage/components/OrderDetail.vue";
 import MyInfo from "../pages/mypage/components/MyInfo.vue";
-
+import SellerMenuList from "../pages/mypage/seller/SellerMenuList.vue";
 
 const checkUserType = (from, to, next) => {
   // 고객인지 점주인지 확인 후 경로 이동
@@ -103,7 +102,7 @@ const routes = [
           { path: "store/rsv", component: SellerReservationCard },
           { path: "store/create", component: SellerInsertStore },
           { path: "store/modify/:id", component: SellerModifyStore },
-          { path: "menu/insert", component: SellerInsertMenu },
+          { path: "store/menu/insert", component: SellerInsertMenu },
           { path: "orders", component: ProductOrder },
           { path: "orders/:id", component: OrderDetail },
           {
@@ -111,22 +110,10 @@ const routes = [
             component: DeliveryRegister,
           },
           { path: "product", component: ProductList },
-          {
-            path: "product/register",
-            component: ProductEdit,
-          },
-          {
-            path: "product/modify",
-            component: ProductEdit,
-          },
-          {
-            path: "store_menu/:id",
-            component: SellerMenuCard,
-          },
-          {
-            path: "menu_modify/:id",
-            component: SellerModifyMenu,
-          },
+          { path: "product/register", component: ProductEdit },
+          { path: "product/modify", component: ProductEdit },
+          { path: "store/:id/menu", component: SellerMenuList },
+          { path: "menu_modify/:id", component: SellerModifyMenu },
         ],
       },
     ],
