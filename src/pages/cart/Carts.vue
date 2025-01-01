@@ -60,7 +60,7 @@
                       data-target-form="#frmCart"
                       :checked="cartStore.isAllChecked"
                       data-gtm-form-interact-field-id="0"
-                      @click="allCheck"
+                      @click="cartStore.allCheck"
                     />
                     <label for="allCheck1" class="check_s"></label>
                   </div>
@@ -118,18 +118,22 @@
                     상품금액
                   </p>
                   <p class="price">
-                    <strong>{{ totalPriceInCarts }}</strong
+                    <strong>{{ cartStore.calTotalPrice }}</strong
                     >원
                   </p>
                 </div>
-                <img
+                <!-- <img
                   src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/order_price_total.png"
                   alt="합계"
-                />
+                /> -->
                 <!-- <div>
                   <p>상품할인</p>
                   <p class="price"><strong>3,960</strong>원</p>
                 </div>
+                <img
+                  src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/order_price_plus.png"
+                  alt="더하기"
+                /> -->
                 <img
                   src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/order_price_plus.png"
                   alt="더하기"
@@ -141,11 +145,11 @@
                 <img
                   src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/order_price_total.png"
                   alt="합계"
-                /> -->
+                />
                 <div class="price_total">
                   <p>합계</p>
                   <p class="price">
-                    <strong>{{ totalPriceInCarts }}</strong
+                    <strong>{{ cartStore.getTotalPrice }}</strong
                     >원
                   </p>
                 </div>
@@ -192,6 +196,7 @@ const cartStore = useCartStore();
 onMounted(async () => {
   await cartStore.getCartProducts();
   initalProductCheckList();
+  console.log(cartStore.cartProducts);
   // console.log(cartProductCheckList.value);
 });
 </script>

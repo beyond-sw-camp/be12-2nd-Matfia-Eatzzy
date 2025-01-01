@@ -3,12 +3,12 @@
     <td class="td_chk">
       <div class="form_element">
         <input
-          @click="onClick"
+          @change="cartStore.toggleCheck(cartProduct.productId)"
           type="checkbox"
           :id="`cartSno1_${cartProduct.productId}`"
           name="cartSno[]"
           value="4556515"
-          :checked="isChecked"
+          :checked="cartStore.cartChecked[cartProduct.productId]"
           data-price="31600"
           data-mileage="310"
           data-goodsdc="0"
@@ -75,7 +75,11 @@
       <div class="order_goods_num">
         <div>
           <span class="count_box">
-            <button class="minus" value @click="substactCart"></button>
+            <button
+              class="minus"
+              value
+              @click="cartStore.changeQuantity(cartProduct.productId, -1)"
+            ></button>
             <span class="min_order_cnt" style="display: none">1</span>
             <input type="hidden" name="sale_unit" value="1" />
             <span class="stock_cnt" style="display: none">0</span>
@@ -85,13 +89,13 @@
               name="goodsCnt[]"
               class="goodsCnt"
               id="_goodsCnt_4556515"
-              :value="productCnt"
+              :value="cartProduct.quantity"
             />
             <button
               type="button"
               class="plus"
               value=""
-              @click="addCart"
+              @click="cartStore.changeQuantity(cartProduct.productId, +1)"
             ></button>
             <span class="max_order_cnt" style="display: none">0</span>
           </span>
@@ -110,7 +114,7 @@
     </td>
     <td>
       <strong class="order_sum_txt">
-        {{ totalPrice }}
+        {{ cartProduct.totalPrice }}
       </strong>
     </td>
   </tr>
@@ -119,13 +123,13 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useCartStore } from "../../stores/useCartStore";
-const cartStore = useCartStore();
 const props = defineProps({
   cartProduct: {
     type: Object,
     required: true,
   },
 });
+const cartStore = useCartStore();
 </script>
 
 <style></style>
