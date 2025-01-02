@@ -1,8 +1,17 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useReviewableStore } from "../../../../stores/useReviewableStore";
+import { useReviewStore } from "../../../../stores/useReviewStore";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
+const reviewStore = useReviewStore();
 const reviewableStore = useReviewableStore();
+
+const createReview = (product) => {
+  reviewStore.setProduct(product);
+  router.push("/mypage/client/product/review/create");
+};
 
 onMounted(() => {
   reviewableStore.getreviewableStores();
@@ -10,14 +19,24 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="review_item" v-for="(PBreview, index) in reviewableStore.reviewableProducts" :key="index">
+  <div
+    class="review_item"
+    v-for="(PBreview, index) in reviewableStore.reviewableProducts"
+    :key="index"
+  >
     <a href="/products/1" class="review_left">
       <div class="review_itemName">{{ PBreview.product_name }}</div>
-      <img :src="PBreview.review_images" alt="Review Image" class="review_image" />
+      <img
+        :src="PBreview.review_images"
+        alt="Review Image"
+        class="review_image"
+      />
     </a>
     <div class="review_right notYet_right">
       <div class="review_date">{{ PBreview.purchase }}</div>
-      <button class="review_button">리뷰 쓰러 가기</button>
+      <button class="review_button" @click="createReview(PBreview)">
+        리뷰 쓰러 가기
+      </button>
     </div>
   </div>
 </template>

@@ -3,14 +3,8 @@ import { defineStore } from "pinia";
 
 export const useReviewStore = defineStore("review", {
   state: () => ({
-    store: {},
-    product: {
-      name: "마라떡볶이",
-      price: 14000,
-      orderDate: "24.12.20",
-      image:
-        "https://thenaum.cdn-nhncommerce.com/data/goods/15/01/26/1000000463/1000000463_magnify_07.jpg",
-    },
+    store: { reservation: "", review_image: "", store_name: "" },
+    product: {},
   }),
 
   actions: {
@@ -34,6 +28,12 @@ export const useReviewStore = defineStore("review", {
         }
       );
       return response.data;
+    },
+    setStore(newStore) {
+      this.store = newStore;
+    },
+    setProduct(newProduct) {
+      this.product = newProduct;
     },
   },
 });
