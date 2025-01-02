@@ -119,14 +119,17 @@
 <details>
   <summary>상품 조회</summary>
    <div markdown="1">
-     <img src="/public/gif/상품조회.gif" alt="상품조회" />
+     <img src="/public/gif/상품페이지에서상품상세페이지와장바구니이동.gif" alt="상품조회" />
+     <img src="/public/gif/상품페이지에서장바구니이동.gif" alt="상품조회" />
   <br>
   </div>
 </details>
 
-<!-- <details>
+<details>
   <summary>장바구니</summary>
    <div markdown="1">
+   <img src="/public/gif/장바구니상세기능및전체상품주문으로주문이동.gif" alt="장바구니" />
+   <img src="/public/gif/선택상품주문.gif" alt="장바구니" />
   <br>
   </div>
 </details>
@@ -136,7 +139,7 @@
    <div markdown="1">
   <br>
   </div>
-</details> -->
+</details>
 
 <br>
 
