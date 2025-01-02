@@ -7,6 +7,8 @@ import StoreDescription from "./components/StoreDescription.vue";
 import StoreMenuList from "./components/StoreMenuList.vue";
 import StoreReviewList from "./components/StoreReviewList.vue";
 import ImgCarousel from "./components/ImgCarousel.vue";
+import { useLoadingStore } from "../../stores/useLoadingStore";
+import { VueSpinner } from "vue3-spinners";
 
 const storeData = ref({
   name: "",
@@ -24,24 +26,36 @@ const storeData = ref({
   menus: [],
   images: [],
 });
+const like = ref(false);
 
 const route = useRoute();
+const loadingStore = useLoadingStore();
 const storesStore = useStoresStore();
 
 const changeTab = (tab) => {
   storesStore.setStoreTab(tab);
 };
 
+const likeClick = () => { 
+  like.value = !like.value;
+}
+
 onMounted(async () => {
+  loadingStore.startLoading("storeDetail");
   const storeIdx = route.params.id;
   const result = await storesStore.getStoreDetail(storeIdx);
   storeData.value = result.store;
-  console.log(storeData.value);
+  setTimeout(() => {
+    loadingStore.stopLoading();
+  }, 500);
 });
 </script>
 
 <template>
-  <div class="main">
+    <div v-if="loadingStore.getIsLoading('storeDetail')" class="spinner_box">
+      <VueSpinner size="30" color="#ff7400"/>
+    </div>
+  <div v-else class="main">
     <section class="store">
       <div class="store_info">
         <ImgCarousel :images="storeData.images" />
@@ -49,8 +63,9 @@ onMounted(async () => {
         <div class="title_grade_box">
           <div class="title_box">
             <h1 class="name">{{ storeData.name }}</h1>
-            <button class="heart_box">
-              <img src="/src/assets/icons/heart_fill.svg" alt="heart" />
+            <button class="heart_box" @click="likeClick">
+              <img v-if="!like" src="/src/assets/icons/heart_empty.svg" alt="heart" />
+              <img v-if="like" src="/src/assets/icons/heart_fill.svg" alt="heart" />
             </button>
           </div>
 
@@ -113,7 +128,6 @@ onMounted(async () => {
         >
           리뷰
         </li>
-        <li class="store_tab_item">밀키트</li>
       </ul>
 
       <StoreDescription
@@ -134,6 +148,12 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+.spinner_box {
+  width: 4rem;
+  height: 20rem;
+  margin: 10rem auto;
+}
+
 .main {
   display: flex;
   justify-content: space-between;

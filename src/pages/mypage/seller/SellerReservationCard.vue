@@ -1,7 +1,9 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { useReservationStore } from "../../../stores/useReservationStore";
+import { useLoadingStore } from "../../../stores/useLoadingStore";
 
+const loadingStore = useLoadingStore();
 const reservationStore = useReservationStore();
 
 const isModalVisible = ref(false);
@@ -73,7 +75,11 @@ const handleDateChange = (event) => {
 };
 
 onMounted(async () => {
+  loadingStore.startLoading();
   await reservationStore.getSellerReservationsList();
+    setTimeout(() => {
+    loadingStore.stopLoading();
+  }, 500);
 });
 </script>
 
@@ -87,6 +93,10 @@ onMounted(async () => {
       <div class="filter">
         <label for="date-filter">이용일 :</label>
         <input type="date" id="date-filter" v-model="selectedDate" @change="handleDateChange" /> 
+      </div>
+
+      <div v-if="loadingStore.isLoading" class="spinner_box">
+        <VueSpinner size="30" color="#ff7400"/>
       </div>
 
       <table>
@@ -165,6 +175,12 @@ onMounted(async () => {
 
 
 <style scoped>
+.spinner_box {
+  width: 4rem;
+  height: 20rem;
+  margin: 10rem auto;
+}
+
 .rsv_alert_modal{
   margin: .625rem 0 0 0;
 }

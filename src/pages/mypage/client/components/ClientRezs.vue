@@ -31,6 +31,7 @@ onMounted(() => {
       <div>
         <div class="rez_date">{{ review.reservation }}</div>
         <div class="rez_time">{{ review.rez_time }}</div>
+        <div class="rez_count">2명</div>
       </div>
       <button class="rez_button" @click="handleCancelClick(review.id)">예약 취소하기</button>
     </div>
@@ -80,10 +81,11 @@ onMounted(() => {
   align-items: flex-start;
 }
 .rez_date {
-  font-size: 1.25rem;
+  font-size: 1rem;
+  font-weight: 500;
 }
 .rez_time {
-  font-size: 0.9375rem;
+  font-size: 0.9rem;
   margin-bottom: 0.9375rem;
 }
 .rez_button {
