@@ -161,7 +161,7 @@
 <details>
   <summary>식당 리뷰 작성</summary>
   <div markdown="1">
-  <img src="/public/gif/식당리뷰작성.gif" alt="식당리뷰작성"/>
+  <img src="/public/gif/식당리뷰등록.gif" alt="식당리뷰작성"/>
   <br>
   </div>
 </details>
@@ -190,6 +190,7 @@
 <details>
   <summary>식당 등록</summary>
   <div markdown="1">
+    <img src="/public/gif/점주_식당등록.gif" alt="식당등록"/>
   <br>
   </div>
 </details>
@@ -197,6 +198,7 @@
 <details>
   <summary>내 식당 조회</summary>
   <div markdown="1">
+  <img src="/public/gif/점주_식당조회.gif" alt="점주 식당조회"/>
   <br>
   </div>
 </details>
@@ -204,6 +206,7 @@
 <details>
   <summary>고객 예약 조회</summary>
   <div markdown="1">
+    <img src="/public/gif/점주_예약내역.gif" alt="점주 예약내역"/>
   <br>
   </div>
 </details>
