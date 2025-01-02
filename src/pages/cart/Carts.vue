@@ -60,7 +60,7 @@
                       data-target-form="#frmCart"
                       :checked="cartStore.isAllChecked"
                       data-gtm-form-interact-field-id="0"
-                      @click="allCheck"
+                      @click="cartStore.allCheck"
                     />
                     <label for="allCheck1" class="check_s"></label>
                   </div>
@@ -76,12 +76,8 @@
               <!-- TODO : emit 와 props 추가 장바구니 체크 리스트 기능 때문 -->
               <CartCard
                 v-for="cartProduct in cartStore.cartProducts"
-                :cartProduct="cartProduct"
+                :cartProduct="{ ...cartProduct }"
                 :key="cartProduct.productId"
-                v-model:isChecked="
-                  findCheckedItem(cartProduct.productId).isChecked
-                "
-                @update:cartProduct="updateCartProduct"
               ></CartCard>
             </tbody>
           </table>
@@ -122,18 +118,22 @@
                     상품금액
                   </p>
                   <p class="price">
-                    <strong>{{ totalPriceInCarts }}</strong
+                    <strong>{{ cartStore.calTotalPrice }}</strong
                     >원
                   </p>
                 </div>
-                <img
+                <!-- <img
                   src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/order_price_total.png"
                   alt="합계"
-                />
+                /> -->
                 <!-- <div>
                   <p>상품할인</p>
                   <p class="price"><strong>3,960</strong>원</p>
                 </div>
+                <img
+                  src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/order_price_plus.png"
+                  alt="더하기"
+                /> -->
                 <img
                   src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/order_price_plus.png"
                   alt="더하기"
@@ -145,11 +145,11 @@
                 <img
                   src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/order_price_total.png"
                   alt="합계"
-                /> -->
+                />
                 <div class="price_total">
                   <p>합계</p>
                   <p class="price">
-                    <strong>{{ totalPriceInCarts }}</strong
+                    <strong>{{ cartStore.getTotalPrice }}</strong
                     >원
                   </p>
                 </div>
@@ -192,56 +192,11 @@ import "./../../../src/assets/cart/cart.css";
 import { useCartStore } from "../../stores/useCartStore";
 import { onMounted } from "vue";
 const cartStore = useCartStore();
-const cartProductCheckList = ref([]);
-const initalProductCheckList = () => {
-  cartProductCheckList.value = cartStore.cartProducts.map((product) => ({
-    id: product.productId,
-    isChecked: true,
-  }));
-};
-const allCheck = () => {
-  if (cartStore.isAllChecked) {
-    for (const cartProductCheck of cartProductCheckList.value) {
-      cartProductCheck.isChecked = false;
-    }
-    cartStore.isAllChecked = false;
-  } else {
-    for (const cartProductCheck of cartProductCheckList.value) {
-      cartProductCheck.isChecked = true;
-    }
-    cartStore.isAllChecked = true;
-  }
-};
-const updateCartProduct = (updatedProduct) => {
-  const index = cartStore.cartProducts.findIndex(
-    (product) => product.id === updatedProduct.id
-  );
-  if (index !== -1) {
-    cartStore.cartProducts[index] = updatedProduct; // 배열의 특정 항목 업데이트
-    cartStore.cartProducts[index].totalPrice =
-      cartStore.cartProducts[index].price *
-      cartStore.cartProducts[index].quantity;
-  }
-};
 
-const findCheckedItem = (id) => {
-  // console.log(cartProductCheckList.value);
-  // console.log("value[0] ", cartProductCheckList.value[0]);
-  // console.log(cartProductCheckList.value[0].isChecked);
-  return cartProductCheckList.value.find((item) => item.id == id);
-};
-
-const totalPriceInCarts = computed(() => {
-  let totalPrice = 0;
-  for (const product of cartStore.cartProducts) {
-    if (findCheckedItem(product.productId).isChecked)
-      totalPrice += product.totalPrice;
-  }
-  return totalPrice;
-});
 onMounted(async () => {
   await cartStore.getCartProducts();
   initalProductCheckList();
+  console.log(cartStore.cartProducts);
   // console.log(cartProductCheckList.value);
 });
 </script>

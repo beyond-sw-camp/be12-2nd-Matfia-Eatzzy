@@ -3,12 +3,12 @@
     <td class="td_chk">
       <div class="form_element">
         <input
-          @click="onClick"
+          @change="cartStore.toggleCheck(cartProduct.productId)"
           type="checkbox"
           :id="`cartSno1_${cartProduct.productId}`"
           name="cartSno[]"
           value="4556515"
-          :checked="isChecked"
+          :checked="cartStore.cartChecked[cartProduct.productId]"
           data-price="31600"
           data-mileage="310"
           data-goodsdc="0"
@@ -75,7 +75,11 @@
       <div class="order_goods_num">
         <div>
           <span class="count_box">
-            <button class="minus" value @click="substactCart"></button>
+            <button
+              class="minus"
+              value
+              @click="cartStore.changeQuantity(cartProduct.productId, -1)"
+            ></button>
             <span class="min_order_cnt" style="display: none">1</span>
             <input type="hidden" name="sale_unit" value="1" />
             <span class="stock_cnt" style="display: none">0</span>
@@ -85,13 +89,13 @@
               name="goodsCnt[]"
               class="goodsCnt"
               id="_goodsCnt_4556515"
-              :value="productCnt"
+              :value="cartProduct.quantity"
             />
             <button
               type="button"
               class="plus"
               value=""
-              @click="addCart"
+              @click="cartStore.changeQuantity(cartProduct.productId, +1)"
             ></button>
             <span class="max_order_cnt" style="display: none">0</span>
           </span>
@@ -110,7 +114,7 @@
     </td>
     <td>
       <strong class="order_sum_txt">
-        {{ totalPrice }}
+        {{ cartProduct.totalPrice }}
       </strong>
     </td>
   </tr>
@@ -119,45 +123,13 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useCartStore } from "../../stores/useCartStore";
-const cartStore = useCartStore();
 const props = defineProps({
   cartProduct: {
     type: Object,
     required: true,
   },
-  isChecked: {
-    type: Boolean,
-    required: true,
-  },
 });
-const emit = defineEmits(["update:isChecked", "update:cartProduct"]);
-const onClick = () => {
-  // console.log(!props.isChecked);
-  emit("update:isChecked", !props.isChecked);
-  if (!props.isChecked == false) cartStore.isAllChecked = false;
-  if (!props.isChecked == true) cartStore.isAllChecked = true;
-};
-const totalPrice = computed(() => {
-  const price = props.cartProduct?.price || 0; // 가격이 없을 경우 기본값 0
-  return productCnt.value * price;
-});
-const productCnt = ref(props.cartProduct.quantity);
-const addCart = () => {
-  productCnt.value = productCnt.value + 1;
-  const newQuantity = props.cartProduct.quantity + 1;
-  emit("update:cartProduct", { ...props.cartProduct, quantity: newQuantity });
-  console.log(props.cartProduct);
-};
-const substactCart = () => {
-  if (productCnt.value == 1) {
-    alert("상품은 1개 이상 장바구니에 담을 수 있습니다.");
-    return;
-  } else {
-    productCnt.value = productCnt.value - 1;
-    const newQuantity = props.cartProduct.quantity - 1;
-    emit("update:cartProduct", { ...props.cartProduct, quantity: newQuantity });
-  }
-};
+const cartStore = useCartStore();
 </script>
 
 <style></style>

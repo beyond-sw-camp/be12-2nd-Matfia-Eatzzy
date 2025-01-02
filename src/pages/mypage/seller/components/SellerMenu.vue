@@ -7,7 +7,7 @@
       <li>
         내 정보
         <ul class="eachList">
-          <router-link to="/mypage/seller/my-info/modify"><li>- 내정보 수정</li></router-link>
+          <router-link to="/mypage/seller/info"><li>- 내 정보 수정</li></router-link>
         </ul>
       </li>
       <li>
@@ -45,13 +45,13 @@ ul li {
 }
 
 .menu_wrap {
+  position: sticky;
+  top: 0; /* 스크롤 시 상단에 고정 */
   padding: 3.125rem 0;
   letter-spacing: -0.02em;
-  min-width: 12rem;
+  min-width: 10.75rem;
   box-sizing: border-box;
-  display: block;
-  unicode-bidi: isolate;
-  border-right: 0.0625rem solid #cecece;
+  z-index: 1000; /* 다른 요소 위로 보이도록 설정 */
 }
 
 .menu_wrap .menuLists {

@@ -1,9 +1,5 @@
 <script setup>
-import ClientSummary from "../client/components/ClientSummary.vue";
 import SellerMenu from "./components/SellerMenu.vue";
-import { useRoute } from 'vue-router';
-
-const route = useRoute();
 </script>
 
 <template>
@@ -23,5 +19,6 @@ const route = useRoute();
 .seller_container {
   width: 100%;
   padding: 3.125rem 4rem;
+  border-left: 0.0625rem solid #cecece;
 }
 </style>

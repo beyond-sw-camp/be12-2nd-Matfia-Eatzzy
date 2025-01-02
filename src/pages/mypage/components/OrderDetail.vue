@@ -255,6 +255,7 @@ h1 {
   padding: 0.7rem;
   font-size: 1rem;
   font-weight: 700;
+  transition: background-color 0.3s;
 }
 
 .btn:hover {
