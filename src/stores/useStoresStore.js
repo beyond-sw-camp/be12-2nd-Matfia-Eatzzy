@@ -42,11 +42,9 @@ export const useStoresStore = defineStore("stores", {
     },
 
     async getStoreDetail(storeId = 1) {
-      const response = await axios
-        .get(`/api/stores/${storeId}`)
-        .catch((error) => {
-          console.error("getStoreDetail api error", error);
-        });
+      const response = await axios.get(`/api/stores/1`).catch((error) => {
+        console.error("getStoreDetail api error", error);
+      });
       return response.data;
     },
 
