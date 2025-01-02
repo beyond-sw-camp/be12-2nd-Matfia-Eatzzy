@@ -13,14 +13,12 @@ const router = useRouter();
 const menuStore = useMenuStore();
 
 const editMenu = (menuId) => {
-  console.log('click')
   // 해당 가게의 id를 URL 경로로 전달하여 이동
-  router.push(`/mypage/seller/menu_modify/${menuId}`);
+  router.push(`/mypage/seller/store/menu/${menuId}/modify/`);
 };
 
 const deleteMenu = async (menuId) => {
   const conf = confirm("메뉴를 삭제하시겠습니까?");
-  console.log(conf);
   if (conf) {
     const result = await menuStore.deleteMenu(menuId);
     if (result.isSuccess) {
