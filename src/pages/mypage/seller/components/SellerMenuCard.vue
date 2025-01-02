@@ -1,5 +1,6 @@
 <script setup>
 import { useRouter } from "vue-router";
+import { useMenuStore } from "../../../../stores/useMenuStore";
 
 const props = defineProps({
   menu: {
@@ -9,10 +10,21 @@ const props = defineProps({
 });
 
 const router = useRouter();
+const menuStore = useMenuStore();
 
 const editMenu = (menuId) => {
   // 해당 가게의 id를 URL 경로로 전달하여 이동
-  router.push(`/mypage/seller/menu_modify/${menuId}`);
+  router.push(`/mypage/seller/store/menu/${menuId}/modify/`);
+};
+
+const deleteMenu = async (menuId) => {
+  const conf = confirm("메뉴를 삭제하시겠습니까?");
+  if (conf) {
+    const result = await menuStore.deleteMenu(menuId);
+    if (result.isSuccess) {
+      alert("삭제되었습니다.");
+    }
+  }
 };
 </script>
 
@@ -27,8 +39,16 @@ const editMenu = (menuId) => {
       <div class="menu_description">{{ menu.info }}</div>
     </div>
     <div class="menu_buttons">
-      <button class="edit_button" @click="editMenu(menu.id)">수정</button>
-      <button class="delete_button" @click="deleteMenu(menu.id)">삭제</button>
+      <img
+        src="/src/assets/icons/edit.svg"
+        alt="edit"
+        @click="editMenu(menu.id)"
+      />
+      <img
+        src="/src/assets/icons/delete.svg"
+        alt="delete"
+        @click="deleteMenu(menu.id)"
+      />
     </div>
   </div>
 </template>
@@ -92,40 +112,20 @@ const editMenu = (menuId) => {
   display: flex;
   justify-content: space-between;
   align-items: center; /* 수직 가운데 정렬 */
-  padding: 0.625rem 0.9375rem;
+  padding: 0.625rem 1.5rem;
   border-top: 0.0625rem solid #ddd;
+  gap: 0.6rem;
+  transition: scale 0.5s;
 }
 
-.edit_button,
-.delete_button {
-  padding: 0.1875rem 0.5rem; /* 버튼 높이를 줄임 */
-  width: 3.75rem;
-  height: 2rem;
-  border: none;
-  border-radius: 0.25rem; /* 더 작은 버튼 모서리 */
-  font-size: 0.8rem; /* 버튼 글자 크기 작게 */
+.menu_buttons img {
+  width: 1.8rem;
+  height: 1.8rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-.edit_button {
-  border: 1px solid black;
 }
 
-.edit_button:hover {
-  background-color: rgba(0, 0, 0, 0.1); /* 수정 버튼 hover 색상 (어두운 파란색) */
-}
-
-.delete_button {
-  background-color: #dc3545; /* 삭제 버튼 색상 변경 (빨간색) */
-  color: white;
-}
-
-.delete_button:hover {
-  background-color: #c82333; /* 삭제 버튼 hover 색상 (어두운 빨간색) */
-}
-/* 버튼 간격 띄우기 */
-.menu_buttons button {
-  margin-right: 0.625rem;
+.menu_buttons img:hover {
+  scale: 1.1;
 }
 
 .menu_list p {

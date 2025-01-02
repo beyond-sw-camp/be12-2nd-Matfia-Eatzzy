@@ -15,8 +15,21 @@ const address = ref(""); // 주소
 const detailAddress = ref(""); // 상세주소
 
 const cancel = () => {
-  router.push(`/mypage/seller`);
+  const conf = confirm("취소하시겠습니까?");
+  if (conf) {
+    router.push(`/mypage/seller/store`);
+  }
 };
+
+const modifyStore = () => {
+  const conf = confirm("수정하시겠습니까?");
+  if (conf) { 
+    alert("수정이 완료되었습니다.");
+    router.push(`/mypage/seller/store`);
+  }
+}
+
+
 // 파일 변경 시 미리보기 이미지 처리
 const handleFileChange = (event) => {
   const files = event.target.files;
@@ -77,7 +90,7 @@ const submitForm = () => {
         <form @submit.prevent="submitForm" enctype="multipart/form-data">
           <fieldset>
             <div><label class="insert_store_info">식당 정보 수정</label></div>
-
+            
             <!-- 대표 사진 (최대 4개) -->
             <div class="image_group">
               <label for="restaurantImages"><strong>대표 사진 (최대 4개)</strong></label>
@@ -162,7 +175,7 @@ const submitForm = () => {
               <!-- 제출 버튼 -->
               <div class="button_group">
                 <button type="button" @click="cancel" class="cancel_store">취소</button>
-                <button type="submit" class="submit_store">식당 수정</button>
+                <button type="submit" class="submit_store" @click="modifyStore">식당 수정</button>
               </div>
             </div>
           </fieldset>
@@ -197,11 +210,11 @@ const submitForm = () => {
   border-radius: .5rem;
   padding: 0 1.125rem;
   font-size: 1rem;
-  color: #00a7b3;
+  color: #ff7400;
   box-shadow: none;
   display: flex;
   align-items: center;
-  border: .0625rem solid #00a7b3;
+  border: .0625rem solid #ff7400;
   flex-shrink: 0;
 }
 
@@ -217,8 +230,8 @@ fieldset {
 }
 
 .insert_store_info {
-  font-size: 1.875rem;
-  font-weight: 800;
+  font-size: 1.4rem;
+  font-weight: 700;
   margin: 0 0 1.875rem;
 }
 
@@ -305,23 +318,32 @@ input[type="file"] {
   padding-bottom: .625rem;
 }
 
+.button_group button {
+  font-size: 1rem;
+  font-weight: 700;
+  width: 9rem;
+  height: 3.18rem;
+  border-radius: 0.5rem;
+}
+
 /* 버튼 스타일 */
 .cancel_store {
-  font-size: .875rem;
-  font-weight: 400;
-  width: 13.5rem;
-  height: 3.1875rem;
-  border: .0625rem solid #00a7b3;
+  border: .0625rem solid #ccc;
+}
+
+.cancel_store:hover{
+  background-color: rgba(0,0,0,0.1);
 }
 
 .submit_store {
-  font-size: .875rem;
-  font-weight: 400;
-  width: 13.5rem;
-  height: 3.1875rem;
+  height: 3rem;
   color: #ffffff;
-  border: .0625rem solid #00a7b3;
-  background: #00a7b3;
+  border: .0625rem solid #ff7400;
+  background: #ff7400;
+}
+
+.submit_store:hover  {
+  background-color: #c96208;
 }
 
 
@@ -333,7 +355,7 @@ p {
 }
 
 .insert_store_box {
-  width: 31.25rem;
+  width: 90%;
   margin: 0 auto;
   text-align: left;
 }

@@ -118,7 +118,7 @@
                     상품금액
                   </p>
                   <p class="price">
-                    <strong>{{ cartStore.calTotalPrice }}</strong
+                    <strong>{{ cartStore.totalPrice }}</strong
                     >원
                   </p>
                 </div>
@@ -149,7 +149,9 @@
                 <div class="price_total">
                   <p>합계</p>
                   <p class="price">
-                    <strong>{{ cartStore.getTotalPrice }}</strong
+                    <strong>{{
+                      cartStore.totalPrice + cartStore.deliveryFee
+                    }}</strong
                     >원
                   </p>
                 </div>
