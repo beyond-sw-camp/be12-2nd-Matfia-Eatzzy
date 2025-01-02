@@ -1,10 +1,10 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useStoresStore } from '../../../stores/useStoresStore';
-import { useRouter } from 'vue-router'
-const router = useRouter()
+import { ref, onMounted } from "vue";
+import { useStoresStore } from "../../../stores/useStoresStore";
+import { useRouter } from "vue-router";
+const router = useRouter();
 
-const previewImages = ref([]);  // 미리보기 이미지들을 저장할 배열
+const previewImages = ref([]); // 미리보기 이미지들을 저장할 배열
 const StoresStore = useStoresStore();
 
 const isPostcodeModalVisible = ref(false); // 우편번호 검색 모달 여부
@@ -21,13 +21,15 @@ const handleFileChange = (event) => {
   previewImages.value = []; // 초기화
   if (files) {
     // 파일을 순차적으로 처리하고 미리보기 이미지를 생성
-    Array.from(files).slice(0, 4).forEach(file => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        previewImages.value.push(e.target.result);
-      };
-      reader.readAsDataURL(file);
-    });
+    Array.from(files)
+      .slice(0, 4)
+      .forEach((file) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          previewImages.value.push(e.target.result);
+        };
+        reader.readAsDataURL(file);
+      });
   }
 };
 
@@ -37,7 +39,7 @@ const openPostcodeModal = () => {
     oncomplete: function (data) {
       address.value = data.roadAddress; // 도로명 주소
       isPostcodeModalVisible.value = false; // 모달 닫기
-    }
+    },
   }).open();
 };
 
@@ -51,7 +53,7 @@ const loadPostcodeScript = () => {
 
 onMounted(async () => {
   await StoresStore.getSellerStoresList();
-  loadPostcodeScript();  // 우편번호 스크립트 로드
+  loadPostcodeScript(); // 우편번호 스크립트 로드
 });
 
 // 모달 닫기 함수
@@ -59,7 +61,7 @@ const closePostcodeModal = () => {
   isPostcodeModalVisible.value = false;
 };
 // 폼 제출 시 처리
-const submitForm = () => { 
+const submitForm = () => {
   alert("등록되었습니다.");
   router.push("/mypage/seller/store");
 };
@@ -75,20 +77,37 @@ const submitForm = () => {
 
             <!-- 대표 사진 (최대 4개) -->
             <div class="image_group">
-              <label for="restaurantImages"><strong>대표 사진 (최대 4개)</strong></label>
-              <input type="file" class="store_image" id="restaurantImages" name="restaurantImages" accept="image/*"
-                multiple @change="handleFileChange">
+              <label for="restaurantImages"
+                ><strong>대표 사진 (최대 4개)</strong></label
+              >
+              <input
+                type="file"
+                class="store_image"
+                id="restaurantImages"
+                name="restaurantImages"
+                accept="image/*"
+                multiple
+                @change="handleFileChange"
+              />
               <p>최대 4개의 이미지를 선택할 수 있습니다.</p>
 
               <!-- 미리보기 공간 -->
               <div class="preview_container">
                 <!-- 이미지를 표시 -->
-                <div v-for="(image, index) in previewImages" :key="index" class="preview_box">
+                <div
+                  v-for="(image, index) in previewImages"
+                  :key="index"
+                  class="preview_box"
+                >
                   <img :src="image" alt="preview" class="preview_image" />
                 </div>
 
                 <!-- 빈 칸을 채우기 위한 "미리보기" 텍스트 -->
-                <div v-for="index in 4 - previewImages.length" :key="'empty' + index" class="preview_box">
+                <div
+                  v-for="index in 4 - previewImages.length"
+                  :key="'empty' + index"
+                  class="preview_box"
+                >
                   미리보기 {{ previewImages.length + index }}
                 </div>
               </div>
@@ -97,14 +116,26 @@ const submitForm = () => {
             <!-- 식당 이름 (최대 30자) -->
             <div class="form_group">
               <label for="restaurantName"><strong>식당 이름</strong></label>
-              <input type="text" id="restaurantName" name="restaurantName" placeholder="최대 30자 입력 가능" maxlength="30"
-                required>
+              <input
+                type="text"
+                id="restaurantName"
+                name="restaurantName"
+                placeholder="최대 30자 입력 가능"
+                maxlength="30"
+                required
+              />
             </div>
 
             <!-- 식당 카테고리 -->
             <div class="form_group">
-              <label for="restaurantCategory"><strong>식당 카테고리</strong></label>
-              <select id="restaurantCategory" v-model="selectedCategory" required>
+              <label for="restaurantCategory"
+                ><strong>식당 카테고리</strong></label
+              >
+              <select
+                id="restaurantCategory"
+                v-model="selectedCategory"
+                required
+              >
                 <option value="" disabled>카테고리를 선택하세요</option>
                 <option value="korean">한식</option>
                 <option value="western">양식</option>
@@ -118,29 +149,59 @@ const submitForm = () => {
 
             <!-- 소개 (최대 200자) -->
             <div class="form_group">
-              <label for="restaurantDescription"><strong>식당 소개</strong></label>
-              <textarea id="restaurantDescription" name="restaurantDescription" placeholder="최대 200자 입력 가능"
-                maxlength="200" rows="4" required></textarea>
+              <label for="restaurantDescription"
+                ><strong>식당 소개</strong></label
+              >
+              <textarea
+                id="restaurantDescription"
+                name="restaurantDescription"
+                placeholder="최대 200자 입력 가능"
+                maxlength="200"
+                rows="4"
+                required
+              ></textarea>
             </div>
 
             <div class="form_group">
-              <label for="restaurantPhone"><strong>식당 전화번호</strong></label>
-              <input type="text" id="restaurantPhone" name="restaurantPhone" placeholder="예: 010-1234-5678"
-                maxlength="13" required>
+              <label for="restaurantPhone"
+                ><strong>식당 전화번호</strong></label
+              >
+              <input
+                type="text"
+                id="restaurantPhone"
+                name="restaurantPhone"
+                placeholder="예: 010-1234-5678"
+                maxlength="13"
+                required
+              />
             </div>
 
             <!-- 영업시간 (최대 50자) -->
             <div class="form_group">
               <label for="restaurantHours"><strong>영업시간</strong></label>
-              <input type="text" id="restaurantHours" name="restaurantHours" placeholder="예: 10:00 ~ 22:00"
-                maxlength="50" required>
+              <input
+                type="text"
+                id="restaurantHours"
+                name="restaurantHours"
+                placeholder="예: 10:00 ~ 22:00"
+                maxlength="50"
+                required
+              />
             </div>
 
             <!-- 예약 가능 시간 (최대 50자) -->
             <div class="form_group">
-              <label for="reservationHours"><strong>예약 가능 시간</strong></label>
-              <input type="text" id="reservationHours" name="reservationHours" placeholder="예: 10:00 ~ 20:00"
-                maxlength="50" required>
+              <label for="reservationHours"
+                ><strong>예약 가능 시간</strong></label
+              >
+              <input
+                type="text"
+                id="reservationHours"
+                name="reservationHours"
+                placeholder="예: 10:00 ~ 20:00"
+                maxlength="50"
+                required
+              />
             </div>
 
             <!-- 나머지 입력 필드들 ... -->
@@ -150,25 +211,39 @@ const submitForm = () => {
               <div class="address_input">
                 <div class="member_warning">
                   <input type="text" :value="address" readonly />
-                  <button type="button" class="btn_post_search" @click="openPostcodeModal">
+                  <button
+                    type="button"
+                    class="btn_post_search"
+                    @click="openPostcodeModal"
+                  >
                     우편번호검색
                   </button>
                 </div>
                 <div class="detail_address_input">
-                  <input type="text" v-model="detailAddress" placeholder="상세 주소" />
+                  <input
+                    type="text"
+                    v-model="detailAddress"
+                    placeholder="상세 주소"
+                  />
                 </div>
               </div>
             </div>
             <!-- 제출 버튼 -->
             <div class="button_group">
-              <button type="button" class="cancel_store" @click="cancel">취소</button>
+              <button type="button" class="cancel_store" @click="cancel">
+                취소
+              </button>
               <button type="submit" class="submit_store">식당 등록</button>
             </div>
           </fieldset>
         </form>
       </section>
     </div>
-    <div class="layer_wrap" v-show="isPostcodeModalVisible" @click="closePostcodeModal">
+    <div
+      class="layer_wrap"
+      v-show="isPostcodeModalVisible"
+      @click="closePostcodeModal"
+    >
       <div class="layer_area">
         <!-- 우편번호 모달 내용 -->
       </div>
@@ -188,26 +263,26 @@ const submitForm = () => {
 .address_box {
   display: flex;
   flex-direction: column;
-  gap: .625rem;
+  gap: 0.625rem;
 }
 
 .address_input {
   display: flex;
   flex-direction: column;
-  gap: .625rem;
+  gap: 0.625rem;
 }
 
 .btn_post_search {
   margin: 0 0 0 0.625rem;
   height: 3.375rem;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   padding: 0 1.125rem;
   font-size: 1rem;
   color: #ff7400;
   box-shadow: none;
   display: flex;
   align-items: center;
-  border: .0625rem solid #ff7400;
+  border: 0.0625rem solid #ff7400;
   flex-shrink: 0;
 }
 
@@ -228,14 +303,12 @@ fieldset {
   margin: 0.5rem 0 2rem 0;
 }
 
-
-
 /* 각 폼 그룹 스타일 */
 .button_group {
   margin: 3.125rem 0 1.875rem;
   display: flex;
   justify-content: center;
-  gap: .625rem;
+  gap: 0.625rem;
 }
 
 .button_group > button {
@@ -249,9 +322,9 @@ fieldset {
 /* 라벨 스타일 */
 label {
   display: block;
-  margin: 0 0 0 .125rem;
-  font-size: .875rem;
-  margin-bottom: .5rem;
+  margin: 0 0 0 0.125rem;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
 }
 
 .address_postcode {
@@ -262,16 +335,15 @@ label {
   width: 100%;
 }
 
-
 /* 입력 필드 스타일 */
 select,
 input[type="text"],
 input[type="tel"] {
   font-size: 1rem;
   height: 3.375rem !important;
-  border: .0625rem solid #E8E8E8;
+  border: 0.0625rem solid #e8e8e8;
   padding: 0 1rem;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   background-color: #fff;
   margin: 0 !important;
   font-weight: 400;
@@ -284,7 +356,7 @@ input[type="tel"] {
 select {
   width: 100%;
   height: 3.125rem;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   font-size: 1rem;
 }
 
@@ -303,24 +375,24 @@ select {
 textarea {
   width: 100%;
   height: 12.5rem;
-  padding: .625rem !important;
+  padding: 0.625rem !important;
   font-size: 1rem !important;
-  border: .0625rem solid #E8E8E8;
+  border: 0.0625rem solid #e8e8e8;
   font-weight: 400;
-  border-radius: .25rem;
-  margin-bottom: .5rem;
+  border-radius: 0.25rem;
+  margin-bottom: 0.5rem;
   box-sizing: border-box;
   overflow-y: auto;
   resize: none;
 }
 
 input[type="file"] {
-  padding-bottom: .625rem;
+  padding-bottom: 0.625rem;
 }
 
 /* 버튼 스타일 */
 .cancel_store {
-  border: .0625rem solid #ccc;
+  border: 0.0625rem solid #ccc;
   color: #777;
   transition: background-color 0.3s;
 }
@@ -330,12 +402,12 @@ input[type="file"] {
 }
 
 .submit_store {
-  font-size: .875rem;
+  font-size: 0.875rem;
   font-weight: 400;
   width: 13.5rem;
   height: 3.1875rem;
   color: #ffffff;
-  border: .0625rem solid #ff7400;
+  border: 0.0625rem solid #ff7400;
   background: #ff7400;
   transition: background-color 0.3s;
 }
@@ -344,12 +416,10 @@ input[type="file"] {
   background-color: #c96208;
 }
 
-
-/* 작은 안내문 스타일 */
 p {
-  font-size: .875rem;
+  font-size: 0.875rem;
   color: #888;
-  margin-top: .3125rem;
+  margin-top: 0.3125rem;
 }
 
 .insert_store_box {
@@ -358,60 +428,40 @@ p {
   text-align: left;
 }
 
-/* 폼 그룹 */
 .form_group {
   margin-bottom: 1.25rem;
 }
 
 .image_group {
   margin-bottom: 1.25rem;
-  border: .0625rem solid #ddd;
-  /* 테두리 색 */
+  border: 0.0625rem solid #ddd;
   padding: 1.25rem;
-  /* 테두리와 콘텐츠 간의 간격 */
-  border-radius: .625rem;
-  /* 테두리 둥글게 처리 */
+  border-radius: 0.625rem;
   background-color: #f9f9f9;
-  /* 배경색 */
   margin-bottom: 1.25rem;
-  /* 하단 여백 */
 }
 
 .preview_container {
   display: flex;
-  /* Flexbox 사용 */
   justify-content: space-between;
-  /* 박스 간격을 일정하게 분배 */
-  align-items: center;
-  /* 세로 중앙 정렬 */
-  gap: .625rem;
-  /* 각 박스 간의 간격 */
+  gap: 0.625rem;
   flex-wrap: wrap;
-  /* 여러 줄로 감쌀 수 있게 설정 */
-  margin-top: .625rem;
+  margin-top: 0.625rem;
 }
 
 .preview_box {
   flex-grow: 1;
-  /* 각 박스가 동일한 크기로 확장되도록 설정 */
   width: 0;
-  /* 기본 너비 0 */
   height: 6.25rem;
-  /* 고정된 높이 */
-  border: .125rem dashed #ccc;
-  /* 테두리 스타일 */
+  border: 0.125rem dashed #ccc;
   display: flex;
-  /* Flexbox 사용 */
   justify-content: center;
-  /* 텍스트 수평 중앙 정렬 */
   align-items: center;
-  /* 텍스트 수직 중앙 정렬 */
-  font-size: .875rem;
+  font-size: 0.875rem;
   color: #999;
   background-color: #f9f9f9;
-  border-radius: .3125rem;
-  margin-right: .625rem;
-  /* 박스 간의 간격 */
+  border-radius: 0.3125rem;
+  margin-right: 0.625rem;
 }
 
 .preview_image {

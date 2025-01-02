@@ -14,7 +14,7 @@ const editStore = (storeId) => {
   router.push(`/mypage/seller/store/modify/${storeId}`);
 };
 
-const insertmenu = () => {
+const insertMenu = () => {
   // 해당 가게의 id를 URL 경로로 전달하여 이동
   router.push(`/mypage/seller/menu/insert`);
 };
@@ -23,6 +23,13 @@ const menuStore = (storeId) => {
   // 해당 가게의 id를 URL 경로로 전달하여 이동
   router.push(`/mypage/seller/store/${storeId}/menu`);
 };
+
+const deleteStore = () => {
+  const conf = confirm("가게를 삭제하시겠습니까?")
+  if (conf) {
+    alert("삭제되었습니다.");
+  }
+}
 </script>
 
 <template>
