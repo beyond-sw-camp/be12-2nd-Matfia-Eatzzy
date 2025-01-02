@@ -214,6 +214,8 @@
 <details>
   <summary>식당 정보 수정/삭제</summary>
   <div markdown="1">
+  <img src="/public/gif/식당수정.gif" alt="점주 식당수정"/>
+  <img src="/public/gif/식당삭제.gif" alt="점주 식당삭제"/>
   <br>
   </div>
 </details>
@@ -221,6 +223,7 @@
 <details>
   <summary>상품 등록</summary>
   <div markdown="1">
+  <img src="/public/gif/내 상품 등록.gif" alt="점주 상품등록"/>
   <br>
   </div>
 </details>
@@ -228,6 +231,7 @@
 <details>
   <summary>내 상품 조회</summary>
   <div markdown="1">
+  <img src="/public/gif/등록한 상품 조회.gif" alt="점주 상품조회"/>
   <br>
   </div>
 </details>
@@ -235,6 +239,8 @@
 <details>
   <summary>상품 정보 수정/삭제</summary>
   <div markdown="1">
+  <img src="/public/gif/상품 수정.gif" alt="점주 상품수정"/>
+  <img src="/public/gif/상품 삭제.gif" alt="점주 식당삭제"/>
   <br>
   </div>
 </details>
@@ -242,6 +248,7 @@
 <details>
   <summary>상품 주문내역 확인</summary>
   <div markdown="1">
+  <img src="/public/gif/주문내역확인.gif" alt="점주 주문확인"/>
   <br>
   </div>
 </details>
@@ -249,6 +256,7 @@
 <details>
   <summary>배송 등록</summary>
   <div markdown="1">
+  <img src="/public/gif/배송등록.gif" alt="점주 배송등록"/>
   <br>
   </div>
 </details>
