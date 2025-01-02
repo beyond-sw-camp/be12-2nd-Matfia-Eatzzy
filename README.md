@@ -85,6 +85,7 @@
 <details>
   <summary>로그인</summary>
   <div markdown="1">
+    <img src="/public/gif/로그인.gif" alt="로그인" />
   <br>
   </div>
 </details>
@@ -96,14 +97,7 @@
 <details>
   <summary>식당 조회</summary>
   <div markdown="1">
-  <br>
-
-  </div>
-</details>
-
-<details>
-  <summary>식당 좋아요 (고객)</summary>
-  <div markdown="1">
+  <img src="/public/gif/식당조회.gif" alt="식당조회" />
   <br>
 
   </div>
@@ -112,6 +106,7 @@
 <details>
   <summary>식당 예약 (고객)</summary>
   <div markdown="1">
+  <img src="/public/gif/식당예약.gif" alt="식당예약" />
   <br>
 
   </div>
@@ -124,11 +119,12 @@
 <details>
   <summary>상품 조회</summary>
    <div markdown="1">
+     <img src="/public/gif/상품조회.gif" alt="상품조회" />
   <br>
   </div>
 </details>
 
-<details>
+<!-- <details>
   <summary>장바구니</summary>
    <div markdown="1">
   <br>
@@ -140,7 +136,7 @@
    <div markdown="1">
   <br>
   </div>
-</details>
+</details> -->
 
 <br>
 
@@ -149,6 +145,7 @@
 <details>
   <summary>내 정보 수정</summary>
   <div markdown="1">
+  <img src="/public/gif/내정보수정.gif" alt="내정보수정"/>
   <br>
   </div>
 </details>
@@ -161,6 +158,7 @@
 <details>
   <summary>식당 리뷰 작성</summary>
   <div markdown="1">
+  <img src="/public/gif/식당리뷰작성.gif" alt="식당리뷰작성"/>
   <br>
   </div>
 </details>
@@ -168,6 +166,15 @@
 <details>
   <summary>상품 주문 내역</summary>
   <div markdown="1">
+  <img src="/public/gif/고객_주문내역조회.gif" alt="고객주문내역"/>
+  <br>
+  </div>
+</details>
+
+<details>
+  <summary>상품 리뷰 내역</summary>
+  <div markdown="1">
+  <img src="/public/gif/고객_주문내역조회.gif" alt="고객주문내역"/>
   <br>
   </div>
 </details>
