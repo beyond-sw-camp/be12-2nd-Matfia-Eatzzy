@@ -1175,7 +1175,9 @@
           </div>
         </div>
         <div class="btn_center_box">
-          <button class="btn_order_buy order-buy"><em>결제하기</em></button>
+          <button @click="orderStore.modal" class="btn_order_buy order-buy">
+            <em>결제하기</em>
+          </button>
         </div>
         <div style="color: #f30; text-align: center; margin: 20px 0 0 0">
           <b
@@ -1189,20 +1191,24 @@
         </div>
       </div>
     </div>
+    <!-- <OrderModal v-if="modalChecked"></OrderModal> -->
+    <OrderModal v-if="orderStore.modalChecked"></OrderModal>
   </div>
 </template>
 
 <script setup>
 import OrderCard from "./components/OrderCard.vue";
+
 import { useCartStore } from "../../stores/useCartStore";
-import { onMounted } from "vue";
+import OrderModal from "./OrderModal.vue";
+import { onMounted, ref } from "vue";
+import { useOrderStore } from "../../stores/useOrderStore";
 
 const cartStore = useCartStore();
+const orderStore = useOrderStore();
 onMounted(async () => {
   await cartStore.getCartProducts();
 });
-// console.log(cartStore.calTotalPrice());
-console.log(cartStore.deliveryFee);
 </script>
 
 <style>
@@ -1217,8 +1223,8 @@ console.log(cartStore.deliveryFee);
   line-height: 59px;
   color: #fff;
   font-size: 20px;
-  border: 1px solid #00a7b3;
-  background: #00a7b3;
+  border: 1px solid #ff7400;
+  background: #ff7400;
   text-align: center;
 }
 </style>

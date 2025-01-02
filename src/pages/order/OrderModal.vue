@@ -6,25 +6,22 @@
       style="position: absolute; margin: 0px; top: 211.5px; left: 551px"
     >
       <div class="view">
-        <h2>장바구니 담기</h2>
+        <h2>주문하기</h2>
         <div class="scroll_box">
-          <p class="success">
-            <strong>상품이 장바구니에 담겼습니다.</strong><br />바로
-            확인하시겠습니까?
-          </p>
+          <p class="success"><strong>결제가 완료되었습니다.</strong><br /></p>
         </div>
         <div class="btn_box">
-          <button @click="cartStore.closeModal" class="btn_cancel">
+          <!-- <button @click="cartStore.closeModal" class="btn_cancel">
             <span>취소</span>
-          </button>
-          <router-link to="/carts">
+          </button> -->
+          <router-link to="/mypage/client/orders">
             <button class="btn_confirm btn_move_cart">
-              <span @click="cartStore.closeModal">확인</span>
+              <span @click="orderStore.modal">확인</span>
             </button>
           </router-link>
         </div>
         <button
-          @click="cartStore.closeModal"
+          @click="orderStore.modal"
           title="닫기"
           class="close layer_close"
           type="button"
@@ -37,8 +34,9 @@
 </template>
 
 <script setup>
-import { useCartStore } from "../../stores/useCartStore";
-const cartStore = useCartStore();
+import { useOrderStore } from "../../stores/useOrderStore";
+
+const orderStore = useOrderStore();
 </script>
 
 <style>

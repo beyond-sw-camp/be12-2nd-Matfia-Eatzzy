@@ -2,7 +2,9 @@ import axios from "axios";
 import { defineStore } from "pinia";
 
 export const useOrderStore = defineStore("order", {
-  state: () => ({}),
+  state: () => ({
+    modalChecked: false,
+  }),
 
   actions: {
     async getClientOrderList() {
@@ -18,6 +20,9 @@ export const useOrderStore = defineStore("order", {
           console.error("고객 주문 내역 상세 조회 에러", error);
         });
       return response.data;
+    },
+    modal() {
+      this.modalChecked = !this.modalChecked;
     },
   },
 });

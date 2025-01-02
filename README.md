@@ -129,7 +129,7 @@
   <summary>장바구니</summary>
    <div markdown="1">
    <img src="/public/gif/장바구니상세기능및전체상품주문으로주문이동.gif" alt="장바구니" />
-   <img src="/public/gif/선택상품주문.gif" alt="장바구니" />
+   <img src="/public/gif/장바구니-선택상품주문.gif" alt="장바구니" />
   <br>
   </div>
 </details>
@@ -137,6 +137,7 @@
 <details>
   <summary>주문</summary>
    <div markdown="1">
+    <img src="/public/gif/주문완료.gif" alt="주문" />
   <br>
   </div>
 </details>
