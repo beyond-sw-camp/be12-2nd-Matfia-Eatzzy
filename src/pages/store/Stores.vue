@@ -1,12 +1,16 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useStoresStore } from "../../stores/useStoresStore";
+import { useLoadingStore } from "../../stores/useLoadingStore";
 import OrderBox from "./components/OrderBox.vue";
 import StoreCard from "./components/StoreCard.vue";
 import BigCategory from "./components/BigCategory.vue";
 import SmallCategory from "./components/SmallCategory.vue";
+import { VueSpinner } from "vue3-spinners";
 
+const loadingStore = useLoadingStore();
 const storesStore = useStoresStore();
+
 const filter = ref({
   sort: storesStore.sort,
   place: "서울",
@@ -15,8 +19,12 @@ const filter = ref({
 const storeList = ref([]);
 
 onMounted(async () => {
+  loadingStore.startLoading("stores");
   const result = await storesStore.getStoreList(filter);
   storeList.value = result.stores;
+  setTimeout(() => {
+    loadingStore.stopLoading();
+  }, 500);
 });
 </script>
 
@@ -26,7 +34,10 @@ onMounted(async () => {
     <BigCategory />
     <SmallCategory />
     <OrderBox />
-    <div class="store_list">
+    <div v-if="loadingStore.isLoading" class="spinner_box">
+      <VueSpinner size="30" color="#ff7400" />
+    </div>
+    <div v-else class="store_list">
       <StoreCard
         v-for="store in storeList || []"
         :key="store.idx"
@@ -39,6 +50,12 @@ onMounted(async () => {
 <style scoped>
 .main > h1 {
   margin: 0.625rem 0 1.875rem;
+}
+
+.spinner_box {
+  width: 4rem;
+  height: 20rem;
+  margin: 5rem auto 0;
 }
 
 .store_list {

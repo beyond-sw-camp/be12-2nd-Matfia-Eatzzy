@@ -163,13 +163,11 @@
         </div>
 
         <div class="order_btn_group">
-          <button
-            type="button"
-            class="btn_order_choice_buy"
-            onclick="gd_cart_process('orderSelect');"
-          >
-            선택 상품 주문
-          </button>
+          <router-link to="/order">
+            <button type="button" class="btn_order_choice_buy">
+              선택 상품 주문
+            </button>
+          </router-link>
           <router-link to="/order">
             <button type="button" class="btn_order_whole_buy">
               전체 상품 주문

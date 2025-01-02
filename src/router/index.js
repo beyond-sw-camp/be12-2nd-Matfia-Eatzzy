@@ -30,7 +30,6 @@ import SellerInsertStore from "../pages/mypage/seller/SellerInsertStore.vue";
 import SellerModifyStore from "../pages/mypage/seller/SellerModifyStore.vue";
 import SellerReservationCard from "../pages/mypage/seller/SellerReservationCard.vue";
 import SellerStoreItem from "../pages/mypage/seller/SellerStores.vue";
-import SellerMenuCard from "../pages/mypage/seller/components/SellerMenuCard.vue";
 import SellerEditMenu from "../pages/mypage/seller/SellerEditMenu.vue";
 import Order from "../pages/order/Order.vue";
 import OrderDetail from "../pages/mypage/components/OrderDetail.vue";
@@ -87,6 +86,7 @@ const routes = [
           { path: "store/rsv", component: ClientStoreRez },
           { path: "store/like", component: ClientStorelike },
           { path: "store/review", component: ClientStoreReview },
+          { path: "store/review/create", component: CreateReview },
           { path: "product/info", component: ClientProductInfo },
           { path: "product/review", component: ClientProductsReview },
           { path: "product/review/create", component: CreateReview },

@@ -16,7 +16,7 @@ console.log(props.product);
     <div class="product_info">
       <p>{{ product.name }}</p>
       <div class="price_cnt_box">
-        <span>{{ formatPrice(product.price) }}원</span>
+        <span v-if="product.orderDate">주문 날짜: {{ product.orderDate }}</span>
         <span v-if="product.quantity">{{ product.quantity }}개</span>
       </div>
     </div>
@@ -46,6 +46,7 @@ console.log(props.product);
 
 .product_info > p {
   font-size: 1rem;
+  font-weight: 500;
 }
 
 .price_cnt_box > span::after {
@@ -58,10 +59,5 @@ console.log(props.product);
 .price_cnt_box {
   display: flex;
   gap: 0.4rem;
-}
-
-.price_cnt_box > span:first-child {
-  font-weight: 600;
-  font-size: 1rem;
 }
 </style>

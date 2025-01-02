@@ -14,9 +14,9 @@
 
 <div align="center">
 
-|   <img src="/public/image/bibim.png" width="100" height="100"/>   |   <img src="/public/image/tteok.png" width="100" height="100"/>   | <img src="/public/image/icecream.png" width="100" height="100"/>  |  <img src="/public/image/sushi.png" width="100" height="100"/>  |    <img src="/public/image/ramen.png" width="100" height="100"/>    |     <img src="/public/image/burger.png" width="100" height="100"/>      |
-| :--------------------------------------------------------: | :--------------------------------------------------------: | :--------------------------------------------------------: | :------------------------------------------------------: | :----------------------------------------------------------: | :--------------------------------------------------------------: |
-| 🐰 **박상미**<br/>[@miyad927](https://github.com/miyad927) | 🧶 **박세연**<br/>[@yeon7485](https://github.com/yeon7485) | ⚽ **안규호**<br/>[@Ahngyuho](https://github.com/Ahngyuho) | 🤪 **오승재**<br/>[@dhtmdwo](https://github.com/dhtmdwo) | 🐢 **유승호**<br/>[@seungho99](https://github.com/seungho99) | 🐉 **천태훈**<br/>[@taehoon0518](https://github.com/taehoon0518) |
+| <img src="/public/image/bibim.png" width="100" height="100"/> | <img src="/public/image/tteok.png" width="100" height="100"/> | <img src="/public/image/icecream.png" width="100" height="100"/> | <img src="/public/image/sushi.png" width="100" height="100"/> | <img src="/public/image/ramen.png" width="100" height="100"/> |  <img src="/public/image/burger.png" width="100" height="100"/>  |
+| :-----------------------------------------------------------: | :-----------------------------------------------------------: | :--------------------------------------------------------------: | :-----------------------------------------------------------: | :-----------------------------------------------------------: | :--------------------------------------------------------------: |
+|  🐰 **박상미**<br/>[@miyad927](https://github.com/miyad927)   |  🧶 **박세연**<br/>[@yeon7485](https://github.com/yeon7485)   |    ⚽ **안규호**<br/>[@Ahngyuho](https://github.com/Ahngyuho)    |   🤪 **오승재**<br/>[@dhtmdwo](https://github.com/dhtmdwo)    | 🐢 **유승호**<br/>[@seungho99](https://github.com/seungho99)  | 🐉 **천태훈**<br/>[@taehoon0518](https://github.com/taehoon0518) |
 
 </div>
 <br>
@@ -56,7 +56,18 @@
 <br>
 
 ## ✨ 접속 주소
+
 [https://www.eatzzy.kro.kr](https://www.eatzzy.kro.kr)
+
+```
+테스트 계정
+
+고객 ID : client
+고객 PW : qwer1234
+
+사업자 ID : seller
+사업자 PW : qwer1234
+```
 
 <br>
 
@@ -66,6 +77,7 @@
 <details>
   <summary>회원가입</summary>
   <div markdown="1">
+  <img src="/public/gif/회원가입.gif" alt="회원가입" />
   <br>
   </div>
 </details>
@@ -73,6 +85,7 @@
 <details>
   <summary>로그인</summary>
   <div markdown="1">
+    <img src="/public/gif/로그인.gif" alt="로그인" />
   <br>
   </div>
 </details>
@@ -84,14 +97,7 @@
 <details>
   <summary>식당 조회</summary>
   <div markdown="1">
-  <br>
-
-  </div>
-</details>
-
-<details>
-  <summary>식당 좋아요 (고객)</summary>
-  <div markdown="1">
+  <img src="/public/gif/식당조회.gif" alt="식당조회" />
   <br>
 
   </div>
@@ -100,6 +106,7 @@
 <details>
   <summary>식당 예약 (고객)</summary>
   <div markdown="1">
+  <img src="/public/gif/식당예약.gif" alt="식당예약" />
   <br>
 
   </div>
@@ -112,6 +119,8 @@
 <details>
   <summary>상품 조회</summary>
    <div markdown="1">
+     <img src="/public/gif/상품페이지에서상품상세페이지와장바구니이동.gif" alt="상품조회" />
+     <img src="/public/gif/상품페이지에서장바구니이동.gif" alt="상품조회" />
   <br>
   </div>
 </details>
@@ -119,6 +128,8 @@
 <details>
   <summary>장바구니</summary>
    <div markdown="1">
+   <img src="/public/gif/장바구니상세기능및전체상품주문으로주문이동.gif" alt="장바구니" />
+   <img src="/public/gif/선택상품주문.gif" alt="장바구니" />
   <br>
   </div>
 </details>
@@ -137,6 +148,7 @@
 <details>
   <summary>내 정보 수정</summary>
   <div markdown="1">
+  <img src="/public/gif/내정보수정.gif" alt="내정보수정"/>
   <br>
   </div>
 </details>
@@ -149,14 +161,23 @@
 <details>
   <summary>식당 리뷰 작성</summary>
   <div markdown="1">
+  <img src="/public/gif/식당리뷰작성.gif" alt="식당리뷰작성"/>
   <br>
   </div>
 </details>
 
-
 <details>
   <summary>상품 주문 내역</summary>
   <div markdown="1">
+  <img src="/public/gif/고객_주문내역조회.gif" alt="고객주문내역"/>
+  <br>
+  </div>
+</details>
+
+<details>
+  <summary>상품 리뷰 내역</summary>
+  <div markdown="1">
+  <img src="/public/gif/고객_주문내역조회.gif" alt="고객주문내역"/>
   <br>
   </div>
 </details>

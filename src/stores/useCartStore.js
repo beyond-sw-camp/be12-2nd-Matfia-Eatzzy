@@ -31,7 +31,7 @@ export const useCartStore = defineStore("carts", {
 
   actions: {
     async getCartProducts() {
-      const response = await axios.get("/test/cart");
+      const response = await axios.get("/api/cart");
       this.cartProducts = response.data.cartProducts;
       for (const cartProduct of this.cartProducts) {
         this.cartChecked[cartProduct.productId] = true;

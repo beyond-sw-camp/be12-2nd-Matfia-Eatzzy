@@ -2,11 +2,14 @@
 import { ref, onMounted, computed, watch } from "vue";
 import { useInformationsStore } from '../../../stores/useInformationsStore';
 import { useRoute, useRouter } from 'vue-router'
+import { useMemberStore } from "../../../stores/useMemberStore";
 
 const myinfoStore = useInformationsStore();
+const memberStore = useMemberStore();
 
 const route = useRoute();
 const router = useRouter();
+
 
 const userType = computed(() => {
     const pathSegments = route.path.split("/");
@@ -103,7 +106,9 @@ const updateUserInfo = (() => {
 const deleteAccount = (() => { 
     const result = confirm("탈퇴하시겠습니까? 계정과 관련된 모든 정보는 삭제됩니다.");
     if (result) {
-        alert("탈퇴되었습니다.");
+      
+      alert("탈퇴되었습니다.");
+        memberStore.logout();
         router.push({ path: "/" }).then(() => {
             history.pushState(null, "", "/"); // 브라우저 히스토리 대체
         });

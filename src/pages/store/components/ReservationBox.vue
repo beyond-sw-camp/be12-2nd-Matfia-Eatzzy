@@ -1,8 +1,11 @@
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { useReservationStore } from "../../../stores/useReservationStore";
-const timeList = ref(["17:00", "17:30", "18:00", "18:30", "19:00"]);
 
+const router = useRouter();
+
+const timeList = ref(["17:00", "17:30", "18:00", "18:30", "19:00"]);
 const rsvData = ref({
   date: new Date(),
   time: "",
@@ -35,12 +38,16 @@ const decreaseHeadCount = () => {
 };
 
 const reservation = async () => {
-  console.log(rsvData.value);
-  const result = await reservationStore.reservation(rsvData.value);
+  const conf = confirm("예약하시겠습니까?");
+  if (conf) {
+    console.log(rsvData.value);
+    const result = await reservationStore.reservation(rsvData.value);
 
-  console.log(result);
-  if (result.status === 200) {
-    console.log("예약 성공");
+    console.log(result);
+    if (result.isSuccess) {
+      alert("예약이 완료되었습니다.");
+      router.replace();
+    }
   }
 };
 </script>
