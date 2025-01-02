@@ -13,6 +13,11 @@ export const useMenuStore = defineStore("menu", {
       );
       this.menus = response.data;
     },
+    async deleteMenu(menuId = 1) { 
+      const response = await axios.post(`/store/1/menu/1/delete`);
+      return response.data;
+    }
+    
   },
 });
   
