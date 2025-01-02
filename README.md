@@ -90,6 +90,14 @@
 </details>
 
 <details>
+  <summary>식당 좋아요 (고객)</summary>
+  <div markdown="1">
+  <br>
+
+  </div>
+</details>
+
+<details>
   <summary>식당 예약 (고객)</summary>
   <div markdown="1">
   <br>
@@ -137,21 +145,6 @@
 <br>
 
 **🙋‍♀️ 고객**
-
-<details>
-  <summary>식당 예약 내역</summary>
-  <div markdown="1">
-  <br>
-
-  </div>
-</details>
-
-<details>
-  <summary>좋아요한 식당</summary>
-  <div markdown="1">
-  <br>
-  </div>
-</details>
 
 <details>
   <summary>식당 리뷰 작성</summary>
