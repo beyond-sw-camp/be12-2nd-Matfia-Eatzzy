@@ -24,6 +24,7 @@ const storeData = ref({
   menus: [],
   images: [],
 });
+const like = ref(false);
 
 const route = useRoute();
 const storesStore = useStoresStore();
@@ -31,6 +32,10 @@ const storesStore = useStoresStore();
 const changeTab = (tab) => {
   storesStore.setStoreTab(tab);
 };
+
+const likeClick = () => { 
+  like.value = !like.value;
+}
 
 onMounted(async () => {
   const storeIdx = route.params.id;
@@ -49,8 +54,9 @@ onMounted(async () => {
         <div class="title_grade_box">
           <div class="title_box">
             <h1 class="name">{{ storeData.name }}</h1>
-            <button class="heart_box">
-              <img src="/src/assets/icons/heart_fill.svg" alt="heart" />
+            <button class="heart_box" @click="likeClick">
+              <img v-if="!like" src="/src/assets/icons/heart_empty.svg" alt="heart" />
+              <img v-if="like" src="/src/assets/icons/heart_fill.svg" alt="heart" />
             </button>
           </div>
 
