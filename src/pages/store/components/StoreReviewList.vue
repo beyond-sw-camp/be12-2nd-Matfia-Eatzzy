@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useReviewStore } from "../../../stores/useReviewStore";
+import { useLoadingStore } from "../../../stores/useLoadingStore";
 
 const props = defineProps({
   storeId: {
@@ -11,17 +12,24 @@ const props = defineProps({
 
 const reviewList = ref([]);
 
+const loadingStore = useLoadingStore();
 const reviewStore = useReviewStore();
 
 onMounted(async () => {
+  loadingStore.startLoading("storeReview");
   const result = await reviewStore.getStoreReview(props.storeId);
   reviewList.value = result.reviews;
-  console.log(reviewList.value);
+  setTimeout(() => {
+    loadingStore.stopLoading();
+  }, 500);
 });
 </script>
 
 <template>
-  <div>
+      <div v-if="loadingStore.getIsLoading('storeReview')" class="spinner_box">
+      <VueSpinner size="30" color="#ff7400"/>
+    </div>
+  <div v-else>
     <div class="review_header">
       <img src="/src/assets/icons/star_fill.svg" alt="star" />
       <div>
@@ -59,6 +67,12 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+.spinner_box {
+  width: 4rem;
+  height: 20rem;
+  margin: 10rem auto;
+}
+
 .review_header {
   display: flex;
   justify-content: center;

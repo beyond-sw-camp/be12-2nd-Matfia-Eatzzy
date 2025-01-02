@@ -43,7 +43,7 @@ table tr:first-child th {
   font-size: 1.25rem;
 }
 .col1 {
-  width: 30%;
+  width: 40%;
   min-width: 10%;
 }
 .col2 {
@@ -51,7 +51,7 @@ table tr:first-child th {
   min-width: 10%;
 }
 .col3 {
-  width: 30%;
+  width: 20%;
   min-width: 10%;
 }
 .col4 {

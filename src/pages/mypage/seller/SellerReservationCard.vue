@@ -1,7 +1,9 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { useReservationStore } from "../../../stores/useReservationStore";
+import { useLoadingStore } from "../../../stores/useLoadingStore";
 
+const loadingStore = useLoadingStore();
 const reservationStore = useReservationStore();
 
 const isModalVisible = ref(false);
@@ -73,7 +75,11 @@ const handleDateChange = (event) => {
 };
 
 onMounted(async () => {
+  loadingStore.startLoading();
   await reservationStore.getSellerReservationsList();
+    setTimeout(() => {
+    loadingStore.stopLoading();
+  }, 500);
 });
 </script>
 
@@ -89,10 +95,14 @@ onMounted(async () => {
         <input type="date" id="date-filter" v-model="selectedDate" @change="handleDateChange" /> 
       </div>
 
+      <div v-if="loadingStore.isLoading" class="spinner_box">
+        <VueSpinner size="30" color="#ff7400"/>
+      </div>
+
       <table>
         <thead>
           <tr>
-            <th>예약번호</th>
+            <th>번호</th>
             <th>예약자</th>
             <th>전화번호</th>
             <th>요청 사항</th>
@@ -131,6 +141,7 @@ onMounted(async () => {
       <span class="close-button" @click="closeModal">&times;</span>
       <h2>예약 상세보기</h2>
       <table>
+        <tbody>
         <tr>
           <th>예약번호</th>
           <td id="modal-reservation-number">{{ selectedReservation?.idx }}</td>
@@ -155,6 +166,7 @@ onMounted(async () => {
           <th>인원</th>
           <td id="modal-reservation-people">{{ selectedReservation?.headcount }}명</td>
         </tr>
+        </tbody>
       </table>
     </div>
   </div>
@@ -163,6 +175,12 @@ onMounted(async () => {
 
 
 <style scoped>
+.spinner_box {
+  width: 4rem;
+  height: 20rem;
+  margin: 10rem auto;
+}
+
 .rsv_alert_modal{
   margin: .625rem 0 0 0;
 }
@@ -173,26 +191,26 @@ onMounted(async () => {
 }
 
 .reservation_list{
-    width: 46rem;
-    margin: 0 auto;
+    width: 90%;
 }
 
 .reservation_title_box {
-  margin: 3.125rem 0 2.5rem;
   display: flex; /* 플렉스 박스 활성화 */
   justify-content: flex-start; /* 왼쪽 정렬 */
   text-align: left; /* 텍스트 왼쪽 정렬 */
-  width: 100%; /* 부모 컨테이너의 전체 폭 사용 */
 }
+
 .reservation_title{
-    font-size: 1.875rem;
-    font-weight: 800;   
+  font-size: 1.4rem;
+  font-weight: 700;   
+  margin-bottom: 2rem;
 }
+
 .filter {
     display: flex;
     gap: .625rem;
     align-items: center;
-    margin: 0 0 1.875rem;
+    margin: 0 0 1rem;
 }
 
 .filter select,
@@ -260,19 +278,18 @@ table th:nth-child(7), table td:nth-child(7) {
 }
 
  /* 버튼 스타일 */
- .reservation_list table button {
-    background-color: #007BFF; /* 버튼 배경색: 파란색 */
-    color: white; /* 텍스트 색 */
+.reservation_list table button {
+    color: #ff7400; /* 텍스트 색 */
     border: none; /* 테두리 없앰 */
-    padding: .5rem 1rem; /* 패딩 */
-    font-size: .875rem; /* 폰트 크기 */
+    font-size: 0.9rem; /* 폰트 크기 */
+    font-weight: 500;
     cursor: pointer; /* 마우스 포인터 변경 */
     border-radius: .3125rem; /* 둥근 테두리 */
     transition: background-color 0.3s, transform 0.2s; /* 배경색 변경 및 확대 효과 */
 }
 
 .reservation_list table button:hover {
-    background-color: #0056b3; /* 호버시 배경색을 어두운 파란색으로 변경 */
+    text-decoration: underline;
 }
 
 /* 버튼을 포함한 테이블 셀 스타일 */
@@ -360,17 +377,5 @@ table th:nth-child(7), table td:nth-child(7) {
     padding: .625rem; /* 텍스트가 셀 안에서 여유 있게 보이도록 패딩 추가 */
 }
 
-/* 임시 스타일: 버튼으로 모달 호출 */
-button {
-    padding: .625rem;
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: .25rem;
-}
 
-button:hover {
-    background-color: #0056b3;
-}
   </style>

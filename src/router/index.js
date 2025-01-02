@@ -30,8 +30,7 @@ import SellerInsertStore from "../pages/mypage/seller/SellerInsertStore.vue";
 import SellerModifyStore from "../pages/mypage/seller/SellerModifyStore.vue";
 import SellerReservationCard from "../pages/mypage/seller/SellerReservationCard.vue";
 import SellerStoreItem from "../pages/mypage/seller/SellerStores.vue";
-// import SellerMenuCard from "../pages/mypage/seller/components/SellerMenuCard.vue";
-import SellerModifyMenu from "../pages/mypage/seller/SellerModifyMenu.vue";
+import SellerEditMenu from "../pages/mypage/seller/SellerEditMenu.vue";
 import Order from "../pages/order/Order.vue";
 import OrderDetail from "../pages/mypage/components/OrderDetail.vue";
 import MyInfo from "../pages/mypage/components/MyInfo.vue";
@@ -87,6 +86,7 @@ const routes = [
           { path: "store/rsv", component: ClientStoreRez },
           { path: "store/like", component: ClientStorelike },
           { path: "store/review", component: ClientStoreReview },
+          { path: "store/review/create", component: CreateReview },
           { path: "product/info", component: ClientProductInfo },
           { path: "product/review", component: ClientProductsReview },
           { path: "product/review/create", component: CreateReview },
@@ -113,7 +113,8 @@ const routes = [
           { path: "product/register", component: ProductEdit },
           { path: "product/modify", component: ProductEdit },
           { path: "store/:id/menu", component: SellerMenuList },
-          { path: "menu_modify/:id", component: SellerModifyMenu },
+          { path: "store/:id/menu/add", component: SellerEditMenu },
+          { path: "store/menu/:id/modify", component: SellerEditMenu },
         ],
       },
     ],
