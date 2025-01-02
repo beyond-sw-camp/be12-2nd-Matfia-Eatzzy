@@ -9,16 +9,20 @@ import StoreCard from "../store/components/StoreCard.vue";
 import BigCategory from "../store/components/BigCategory.vue";
 import CartModal from "../cart/CartModal.vue";
 import { useCartStore } from "../../stores/useCartStore";
+import { useLoadingStore } from "../../stores/useLoadingStore";
 
 const storesStore = useStoresStore();
 const productStore = useProductsStore();
 const categoryStore = useCategoryStore();
+const loadingStore = useLoadingStore();
 const cartStore = useCartStore();
+
+
 onMounted(async () => {
+  loadingStore.startLoading();
   await storesStore.getStoreBestList();
-});
-onMounted(async () => {
   await productStore.getProductBestList();
+  loadingStore.stopLoading();
 });
 </script>
 
@@ -31,7 +35,10 @@ onMounted(async () => {
         <div class="s_title">뭘 좋아할 지 몰라 다 준비했어!</div>
         <div class="b_title">카테고리별 베스트</div>
       </div>
-      <div class="best_goods_wrap">
+      <div v-if="loadingStore.isLoading" class="spinner_box">
+        <VueSpinner size="30" color="#ff7400"/>
+      </div>
+      <div v-else class="best_goods_wrap">
         <BigCategory />
         <div class="product-grid-6">
           <StoreCard
@@ -59,7 +66,10 @@ onMounted(async () => {
         <div class="s_title">집에서도 경험하는 미식</div>
         <div class="b_title">밀키트 베스트</div>
       </div>
-      <div class="product-grid-6">
+      <div v-if="loadingStore.isLoading" class="spinner_box">
+        <VueSpinner size="30" color="#ff7400"/>
+      </div>
+      <div v-else class="product-grid-6">
         <Products
           v-for="product of productStore.productsBest"
           :key="product.id"
@@ -72,6 +82,12 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+.spinner_box {
+  width: 4rem;
+  height: 5rem;
+  margin: 5rem auto;
+}
+
 section {
   padding: 3.75rem 0;
 }
@@ -120,11 +136,10 @@ section:not(:last-child) {
 .product-grid-6 {
   grid-template-columns: repeat(6, 1fr);
   display: grid;
-  gap: 2.5rem 1.5rem;
   width: 100%;
+  gap: 2.5rem 1.5rem;
   letter-spacing: -0.05em;
   flex-direction: column;
-  width: 100%;
 }
 
 .crema-hide.crema-applied {

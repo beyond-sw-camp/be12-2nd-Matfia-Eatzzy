@@ -10,7 +10,7 @@ import VCalendar from "v-calendar";
 import "v-calendar/style.css";
 
 import "vue3-carousel/dist/carousel.css";
-import { Carousel, Slide } from "vue3-carousel";
+import { VueSpinnersPlugin } from "vue3-spinners";
 
 const pinia = createPinia();
 //pinia.use(piniaPersistedstate);
@@ -21,5 +21,7 @@ app.use(router);
 
 // v-calendar
 app.use(VCalendar, {});
+
+app.use(VueSpinnersPlugin);
 
 app.mount("#app");

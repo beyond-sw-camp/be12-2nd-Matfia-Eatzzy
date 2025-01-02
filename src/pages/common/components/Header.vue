@@ -9,6 +9,7 @@ const logout = () => {
 };
 
 const mypage = "/mypage/" + sessionStorage.getItem("UserType");
+const orders = "/mypage/" + sessionStorage.getItem("UserType") + "/orders";
 const loginStatus = sessionStorage.getItem("LOGIN");
 
 const gnbOpen = () => {
@@ -31,7 +32,7 @@ const gnbOpen = () => {
         <div v-if="!loginStatus">
           <router-link to="/join">회원가입</router-link>
         </div>
-        <div v-if="loginStatus"><router-link to="/">주문조회</router-link></div>
+        <div v-if="loginStatus"><router-link :to="orders">주문조회</router-link></div>
         <div v-if="loginStatus">
           <router-link :to="mypage">마이페이지</router-link>
         </div>
