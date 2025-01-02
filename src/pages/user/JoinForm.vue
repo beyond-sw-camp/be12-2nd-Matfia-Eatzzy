@@ -1,4 +1,13 @@
-<script setup></script>
+<script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const join = () => {
+  alert("회원가입이 완료되었습니다.");
+  router.push("/login");
+};
+</script>
+
 <template>
   <div class="main">
     <h2>회원정보 입력</h2>
@@ -197,7 +206,12 @@
         <button type="button" id="btnCancel" class="btn_cancel" tabindex="18">
           취소
         </button>
-        <button type="button" class="js_btn_join btn_ok" tabindex="17">
+        <button
+          @click="join"
+          type="button"
+          class="js_btn_join btn_ok"
+          tabindex="17"
+        >
           회원가입
         </button>
       </div>
