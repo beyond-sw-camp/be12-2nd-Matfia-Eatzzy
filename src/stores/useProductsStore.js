@@ -36,16 +36,12 @@ export const useProductsStore = defineStore("products", {
     },
 
     async getProductsDetail(id) {
-      const response = await axios.get(
-        `https://193e67e5-10ed-40ed-ad63-dc23723ce82b.mock.pstmn.io/products/${id}`
-      );
+      const response = await axios.get(`/api/products/${id}`);
       this.product = response.data;
     },
 
     async getProductsList() {
-      const response = await axios.get(
-        "https://193e67e5-10ed-40ed-ad63-dc23723ce82b.mock.pstmn.io/products"
-      );
+      const response = await axios.get("/api/products");
       this.products = response.data;
     },
 

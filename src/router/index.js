@@ -37,7 +37,6 @@ import Order from "../pages/order/Order.vue";
 import OrderDetail from "../pages/mypage/components/OrderDetail.vue";
 import MyInfo from "../pages/mypage/components/MyInfo.vue";
 
-
 const checkUserType = (from, to, next) => {
   // 고객인지 점주인지 확인 후 경로 이동
   const userType = sessionStorage.getItem("UserType");
@@ -108,7 +107,7 @@ const routes = [
           { path: "orders/:id", component: OrderDetail },
           {
             path: "orders/:id/delivery/register",
-            component: DeliveryRegister,
+            component: ShippingRegister,
           },
           { path: "product", component: ProductList },
           {
