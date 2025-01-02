@@ -30,7 +30,7 @@ import SellerInsertStore from "../pages/mypage/seller/SellerInsertStore.vue";
 import SellerModifyStore from "../pages/mypage/seller/SellerModifyStore.vue";
 import SellerReservationCard from "../pages/mypage/seller/SellerReservationCard.vue";
 import SellerStoreItem from "../pages/mypage/seller/SellerStores.vue";
-import SellerMenuCard from "../pages/mypage/seller/components/SellerMenuCard.vue";
+// import SellerMenuCard from "../pages/mypage/seller/components/SellerMenuCard.vue";
 import SellerModifyMenu from "../pages/mypage/seller/SellerModifyMenu.vue";
 import Order from "../pages/order/Order.vue";
 import OrderDetail from "../pages/mypage/components/OrderDetail.vue";
@@ -107,7 +107,7 @@ const routes = [
           { path: "orders/:id", component: OrderDetail },
           {
             path: "orders/:id/delivery/register",
-            component: ShippingRegister,
+            component: DeliveryRegister,
           },
           { path: "product", component: ProductList },
           { path: "product/register", component: ProductEdit },
