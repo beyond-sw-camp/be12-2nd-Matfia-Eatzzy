@@ -4,10 +4,18 @@ import ProductItem from './components/ProductItem.vue';
 import{ref} from 'vue';
 
 const reviewStore = useReviewStore();
+const mode = ref(null);
+
 const createReview = async () => {
   const result = await reviewStore.registerReview();
   console.log(result);
 }
+
+const updateModeAction = () => {
+  const pathSegments = route.path.split("/");
+  mode.value = pathSegments.includes("store") ? "store" : "product";
+};
+
 
 const handleFileChange = (event) => {
       const file = event.target.files[0];
