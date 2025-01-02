@@ -8,6 +8,7 @@ export const useCartStore = defineStore("carts", {
     isAllChecked: true,
     deliveryFee: 4000,
     cartChecked: {},
+    totalPrice: 0,
   }),
   getters: {
     calTotalPrice() {
@@ -34,6 +35,8 @@ export const useCartStore = defineStore("carts", {
       this.cartProducts = response.data.cartProducts;
       for (const cartProduct of this.cartProducts) {
         this.cartChecked[cartProduct.productId] = true;
+        this.totalPrice += cartProduct.price * cartProduct.quantity;
+        console.log(this.totalPrice);
       }
     },
     allCheck() {
@@ -43,6 +46,26 @@ export const useCartStore = defineStore("carts", {
       for (const cartProduct of this.cartProducts) {
         this.cartChecked[cartProduct.productId] = this.isAllChecked;
       }
+      this.updateTotalPrice();
+    },
+    // 총 가격 업데이트
+    updateTotalPrice() {
+      this.totalPrice = this.cartProducts.reduce((sum, product) => {
+        if (this.cartChecked[product.productId]) {
+          return sum + product.price * product.quantity;
+        }
+        console.log(sum);
+        return sum;
+      }, 0);
+      let tmp = 0;
+      console.log(tmp);
+
+      for (const cartProduct of this.cartProducts) {
+        if (this.cartChecked[cartProduct.productId])
+          tmp += cartProduct.price * cartProduct.quantity;
+        console.log(tmp);
+      }
+      this.totalPrice = tmp;
     },
 
     checkIsAllchecked() {
@@ -66,6 +89,7 @@ export const useCartStore = defineStore("carts", {
         (product) => this.cartChecked[product.productId] === true
       );
       this.isAllChecked = allChecked;
+      console.log(this.updateTotalPrice());
     },
     changeQuantity(productId, diff) {
       const product = this.cartProducts.find((p) => p.productId === productId);
@@ -77,6 +101,7 @@ export const useCartStore = defineStore("carts", {
       }
       product.quantity += diff;
       product.totalPrice = product.quantity * product.price;
+      this.updateTotalPrice();
     },
   },
 });
