@@ -214,7 +214,7 @@
 <details>
   <summary>식당 정보 수정/삭제</summary>
   <div markdown="1">
-  <img src="/public/gif/식당수정.gif" alt="점주 식당수정"/>
+  <img src="/public/gif/식당 수정.gif" alt="점주 식당수정"/>
   <img src="/public/gif/식당삭제.gif" alt="점주 식당삭제"/>
   <br>
   </div>
