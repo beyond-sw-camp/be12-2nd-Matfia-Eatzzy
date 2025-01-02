@@ -28,18 +28,20 @@ onMounted(() => {
     <td>
       <a href="/stores/1" class="likeStore_info">
         <img :src="like.store_image" class="like_images" />
-        <div>
+        <div class="store_name">
           <div class="likeStore_name">{{ like.store_name }}</div>
         </div>
       </a>
     </td>
     <td class="address">{{ like.addresses }}</td>
-    <td>
+    <td class = "phone_td">
       <span class="phone">{{ like.call_number }}</span>
     </td>
     <td class="likeStore_buttons">
+      <div class="buttons_layout">
       <button @click="moveClick(like.id)">예약하기</button>
       <button class="delete" @click="handleCancelClick(like.id)">삭제하기</button>
+    </div>
     </td>
   </tr>
 </template>
@@ -51,28 +53,28 @@ onMounted(() => {
   text-align: left;
 }
 .like_images {
-  width: 6.25rem;
+  width: 6.25rem; 
   height: 6.25rem;
-  object-fit: cover;
+  object-fit: fill; 
   margin-right: 0.625rem;
   border: 0.0625rem solid #ddd;
   border-radius: 0.25rem;
 }
 .likeStore_name {
   font-weight: bold;
-  font-size: 0.9375rem;
+  font-size: 1.2rem;
 }
 .address {
   font-size: 0.9375rem;
 }
 .phone {
-  color: #28a745;
+  color: black;
   font-weight: bold;
-  font-size: 1.25rem;
+  font-size: 1rem;
 }
 .likeStore_buttons button {
+  width: 5rem;
   padding: 0.3125rem 0.625rem;
-  margin: 0.3125rem;
   font-size: 0.875rem;
   cursor: pointer;
   border: 0.0625rem solid #ff7400;
@@ -82,13 +84,23 @@ onMounted(() => {
 }
 
 .likeStore_buttons button.delete {
-  background-color: #dc3545;
-  border-color: #dc3545;
+  color: black;
+  background-color: white;
+  border-color: black;
 }
 
 .likeStore_buttons button:hover {
   opacity: 0.8;
 }
+.buttons_layout {
+  height: 100%;
+  display: flex; 
+  align-items: center;
+  justify-content: center; 
+  gap: 0.5rem; 
+  
+}
+
 tr,
 td {
   border-top: 1px solid #cecece;
