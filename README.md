@@ -129,7 +129,7 @@
   <summary>장바구니</summary>
    <div markdown="1">
    <img src="/public/gif/장바구니상세기능및전체상품주문으로주문이동.gif" alt="장바구니" />
-   <img src="/public/gif/선택상품주문.gif" alt="장바구니" />
+   <img src="/public/gif/장바구니-선택상품주문.gif" alt="장바구니" />
   <br>
   </div>
 </details>
@@ -137,6 +137,7 @@
 <details>
   <summary>주문</summary>
    <div markdown="1">
+    <img src="/public/gif/주문완료.gif" alt="주문" />
   <br>
   </div>
 </details>
@@ -214,6 +215,8 @@
 <details>
   <summary>식당 정보 수정/삭제</summary>
   <div markdown="1">
+  <img src="/public/gif/식당 수정.gif" alt="점주 식당수정"/>
+  <img src="/public/gif/식당삭제.gif" alt="점주 식당삭제"/>
   <br>
   </div>
 </details>
@@ -221,6 +224,7 @@
 <details>
   <summary>상품 등록</summary>
   <div markdown="1">
+  <img src="/public/gif/내 상품 등록.gif" alt="점주 상품등록"/>
   <br>
   </div>
 </details>
@@ -228,6 +232,7 @@
 <details>
   <summary>내 상품 조회</summary>
   <div markdown="1">
+  <img src="/public/gif/등록한 상품 조회.gif" alt="점주 상품조회"/>
   <br>
   </div>
 </details>
@@ -235,6 +240,8 @@
 <details>
   <summary>상품 정보 수정/삭제</summary>
   <div markdown="1">
+  <img src="/public/gif/상품 수정.gif" alt="점주 상품수정"/>
+  <img src="/public/gif/상품 삭제.gif" alt="점주 식당삭제"/>
   <br>
   </div>
 </details>
@@ -242,6 +249,7 @@
 <details>
   <summary>상품 주문내역 확인</summary>
   <div markdown="1">
+  <img src="/public/gif/주문내역확인.gif" alt="점주 주문확인"/>
   <br>
   </div>
 </details>
@@ -249,6 +257,7 @@
 <details>
   <summary>배송 등록</summary>
   <div markdown="1">
+  <img src="/public/gif/배송등록.gif" alt="점주 배송등록"/>
   <br>
   </div>
 </details>
