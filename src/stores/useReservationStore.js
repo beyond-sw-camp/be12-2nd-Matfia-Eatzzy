@@ -13,9 +13,7 @@ export const useReservationStore = defineStore("reservation", {
     },
 
     async getSellerReservationsList() {
-      const response = await axios.get(
-        "https://run.mocky.io/v3/467592c0-ede3-4f23-ac5a-b9edc22c6e62"
-      );
+      const response = await axios.get("/api/reservationitem");
       this.reservations = response.data;
     },
   },
