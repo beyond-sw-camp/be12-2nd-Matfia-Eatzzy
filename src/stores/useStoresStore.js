@@ -50,7 +50,7 @@ export const useStoresStore = defineStore("stores", {
 
     async getSellerStoresList() {
       const response = await axios.get(
-        "https://run.mocky.io/v3/f005ed62-b04d-4ec9-a30a-02941d649b79"
+        "/api/storeitem"
       );
       this.stores = response.data;
     },
