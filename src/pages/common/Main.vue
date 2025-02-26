@@ -17,7 +17,6 @@ const categoryStore = useCategoryStore();
 const loadingStore = useLoadingStore();
 const cartStore = useCartStore();
 
-
 onMounted(async () => {
   loadingStore.startLoading();
   await storesStore.getStoreBestList();
@@ -36,7 +35,7 @@ onMounted(async () => {
         <div class="b_title">카테고리별 베스트</div>
       </div>
       <div v-if="loadingStore.isLoading" class="spinner_box">
-        <VueSpinner size="30" color="#ff7400"/>
+        <VueSpinner size="30" color="#ff7400" />
       </div>
       <div v-else class="best_goods_wrap">
         <BigCategory />
@@ -67,12 +66,12 @@ onMounted(async () => {
         <div class="b_title">밀키트 베스트</div>
       </div>
       <div v-if="loadingStore.isLoading" class="spinner_box">
-        <VueSpinner size="30" color="#ff7400"/>
+        <VueSpinner size="30" color="#ff7400" />
       </div>
       <div v-else class="product-grid-6">
         <Products
           v-for="product of productStore.productsBest"
-          :key="product.id"
+          :key="product.idx"
           :product="product"
         />
       </div>

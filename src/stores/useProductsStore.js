@@ -30,9 +30,9 @@ export const useProductsStore = defineStore("products", {
   }),
   actions: {
     async getProductBestList() {
-      const response = await axios.get("/api/productBest");
-
-      this.productsBest = response.data;
+      const response = await axios.get("/api/products/list");
+      console.log(response.data);
+      this.productsBest = response.data.result;
     },
 
     async getProductsDetail(id) {
