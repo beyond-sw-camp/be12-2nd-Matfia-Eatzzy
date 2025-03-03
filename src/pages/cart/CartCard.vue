@@ -3,12 +3,12 @@
     <td class="td_chk">
       <div class="form_element">
         <input
-          @change="cartStore.toggleCheck(cartProduct.productId)"
+          @change="cartStore.toggleCheck(cartProduct.idx)"
           type="checkbox"
-          :id="`cartSno1_${cartProduct.productId}`"
+          :id="`cartSno1_${cartProduct.idx}`"
           name="cartSno[]"
           value="4556515"
-          :checked="cartStore.cartChecked[cartProduct.productId]"
+          :checked="cartProduct.isChecked"
           data-price="31600"
           data-mileage="310"
           data-goodsdc="0"
@@ -28,7 +28,7 @@
           data-f-firstsample="n"
           class="foo_firstSampleCheck"
         />
-        <label :for="`cartSno1_${cartProduct.productId}`"></label>
+        <label :for="`cartSno1_${cartProduct.idx}`"></label>
       </div>
     </td>
     <td class="td_left">
@@ -44,12 +44,13 @@
           src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/common/layer/btn_layer_close.png"
           class="cart_delete"
           data-cart-sno="4556515"
+          @click="cartStore.removeItem(cartProduct.idx)"
         />
 
         <span class="pick_add_img">
-          <router-link :to="`/products/${cartProduct.productId}`">
+          <router-link :to="`/products/${cartProduct.idx}`">
             <img
-              :src="cartProduct.productImg"
+              :src="cartProduct.imgPath"
               width="40"
               alt="패션후르츠 샤베트 300ml (50ml x 6ea)_겨울에도 식을줄 모르는 디저트샤벳"
               title="패션후르츠 샤베트 300ml (50ml x 6ea)_겨울에도 식을줄 모르는 디저트샤벳"
@@ -59,8 +60,8 @@
         </span>
         <div class="pick_add_info">
           <em>
-            <router-link :to="`/products/${cartProduct.productId}`">{{
-              cartProduct.productName
+            <router-link :to="`/products/${cartProduct.idx}`">{{
+              cartProduct.name
             }}</router-link>
           </em>
 
@@ -78,7 +79,7 @@
             <button
               class="minus"
               value
-              @click="cartStore.changeQuantity(cartProduct.productId, -1)"
+              @click="cartStore.decreaseQuantity(cartProduct.idx)"
             ></button>
             <span class="min_order_cnt" style="display: none">1</span>
             <input type="hidden" name="sale_unit" value="1" />
@@ -95,7 +96,7 @@
               type="button"
               class="plus"
               value=""
-              @click="cartStore.changeQuantity(cartProduct.productId, +1)"
+              @click="cartStore.increaseQuantity(cartProduct.idx)"
             ></button>
             <span class="max_order_cnt" style="display: none">0</span>
           </span>

@@ -1,79 +1,136 @@
 import { defineStore } from "pinia";
-import axios from "axios";
+
+// localStorage에서 데이터 불러오기
+const loadCartFromStorage = () => {
+  const cart = localStorage.getItem("cart");
+  return cart ? JSON.parse(cart) : { items: [], totalPrice: 0 };
+};
 
 export const useCartStore = defineStore("carts", {
   state: () => ({
-    cartProducts: [],
     isMadal: false,
     isAllChecked: true,
-    deliveryFee: 4000,
     cartChecked: {},
-    totalPrice: 0,
+    ...loadCartFromStorage(),
   }),
+  //상태 접근 함수
+  //상태는 localStorage...
+  //localStorage 에 접근하는 함수를 피니아에
+  //상태를 관리하는 중앙 저장소이기 때문에 상태를 localStorage 라고 정의하면
+  //localStorage 에 대한 접근을 피니아에서 하는게 맞는거 같다.
   getters: {
-    calTotalPrice() {
-      return this.cartProducts.reduce(
-        (sum, product) => sum + (product.totalPrice || 0),
-        0
-      );
-    },
-
-    getTotalPrice() {
-      console.log(this.calTotalPrice);
-      return this.calTotalPrice + this.deliveryFee;
-    },
-
-    getCartCheck: (state) => {
-      // 반환값이 '함수'인 게터
-      return (productId) => state.cartChecked[productId];
-    },
+    cartCount: (state) => state.items.length,
+    //items.isChecked 확인 하는 메서드
   },
 
+  //직접 state를 변경하는 것이 아니라, actions를 통해 비즈니스 로직을 캡슐화하여 상태를 변경
   actions: {
-    async getCartProducts() {
-      const response = await axios.get("/api/cart");
-      this.cartProducts = response.data.cartProducts;
-      for (const cartProduct of this.cartProducts) {
-        this.cartChecked[cartProduct.productId] = true;
-        this.totalPrice += cartProduct.price * cartProduct.quantity;
-        console.log(this.totalPrice);
-      }
+    // 장바구니 상태를 localStorage에 저장
+    saveToLocalStorage() {
+      localStorage.setItem("cart", JSON.stringify(this.$state));
     },
-    allCheck() {
-      this.isAllChecked = !this.isAllChecked;
 
-      // 모든 상품에 대해 동일한 체크 상태를 부여
-      for (const cartProduct of this.cartProducts) {
-        this.cartChecked[cartProduct.productId] = this.isAllChecked;
+    // 상품 추가
+    addItem(item) {
+      const existingItem = this.items.find((i) => i.idx === item.idx);
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        this.items.push({ ...item, quantity: 1, isChecked: true });
       }
-      this.updateTotalPrice();
+      this.totalPrice = this.items.reduce(
+        (sum, i) => sum + i.price * i.quantity,
+        0
+      );
+      this.saveToLocalStorage();
     },
-    // 총 가격 업데이트
-    updateTotalPrice() {
-      this.totalPrice = this.cartProducts.reduce((sum, product) => {
-        if (this.cartChecked[product.productId]) {
-          return sum + product.price * product.quantity;
+
+    async orderCreate() {
+      try {
+        // ✅ isChecked가 true인 상품만 필터링
+        const selectedItems = this.items.filter((item) => item.isChecked);
+
+        // ✅ 선택된 상품이 없으면 주문 진행 X
+        if (selectedItems.length === 0) {
+          alert("선택된 상품이 없습니다. 주문할 상품을 선택해주세요.");
+          return;
         }
-        console.log(sum);
-        return sum;
-      }, 0);
-      let tmp = 0;
-      console.log(tmp);
 
-      for (const cartProduct of this.cartProducts) {
-        if (this.cartChecked[cartProduct.productId])
-          tmp += cartProduct.price * cartProduct.quantity;
-        console.log(tmp);
+        // ✅ 선택된 상품들의 총 가격 계산
+        const totalPrice = selectedItems.reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0
+        );
+
+        // ✅ API 요청 데이터 (선택된 상품 목록 + 총 가격)
+        const requestData = {
+          items: selectedItems,
+          totalPrice: totalPrice,
+        };
+
+        // ✅ 서버로 주문 요청 보내기
+        const response = await axios.post(`/api/orders/create`, requestData);
+
+        return response.data;
+      } catch (error) {
+        console.error("주문 생성 중 오류 발생:", error);
+        alert("주문 처리 중 문제가 발생했습니다. 다시 시도해주세요.");
+        throw error;
       }
-      this.totalPrice = tmp;
     },
 
-    checkIsAllchecked() {
-      for (const checked of this.cartChecked) {
-        if (!checked) this.isAllChecked = false;
-      }
+    // 상품 삭제
+    removeItem(idx) {
+      this.items = this.items.filter((item) => item.idx !== idx);
+      this.totalPrice = this.items.reduce(
+        (sum, i) => sum + i.price * i.quantity,
+        0
+      );
+      this.saveToLocalStorage();
+    },
 
-      this.isAllChecked = true;
+    // 장바구니 초기화
+    clearCart() {
+      this.items = [];
+      this.totalPrice = 0;
+      localStorage.removeItem("cart");
+    },
+
+    // ✅ 수량 증가 함수
+    increaseQuantity(idx) {
+      const item = this.items.find((i) => i.idx === idx);
+      if (item) {
+        item.quantity += 1;
+        this.updateTotalPrice();
+        this.saveToLocalStorage();
+      }
+    },
+
+    // ✅ 수량 감소 함수 (최소 1개)
+    decreaseQuantity(idx) {
+      const item = this.items.find((i) => i.idx === idx);
+      if (item && item.quantity > 1) {
+        item.quantity -= 1;
+        this.updateTotalPrice();
+        this.saveToLocalStorage();
+      }
+    },
+
+    // ✅ 선택된 상품만 합산하여 총 가격 업데이트
+    updateTotalPrice() {
+      this.totalPrice = this.items
+        .filter((item) => item.isChecked) // ✅ 체크된 상품만 포함
+        .reduce((sum, i) => sum + i.price * i.quantity, 0);
+    },
+
+    // ✅ 체크 상태 토글
+    toggleCheck(idx) {
+      const item = this.items.find((i) => i.idx === idx);
+      if (!item) return;
+
+      item.isChecked = !item.isChecked; // ✅ 체크 여부 토글
+      this.updateTotalPrice(); // ✅ 체크된 상품만 총 가격에 포함
+      this.saveToLocalStorage();
     },
 
     openModal() {
@@ -81,27 +138,6 @@ export const useCartStore = defineStore("carts", {
     },
     closeModal() {
       this.isMadal = false;
-    },
-    toggleCheck(productId) {
-      this.cartChecked[productId] = !this.cartChecked[productId];
-      // 모든 상품이 체크되어 있다면 isAllChecked = true, 아니면 false
-      const allChecked = this.cartProducts.every(
-        (product) => this.cartChecked[product.productId] === true
-      );
-      this.isAllChecked = allChecked;
-      console.log(this.updateTotalPrice());
-    },
-    changeQuantity(productId, diff) {
-      const product = this.cartProducts.find((p) => p.productId === productId);
-      if (!product) return;
-
-      if (product.quantity + diff <= 0) {
-        alert("최소 수량은 1개입니다.");
-        return;
-      }
-      product.quantity += diff;
-      product.totalPrice = product.quantity * product.price;
-      this.updateTotalPrice();
     },
   },
 });
