@@ -75,7 +75,7 @@
             <tbody>
               <!-- TODO : emit 와 props 추가 장바구니 체크 리스트 기능 때문 -->
               <CartCard
-                v-for="cartProduct in cartStore.cartProducts"
+                v-for="cartProduct in cartStore.items"
                 :cartProduct="{ ...cartProduct }"
                 :key="cartProduct.productId"
               ></CartCard>
@@ -114,8 +114,7 @@
               <div class="price_sum_list">
                 <div>
                   <p>
-                    총 <strong>{{ cartStore.cartProducts.length }}</strong> 개의
-                    상품금액
+                    총 <strong>{{ cartStore.cartCount }}</strong> 개의 상품금액
                   </p>
                   <p class="price">
                     <strong>{{ cartStore.totalPrice }}</strong

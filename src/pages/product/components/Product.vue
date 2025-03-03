@@ -7,6 +7,11 @@ const props = defineProps({
   },
 });
 
+// 클릭 이벤트 핸들러 함수
+const handleCartClick = (product) => {
+  cartStore.addItem(product); // 상품 추가
+  cartStore.openModal(); // 모달 열기
+};
 const cartStore = useCartStore();
 </script>
 <template>
@@ -39,7 +44,7 @@ const cartStore = useCartStore();
           </div>
           <!-- 장바구니 버튼 -->
           <button
-            @click="cartStore.openModal"
+            @click="handleCartClick(product)"
             type="button"
             href="#optionViewLayer"
             class="n_list_cart btn_add_cart btn_open_layer list_basket_cart"
