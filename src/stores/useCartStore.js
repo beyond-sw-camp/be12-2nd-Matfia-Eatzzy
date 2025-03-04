@@ -56,16 +56,22 @@ export const useCartStore = defineStore("carts", {
           return;
         }
 
-        // ✅ 선택된 상품들의 총 가격 계산
+        // ✅ 필요한 데이터만 포함한 배열 (idx, price)
+        const orderItems = selectedItems.map((item) => ({
+          idx: item.idx,
+          price: item.price,
+        }));
+
+        // ✅ 총 가격 계산
         const totalPrice = selectedItems.reduce(
           (sum, item) => sum + item.price * item.quantity,
           0
         );
 
-        // ✅ API 요청 데이터 (선택된 상품 목록 + 총 가격)
+        // ✅ 최종 API 요청 데이터
         const requestData = {
-          items: selectedItems,
-          totalPrice: totalPrice,
+          items: orderItems, // 필요한 데이터만 포함된 리스트
+          totalPrice: totalPrice, // 총 주문 금액
         };
 
         // ✅ 서버로 주문 요청 보내기
