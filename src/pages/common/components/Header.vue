@@ -8,9 +8,10 @@ const logout = () => {
   memberStore.logout();
 };
 
-const mypage = "/mypage/" + sessionStorage.getItem("UserType");
-const orders = "/mypage/" + sessionStorage.getItem("UserType") + "/orders";
-const loginStatus = sessionStorage.getItem("LOGIN");
+const userType = sessionStorage.getItem("LOGIN")?.toLowerCase() || null;
+const mypage = "/mypage/" + userType;
+const orders = "/mypage/" + userType + "/orders";
+const loginStatus = sessionStorage.getItem("LOGIN")?.length > 0;
 
 const gnbOpen = () => {
   let gnb = document.querySelector("#gnb");

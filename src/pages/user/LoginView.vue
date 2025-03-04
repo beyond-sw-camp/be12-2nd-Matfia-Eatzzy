@@ -5,7 +5,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 const memberStore = useMemberStore();
 const loginData = ref({
-  id: "",
+  userId: "",
   password: "",
 });
 
@@ -30,16 +30,16 @@ const login = async () => {
             <div class="login_input_sec">
               <input
                 type="text"
-                id="loginId"
-                name="loginId"
+                id="userId"
+                name="userId"
                 value=""
                 placeholder="ID"
-                v-model="loginData.id"
+                v-model="loginData.userId"
               />
               <input
                 type="password"
-                id="loginPwd"
-                name="loginPwd"
+                id="password"
+                name="password"
                 value=""
                 placeholder="PASSWORD"
                 v-model="loginData.password"
@@ -50,6 +50,9 @@ const login = async () => {
               <li>
                 <a href="./Join" class="btn_member_join_new"> 회원가입 </a>
               </li>
+              <!-- <li>
+                <a href="./login/kakao" class="btn_member_join_new">카카오로 가입/로그인 </a>
+              </li> -->
             </ul>
           </div>
           <!-- //login_box -->
