@@ -70,21 +70,22 @@
           </tbody>
         </table>
         <!-- 장바구니 상품리스트 끝 -->
-        <OrderCard
+        <!-- <OrderCard
           v-for="cartProduct in cartStore.cartProducts"
           :cartProduct="cartProduct"
-        ></OrderCard>
+        >
+        </OrderCard> -->
 
         <div class="price_sum">
           <div class="price_sum_cont">
             <div class="price_sum_list">
               <div>
                 <p>
-                  총 <strong>{{ cartStore.cartProducts.length }}</strong> 개의
+                  <!-- 총 <strong>{{ cartStore.cartProducts.length }}</strong> 개의 -->
                   상품금액
                 </p>
                 <p class="price">
-                  <strong>{{ cartStore.calTotalPrice }}</strong
+                  <!-- <strong>{{ cartStore.calTotalPrice }}</strong -->
                   >원
                 </p>
               </div>
@@ -1175,7 +1176,7 @@
           </div>
         </div>
         <div class="btn_center_box">
-          <button @click="orderStore.modal" class="btn_order_buy order-buy">
+          <button @click="pay" class="btn_order_buy order-buy">
             <em>결제하기</em>
           </button>
         </div>
@@ -1197,18 +1198,92 @@
 </template>
 
 <script setup>
-import OrderCard from "./components/OrderCard.vue";
-
+import axios from "axios";
+import PortOne from "@portone/browser-sdk/v2";
 import { useCartStore } from "../../stores/useCartStore";
 import OrderModal from "./OrderModal.vue";
 import { onMounted, ref } from "vue";
 import { useOrderStore } from "../../stores/useOrderStore";
-
 const cartStore = useCartStore();
 const orderStore = useOrderStore();
+const order = ref(null); // 주문 데이터를 저장할 반응형 변수
+
+// 주문 정보를 가져오는 함수
+const fetchOrderDetails = async (idx) => {
+  try {
+    // const response = await axios.get(`/api/orders/${idx}`);
+    const readResponse = {
+      idx: 1, // 주문 ID
+      price: 10000, // 가격
+      message: "테스트 주문입니다.", // 메시지
+      status: "완료", // 상태
+    };
+
+    order.value = readResponse; // 반응형 변수에 데이터 저장
+    console.log("주문 정보:", order.value);
+  } catch (error) {
+    console.error("주문 정보를 가져오는 중 오류 발생:", error);
+  }
+};
+
+// 컴포넌트 마운트 시 주문 정보 가져오기
 onMounted(async () => {
-  await cartStore.getCartProducts();
+  await fetchOrderDetails(1); // 주문 정보를 가져올 때까지 대기
 });
+
+// 결제 함수
+const pay = async () => {
+  if (!order.value) {
+    console.error("주문 정보가 없습니다!");
+    return alert("주문 정보를 불러오는 중입니다. 잠시 후 다시 시도해주세요.");
+  }
+
+  let orderName = order.value?.message || "상품명 없음";
+  let totalAmount = order.value?.price || 0;
+
+  const portoneRes = await PortOne.requestPayment({
+    storeId: "store-5493e266-f9a3-4c57-80a1-8e94fd06935e",
+    channelKey: "channel-key-15f235be-7db2-4b8d-a25a-843ab9536d1b",
+    paymentId: "payment-" + crypto.randomUUID(),
+    orderName: orderName,
+    totalAmount: totalAmount,
+    currency: "CURRENCY_KRW",
+    payMethod: "EASY_PAY",
+  });
+
+  console.log(portoneRes);
+
+  if (portoneRes.code !== undefined) {
+    // 오류 발생
+    return alert(portoneRes.message);
+  }
+
+  handlePayment(portoneRes);
+};
+
+// 결제 정보를 서버로 전송하는 함수
+const sendPaymentData = async (paymentData) => {
+  try {
+    const response = await axios.post("/api/payments", paymentData);
+
+    console.log("결제 정보 전송 성공:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("결제 정보를 전송하는 중 오류 발생:", error);
+  }
+};
+
+// 결제 완료 후 서버에 전송
+const handlePayment = async (portoneRes) => {
+  const paymentData = {
+    userId: 1, // 현재 로그인한 사용자 ID (예: localStorage 또는 Vuex/Pinia에서 가져오기)
+    paymentId: portoneRes.paymentId,
+    transactionType: portoneRes.transactionType,
+    txId: portoneRes.txId,
+  };
+
+  await sendPaymentData(paymentData);
+};
 </script>
 
 <style>
