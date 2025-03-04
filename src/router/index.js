@@ -23,6 +23,7 @@ import Join from "../pages/user/Join.vue";
 import JoinAgreement from "../pages/user/JoinAgreement.vue";
 import JoinForm from "../pages/user/JoinForm.vue";
 import Login from "../pages/user/LoginView.vue";
+import Kakao from "../pages/user/LoginKakao.vue";
 
 import ProductEdit from "../pages/mypage/seller/ProductEdit.vue";
 import SellerInsertMenu from "../pages/mypage/seller/SellerInsertMenu.vue";
@@ -65,6 +66,7 @@ const routes = [
   { path: "/stores", component: Stores },
   { path: "/stores/:id", component: StoreDetail },
   { path: "/login", component: Login },
+  { path: "/login/kakao", component: Kakao },
   { path: "/join", component: Join },
   { path: "/join_agreement", component: JoinAgreement },
   { path: "/products/:id", component: ProductDetail },

@@ -1,10 +1,22 @@
 <script setup>
+import { ref } from "vue";
 import { useRouter } from "vue-router";
-
+import { useMemberStore } from "../../stores/useMemberStore";
 const router = useRouter();
-const join = () => {
-  alert("회원가입이 완료되었습니다.");
-  router.push("/login");
+const memberStore = useMemberStore();
+const formData = ref({
+  userId: "",
+  password: "",
+  birthDate: "",
+  name: "",
+  email: "",
+  address: "",
+  addressDetail: "",
+  phone: "",
+  userType: ""
+});
+const signup = async () => {
+  await memberStore.signUp(formData.value);
 };
 </script>
 
@@ -12,14 +24,13 @@ const join = () => {
   <div class="main">
     <h2>회원정보 입력</h2>
     <form
-      id="formJoin"
-      name="formJoin"
+      id="formData"
+      name="formData"
       action=""
       method="post"
       class="join_frm"
       autocomplete="off"
       novalidate="novalidate"
-      data-gtm-form-interact-id="0"
     >
       <div class="join_view">
         <section class="join_form_tabarea base_info_box join_common">
@@ -31,16 +42,18 @@ const join = () => {
                   <div class="user_type_area">
                     <input
                       type="radio"
-                      id="userType_customer"
+                      id="userType_client"
                       name="userType"
-                      value="customer"
+                      value="CLIENT"
+                      v-model="formData.userType"
                     />
-                    <label for="userType_customer">소비자</label>
+                    <label for="userType_client">소비자</label>
                     <input
                       type="radio"
                       id="userType_seller"
                       name="userType"
-                      value="seller"
+                      value="SELLER"
+                      v-model="formData.userType"
                     />
                     <label for="userType_seller">점주</label>
                   </div>
@@ -52,13 +65,12 @@ const join = () => {
                   <div class="member_warning">
                     <input
                       type="text"
-                      id="memId"
-                      name="memId"
-                      data-pattern="gdMemberId"
+                      id="userId"
+                      name="userId"
                       maxlength="40"
                       placeholder="아이디"
                       value=""
-                      tabindex="6"
+                      v-model="formData.userId"
                     />
                   </div>
                 </td>
@@ -70,11 +82,11 @@ const join = () => {
                   <div class="member_warning">
                     <input
                       type="password"
-                      id="newPassword"
-                      name="memPw"
+                      id="password"
+                      name="password"
+                      autocomplete="off"
                       placeholder="비밀번호"
-                      autocomplete="new-password"
-                      tabindex="7"
+                      v-model="formData.password"
                     />
                   </div>
                 </td>
@@ -85,10 +97,9 @@ const join = () => {
                     <input
                       type="password"
                       class="check-id"
-                      name="memPwRe"
+                      name="rePassword"
                       autocomplete="off"
                       placeholder="비밀번호 확인"
-                      tabindex="8"
                     />
                   </div>
                 </td>
@@ -99,11 +110,12 @@ const join = () => {
                   <div>
                     <input
                       type="text"
-                      id=""
-                      name=""
+                      id="name"
+                      name="name"
                       maxlength="40"
                       placeholder="이름"
                       value=""
+                      v-model="formData.name"
                     />
                   </div>
                 </td>
@@ -114,11 +126,12 @@ const join = () => {
                   <div>
                     <input
                       type="text"
-                      id=""
-                      name=""
+                      id="birthDate"
+                      name="birthDate"
                       maxlength="40"
                       placeholder="생년월일"
                       value=""
+                      v-model="formData.birthDate"
                     />
                   </div>
                 </td>
@@ -136,20 +149,19 @@ const join = () => {
                         placeholder="이메일"
                         autocomplete="off"
                         tabindex="9"
+                        v-model="formData.email"
                       />
                       <select
                         id="emailDomain"
                         name="emailDomain"
                         class="chosen-select"
                       >
-                        <option value="self">직접입력</option>
+                        <option value="">직접입력</option>
                         <option value="naver.com">naver.com</option>
-                        <option value="hanmail.net">hanmail.net</option>
                         <option value="daum.net">daum.net</option>
                         <option value="nate.com">nate.com</option>
                         <option value="hotmail.com">hotmail.com</option>
                         <option value="gmail.com">gmail.com</option>
-                        <option value="icloud.com">icloud.com</option>
                       </select>
                     </div>
                     <div class="member_warning js_email"></div>
@@ -162,21 +174,23 @@ const join = () => {
                   <div>
                     <input
                       type="text"
-                      id=""
-                      name=""
+                      id="address"
+                      name="address"
                       maxlength="40"
                       placeholder="주소"
                       value=""
+                      v-model="formData.address"
                     />
                   </div>
                   <div>
                     <input
                       type="text"
-                      id=""
-                      name=""
+                      id="addressDetail"
+                      name="addressDetail"
                       maxlength="40"
                       placeholder="상세주소"
                       value=""
+                      v-model="formData.addressDetail"
                     />
                   </div>
                 </td>
@@ -187,12 +201,12 @@ const join = () => {
                   <div class="address_postcode">
                     <input
                       type="text"
-                      id="cellPhone"
-                      name="cellPhone"
+                      id="phone"
+                      name="phone"
                       maxlength="12"
                       placeholder="- 없이 입력하세요."
-                      data-pattern="gdNum"
                       value=""
+                      v-model="formData.phone"
                     />
                   </div>
                 </td>
@@ -207,7 +221,7 @@ const join = () => {
           취소
         </button>
         <button
-          @click="join"
+          @click="signup"
           type="button"
           class="js_btn_join btn_ok"
           tabindex="17"
