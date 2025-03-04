@@ -58,7 +58,8 @@ export const useCartStore = defineStore("carts", {
 
         // ✅ 필요한 데이터만 포함한 배열 (idx, price)
         const orderItems = selectedItems.map((item) => ({
-          idx: item.idx,
+          productIdx: item.idx,
+          quantity: item.quantity,
           price: item.price,
         }));
 
