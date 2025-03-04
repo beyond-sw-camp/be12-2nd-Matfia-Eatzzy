@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
+    "@portone/browser-sdk": "^0.0.13",
     "axios": "^1.7.9",
     "pinia": "^2.3.0",
     "pinia-plugin-persistedstate": "^4.2.0",
