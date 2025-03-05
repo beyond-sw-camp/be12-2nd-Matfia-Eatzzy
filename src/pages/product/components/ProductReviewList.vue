@@ -3,45 +3,57 @@
     <div class="review_header">
       <img src="/src/assets/icons/star_fill.svg" alt="star" />
       <div>
-        <p>4.7</p>
-        <span>53개의 리뷰</span>
+        <p>{{ product.starPoint }}</p>
+        <span>{{ product.reviewCnt }} 개의 리뷰</span>
       </div>
     </div>
 
     <ul class="review_list">
-      <li class="review_item">
+      <li v-for="(review, index) in reviews" :key="index" class="review_item">
         <div class="star_box">
-          <img src="/src/assets/icons/star_fill.svg" alt="star" />
-          <img src="/src/assets/icons/star_fill.svg" alt="star" />
-          <img src="/src/assets/icons/star_fill.svg" alt="star" />
-          <img src="/src/assets/icons/star_fill.svg" alt="star" />
-          <img src="/src/assets/icons/star_empty.svg" alt="star" />
+          <template v-for="star in 5" :key="star">
+            <img
+              :src="
+                star <= review.starPoint
+                  ? '/src/assets/icons/star_fill.svg'
+                  : '/src/assets/icons/star_empty.svg'
+              "
+              alt="star"
+            />
+          </template>
         </div>
         <div class="review_user">
-          <span id="userName">박**</span>
-          <span id="createdAt">24.12.17</span>
+          <span id="userName">익명</span>
+          <span id="createdAt">{{ formatDate(review.createdAt) }}</span>
         </div>
-        <div class="review_image_box">
+        <div v-if="review.imageUrls.length" class="review_image_box">
           <img
-            src="https://d12zq4w4guyljn.cloudfront.net/750_750_20241123105001_photo1_394db3cb2fa0.jpg"
-            alt="review image1"
-          />
-          <img
-            src="https://d12zq4w4guyljn.cloudfront.net/750_750_20241123105001_photo1_394db3cb2fa0.jpg"
-            alt="review image2"
+            v-for="(image, idx) in review.imageUrls"
+            :key="idx"
+            :src="image"
+            alt="review image"
           />
         </div>
-        <p>
-          세트메뉴로 나름 저렴하게 먹었습니다! 직원분들이 고기 부위 설명해주시고
-          다 구워주십니다. 두툼한 고기가 정말 맛있었어요! 송리단길 고기집으로
-          추천드립니다!
-        </p>
+        <p>{{ review.content }}</p>
       </li>
     </ul>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { defineProps } from "vue";
+
+const props = defineProps({
+  product: {
+    type: Object,
+    required: true,
+  },
+  reviews: {
+    type: Object,
+    required: true,
+  },
+});
+</script>
 
 <style>
 .review_header {
