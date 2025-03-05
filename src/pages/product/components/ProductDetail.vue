@@ -693,7 +693,10 @@
           v-if="productStore.productTab === 'description'"
           :description="productStore.product.description"
         />
-        <ProductReviewList v-if="productStore.productTab === 'review'" />
+        <ProductReviewList
+          v-if="productTab === 'review'"
+          :reviews="productStore.reviews"
+        />
 
         <!-- <div id="intro_box" class="content_box">
           
@@ -775,6 +778,7 @@ const closeModal = () => {
 
 onMounted(async () => {
   await productStore.getProductsDetail(productId);
+  await productStore.getProductsWithReviews(productId);
 });
 </script>
 
