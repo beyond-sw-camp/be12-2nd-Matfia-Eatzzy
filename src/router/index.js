@@ -24,6 +24,7 @@ import JoinAgreement from "../pages/user/JoinAgreement.vue";
 import JoinForm from "../pages/user/JoinForm.vue";
 import Login from "../pages/user/LoginView.vue";
 import Kakao from "../pages/user/LoginKakao.vue";
+import LoginKakaoRedirect from "../pages/user/LoginKakaoRedirect.vue";
 
 import ProductEdit from "../pages/mypage/seller/ProductEdit.vue";
 import SellerInsertMenu from "../pages/mypage/seller/SellerInsertMenu.vue";
@@ -67,6 +68,7 @@ const routes = [
   { path: "/stores/:id", component: StoreDetail },
   { path: "/login", component: Login },
   { path: "/login/kakao", component: Kakao },
+  { path: "/login/kakao/:id", component: LoginKakaoRedirect },
   { path: "/join", component: Join },
   { path: "/join_agreement", component: JoinAgreement },
   { path: "/products/:id", component: ProductDetail },
