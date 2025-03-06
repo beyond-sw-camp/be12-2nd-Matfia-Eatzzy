@@ -15,8 +15,7 @@ export const useMemberStore = defineStore("member", {
         });
 
         if (response.status === 200) {
-          const userTypeValue = response.data.userType;
-          sessionStorage.setItem("LOGIN", userTypeValue);
+          sessionStorage.setItem("LOGIN", response.data.userType);
           alert("로그인 되었습니다.");
           window.location.href = "/";
         }
@@ -90,17 +89,5 @@ export const useMemberStore = defineStore("member", {
         }
       }
     },
-
-    async getValidate() {
-      try {
-        const response = await axios.get("/api/app/users/validate", { withCredentials: true });
-      } catch (error) {
-        if (error.response && error.response.status === 401) {
-          console.error("Unauthorized access:", error.response.data);
-        } else {
-          console.error("Error:", error);
-        }
-      }
-    }
   },
 });

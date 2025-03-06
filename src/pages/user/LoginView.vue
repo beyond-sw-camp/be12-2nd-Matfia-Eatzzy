@@ -50,9 +50,9 @@ const login = async () => {
               <li>
                 <a href="./Join" class="btn_member_join_new"> 회원가입 </a>
               </li>
-              <!-- <li>
+              <li>
                 <a href="./login/kakao" class="btn_member_join_new">카카오로 가입/로그인 </a>
-              </li> -->
+              </li>
             </ul>
           </div>
           <!-- //login_box -->
