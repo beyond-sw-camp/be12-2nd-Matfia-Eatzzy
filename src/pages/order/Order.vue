@@ -1211,15 +1211,9 @@ const order = ref(null); // 주문 데이터를 저장할 반응형 변수
 // 주문 정보를 가져오는 함수
 const fetchOrderDetails = async (idx) => {
   try {
-    // const response = await axios.get(`/api/orders/${idx}`);
-    const readResponse = {
-      idx: 1, // 주문 ID
-      price: 10000, // 가격
-      message: "테스트 주문입니다.", // 메시지
-      status: "완료", // 상태
-    };
+    const response = await axios.get(`/api/app/orders/${idx}`);
 
-    order.value = readResponse; // 반응형 변수에 데이터 저장
+    order.value = response.data; // 반응형 변수에 데이터 저장
     console.log("주문 정보:", order.value);
   } catch (error) {
     console.error("주문 정보를 가져오는 중 오류 발생:", error);
@@ -1240,6 +1234,8 @@ const pay = async () => {
 
   let orderName = order.value?.message || "상품명 없음";
   let totalAmount = order.value?.price || 0;
+
+  console.log(order.value.price);
 
   const portoneRes = await PortOne.requestPayment({
     storeId: "store-5493e266-f9a3-4c57-80a1-8e94fd06935e",
@@ -1264,7 +1260,7 @@ const pay = async () => {
 // 결제 정보를 서버로 전송하는 함수
 const sendPaymentData = async (paymentData) => {
   try {
-    const response = await axios.post("/api/payments", paymentData);
+    const response = await axios.post("/api/payment/register", paymentData);
 
     console.log("결제 정보 전송 성공:", response.data);
     return response.data;
@@ -1277,6 +1273,7 @@ const sendPaymentData = async (paymentData) => {
 const handlePayment = async (portoneRes) => {
   const paymentData = {
     userId: 1, // 현재 로그인한 사용자 ID (예: localStorage 또는 Vuex/Pinia에서 가져오기)
+    orderIdx: order.value.idx,
     paymentId: portoneRes.paymentId,
     transactionType: portoneRes.transactionType,
     txId: portoneRes.txId,
