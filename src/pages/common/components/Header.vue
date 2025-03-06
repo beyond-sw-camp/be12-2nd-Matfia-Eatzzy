@@ -11,6 +11,7 @@ const logout = () => {
 const userType = sessionStorage.getItem("LOGIN")?.toLowerCase() || null;
 const mypage = "/mypage/" + userType;
 const orders = "/mypage/" + userType + "/orders";
+const admin = "/admin/"
 const loginStatus = sessionStorage.getItem("LOGIN")?.length > 0;
 
 const gnbOpen = () => {
@@ -37,7 +38,8 @@ const gnbOpen = () => {
           <router-link :to="orders">주문조회</router-link>
         </div>
         <div v-if="loginStatus">
-          <router-link :to="mypage">마이페이지</router-link>
+          <router-link :to="mypage" v-if="userType !== 'admin'">마이페이지</router-link>
+          <router-link :to="admin" v-if="userType == 'admin'">관리자페이지</router-link>
         </div>
       </div>
       <div class="search_area">
@@ -192,7 +194,6 @@ header .search_area .header_search {
 
 header .search_area .logo {
   display: block;
-  /* background: url(https://thenaum.cdn-nhncommerce.com/data/img/allnew/layout/n_fd_logo.gif) no-repeat 0 0; */
   background: url(/src/assets/icons/logo.png) no-repeat 0 0;
   font-size: 0;
 }

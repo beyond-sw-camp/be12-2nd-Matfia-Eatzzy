@@ -38,6 +38,10 @@ import OrderDetail from "../pages/mypage/components/OrderDetail.vue";
 import MyInfo from "../pages/mypage/components/MyInfo.vue";
 import SellerMenuList from "../pages/mypage/seller/SellerMenuList.vue";
 
+import Admin from "../pages/admin/Admin.vue";
+import AdminStoreList from "../pages/admin/store/List.vue";
+import AdminStoreDetail from "../pages/admin/store/Detail.vue";
+
 const checkUserType = (from, to, next) => {
   // 고객인지 점주인지 확인 후 경로 이동
   const userType = sessionStorage.getItem("UserType");
@@ -121,6 +125,15 @@ const routes = [
           { path: "store/menu/:id/modify", component: SellerEditMenu },
         ],
       },
+    ],
+  },
+  {
+    path: "/admin",
+    component: Admin,
+    redirect: "/admin/store/list",
+    children: [
+      { path: "store/list", component: AdminStoreList },
+      { path: "store/:id", component: AdminStoreDetail },
     ],
   },
   { path: "/carts", component: Carts },
