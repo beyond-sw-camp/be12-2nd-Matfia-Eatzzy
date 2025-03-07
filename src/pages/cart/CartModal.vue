@@ -92,7 +92,7 @@ element.style {
 }
 
 .add_cart_layer p.success {
-  background: url(https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/common/layer/add_cart_success.png)
+  background: url("/src/assets/icons/add_cart_success.png")
     no-repeat center top;
 }
 
@@ -103,7 +103,7 @@ element.style {
   font-size: 14px;
   line-height: 22px;
   text-align: center;
-  background: url(https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/common/layer/add_cart_success.png)
+  background: url("/src/assets/icons/add_cart_success.png")
     no-repeat center top;
 }
 
@@ -115,7 +115,7 @@ element.style {
   width: 18px;
   height: 18px;
   text-indent: -9999px;
-  background: url(https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/btn/layer-close.png)
+  background: url("/src/assets/icons/btn/layer-close.png")
     no-repeat left top;
 }
 

@@ -421,7 +421,7 @@ h2 {
   margin: 0;
   width: 100%;
   color: #333;
-  background: url(https://thenaum.cdn-nhncommerce.com/data/img/allnew/layout/arrow_down_wide.svg)
+  background: url("/src/assets/icons/arrow_down_wide.svg")
     no-repeat;
   background-size: 0.75rem 0.375rem;
   background-position: right 1.5rem center;

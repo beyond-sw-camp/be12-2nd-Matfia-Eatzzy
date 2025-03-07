@@ -9,7 +9,7 @@ const props = defineProps({
 
 <template>
   <router-link :to="`/stores/${store.idx}`" id="store_item">
-    <img class="store_img" :src="store.storeImg" />
+    <img class="store_img" :src="store.storeImg" onerror="this.src='/src/assets/icons/noimage.png'" />
     <div class="info_box">
       <span class="subtitle">{{ store.category }}</span>
       <span class="store_name">{{ store.name }}</span>
