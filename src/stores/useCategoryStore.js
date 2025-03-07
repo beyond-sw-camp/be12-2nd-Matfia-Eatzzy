@@ -9,37 +9,43 @@ export const useCategoryStore = defineStore("category", {
       idx: 0,
       name: "전체",
     },
+    smallCate: {
+      idx: 0,
+      name: "전체",
+    },
   }),
 
   actions: {
     async getBigCategory() {
       await axios
-        .get("/api/bigCategory")
+        .get("/api/app/category/list")
         .then((response) => {
-          this.bigCategory = response.data.category;
-          return response.data.category;
+          console.log(response);
+          this.bigCategory = response.data.result;
+          return response.data.result;
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
         });
     },
 
-    async getSmallCategory(refId = 1) {
-      await axios
-        .get("/api/smallCategory", {
-          ref_id: refId,
-        })
-        .then((response) => {
-          this.smallCategory = response.data.category;
-          return response.data.category;
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-        });
+    getSmallCategory() {
+      const selectBigCate = this.bigCategory.find(
+        (category) => category.idx === this.bigCate.idx
+      );
+      this.smallCategory = selectBigCate
+        ? selectBigCate.childrenCategoryList
+        : [];
+      console.log(this.smallCategory);
     },
 
     setBigCate(cate) {
       this.bigCate = cate;
+    },
+
+    setSmallCate(cate) {
+      this.smallCate = cate;
+      console.log(this.smallCate);
     },
   },
 });
