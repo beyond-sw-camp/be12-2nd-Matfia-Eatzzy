@@ -3,25 +3,44 @@ import { ref, onMounted } from "vue";
 import axios from "axios";
 import { useLoveStore } from "../../../../stores/useLoveStore";
 
-const loveStore = useLoveStore();
+//const loveStore = useLoveStore();
+const rez = ref([]);
 
-const handleCancelClick = (reviewId) => {
+const handleCancelClick = async (idx) => {
   // JavaScript 기본 confirm 대화상자 표시
   const isConfirmed = confirm("정말로 예약을 취소하시겠습니까?");
   if (isConfirmed) {
     alert("예약이 취소되었습니다."); // 확인 시 동작
+    try {
+      // await axios.get(`/api/app/likes/mypage/deletestore/${idx}`);
+      // window.location.reload(); // 삭제 후 데이터 새로 불러오기
+    } catch (error) {
+      console.error("삭제 실패:", error);
+    }
     // 실제 취소 로직을 여기에 추가 가능
     // 예: API 호출 후 목록 갱신
   }
 };
 
+const fetchRez = async () => {
+  try {
+    const response = await axios.get("/api/app/resv/mypage");
+    console.log(response);
+    rez.value = response.data.result; // 받아온 데이터를 ref에 저장
+    console.log("ㅇㅇ:", rez.value);
+  } catch (error) {
+    console.error("데이터 가져오기 실패:", error);
+  }
+};
+
 onMounted(() => {
-  loveStore.getloveStores();
+  //loveStore.getloveStores();
+  fetchRez();
 });
 </script>
 
 <template>
-  <div class="storeRez_item" v-for="(review, index) in loveStore.rezStores" :key="index">
+  <div class="storeRez_item" v-for="(review, index) in rez" :key="index">
     <a class="storeRez_left" href="/stores/1">
       <div class="store_name">{{ review.store_name }}</div>
       <div class="rez_category store_address">{{ review.store_address }}</div>

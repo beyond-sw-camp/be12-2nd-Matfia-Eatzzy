@@ -8,11 +8,10 @@ export const useLoveStore = defineStore("loves", {
   }),
   actions: {
     async getloveStores() {
-      const response = await axios.get("/api/love");
-      console.log(response);
-      this.rezStores = response.data.rez;
-      this.likeStores = response.data.like;
-      // console.log(this.cartProducts)
+      const response = await axios.get("/api/app/likes/mypage/store");
+      this.likeStores = response.data.result;
+      console.log(response.data.result);
+      console.log(this.likeStores);
     },
   },
 });
