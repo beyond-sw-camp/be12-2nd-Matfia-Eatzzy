@@ -151,18 +151,6 @@ const signup = async () => {
                         tabindex="9"
                         v-model="formData.email"
                       />
-                      <select
-                        id="emailDomain"
-                        name="emailDomain"
-                        class="chosen-select"
-                      >
-                        <option value="">직접입력</option>
-                        <option value="naver.com">naver.com</option>
-                        <option value="daum.net">daum.net</option>
-                        <option value="nate.com">nate.com</option>
-                        <option value="hotmail.com">hotmail.com</option>
-                        <option value="gmail.com">gmail.com</option>
-                      </select>
                     </div>
                     <div class="member_warning js_email"></div>
                   </div>
