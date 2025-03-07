@@ -141,7 +141,7 @@
 }
 
 .page_cart .count_box button.minus {
-  background: url(https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/cnt_minus.gif)
+  background: url("/src/assets/icons/cnt_minus.gif")
     no-repeat center;
   border-right: 1px solid #969696;
 }
@@ -177,7 +177,7 @@
 }
 
 .page_cart .count_box button.plus {
-  background: url(https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/cnt_plus.gif)
+  background: url("/src/assets/icons/cnt_plus.gif")
     no-repeat center;
   border-left: 1px solid #969696;
 }
@@ -446,7 +446,7 @@
 .page_cart th > .important {
   margin: 0 0 0 -10px;
   padding: 0 0 0 15px;
-  background: url(https://www.foodingfactory.com/data/skin/front/moment/img/member/icon_dot_03.png)
+  background: url("/src/assets/icons/icon_dot_03.png")
     no-repeat 0 center;
 }
 
@@ -493,7 +493,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  background: url(https://www.foodingfactory.com/data/skin/front/moment/js/jquery/chosen/chosen-sprite.png)
+  background: url("/src/assets/icons/chosen-sprite.png")
     no-repeat 0px 2px;
 }
 

@@ -17,7 +17,7 @@ const cartStore = useCartStore();
 <template>
   <div class="list">
     <router-link :to="`/products/${product.idx}`" class="img_box">
-      <img :src="`${product.imgPath}`" />
+      <img :src="`${product.imgPath}`" onerror="this.src='/src/assets/icons/noimage.png'" />
     </router-link>
     <div class="info_box">
       <!-- 브랜드명, 상품명 -->
@@ -167,7 +167,7 @@ const cartStore = useCartStore();
   display: block;
   width: 1.65rem;
   height: 1.65rem;
-  background: url(https://thenaum.cdn-nhncommerce.com/data/img/allnew/layout/ncart.svg)
+  background: url("/src/assets/icons/ncart.svg")
     no-repeat;
 }
 </style>

@@ -121,7 +121,7 @@ audio {
   left: -999em;
   width: 0.0625rem;
   height: 0.0625rem;
-  background: url("https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/common/bg/bg_skip.gif")
+  background: url("/src/assets/icons/bg_skip.gif")
     repeat;
 }
 
@@ -314,7 +314,7 @@ input[type="submit"] {
 
 /* 체크박스 라디오버튼 스타일 */
 .form_element label.check_dis_s:before {
-  background-image: url("https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/common/input/check_dis_s.png");
+  background-image: url("/src/assets/icons/check_dis_s.png");
   cursor: not-allowed;
 }
 

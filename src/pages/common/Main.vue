@@ -119,7 +119,7 @@ section:not(:last-child) {
 }
 
 .visual {
-  background: url(/src/assets/icons/main_img.jpeg) no-repeat center 60%;
+  background: url("/src/assets/icons/main_img.jpeg") no-repeat center 60%;
   border-radius: 0 0 1.25rem 1.25rem;
   color: #fff;
   box-sizing: border-box;
@@ -159,7 +159,7 @@ section:not(:last-child) {
   display: block;
   width: 1.125rem;
   height: 1.125rem;
-  background: url(https://thenaum.cdn-nhncommerce.com/data/img/allnew/layout/star_fill.svg)
+  background: url("/src/assets/icons/star_fill.svg")
     no-repeat;
   background-size: contain;
 }

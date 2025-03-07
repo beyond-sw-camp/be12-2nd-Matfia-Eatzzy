@@ -21,7 +21,7 @@
 <style scoped>
     .logo {
         display: block;
-        background: url(/src/assets/icons/logo.png) no-repeat 0 0;
+        background: url("/src/assets/icons/logo.png") no-repeat 0 0;
         background-size: 65%;
         font-size: 0;
         height: 30px;

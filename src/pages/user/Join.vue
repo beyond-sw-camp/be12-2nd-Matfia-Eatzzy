@@ -27,13 +27,13 @@
             >
               <span class="left">
                 <img
-                  src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/member/icon_kakao.png"
+                  src="/src/assets/icons/icon_kakao.png"
                   alt="카카오"
                 />
                 <span> 카카오톡 회원가입</span>
               </span>
               <img
-                src="https://thenaum.cdn-nhncommerce.com/data/img/allnew/layout/arrow_right_b.svg"
+                src="/src/assets/icons/arrow_right_b.svg"
                 class="right_arrow"
               />
             </a> -->
@@ -45,13 +45,13 @@
             >
               <span class="left">
                 <img
-                  src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/member/icon_naver.png"
+                  src="/src/assets/icons/icon_naver.png"
                   alt="네이버"
                 />
                 <span>네이버 회원가입</span>
               </span>
               <img
-                src="https://thenaum.cdn-nhncommerce.com/data/img/allnew/layout/arrow_right_b.svg"
+                src="/src/assets/icons/arrow_right_b.svg"
                 class="right_arrow"
               />
             </a>
@@ -59,13 +59,13 @@
             <a href="/join_agreement" id="btnJoin" class="login_box">
               <span class="left">
                 <img
-                  src="https://thenaum.cdn-nhncommerce.com/data/img/allnew/layout/fd_gom.svg"
+                  src="/src/assets/icons/fd_gom.svg"
                   alt="쇼핑몰"
                 />
                 <span>쇼핑몰 회원가입</span>
               </span>
               <img
-                src="https://thenaum.cdn-nhncommerce.com/data/img/allnew/layout/arrow_right_b.svg"
+                src="/src/assets/icons/arrow_right_b.svg"
                 class="right_arrow"
               />
             </a>

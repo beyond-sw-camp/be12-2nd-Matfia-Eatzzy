@@ -9,14 +9,14 @@
             <span>01</span> 장바구니
             <span
               ><img
-                src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/member/icon_join_step_off.png"
+                src="/src/assets/icons/icon_join_step_off.png"
                 alt=""
             /></span>
           </li>
           <li class="page_on">
             <span>02</span> 주문서작성/결제<span
               ><img
-                src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/member/icon_join_step_on.png"
+                src="/src/assets/icons/icon_join_step_on.png"
                 alt=""
             /></span>
           </li>
@@ -90,7 +90,7 @@
                 </p>
               </div>
               <img
-                src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/order_price_plus.png"
+                src="/src/assets/icons/order_price_plus.png"
                 alt="더하기"
               />
               <div>
@@ -98,7 +98,7 @@
                 <p class="price"><strong>4,000</strong>원</p>
               </div>
               <img
-                src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/order_price_total.png"
+                src="/src/assets/icons/order_price_total.png"
                 alt="합계"
               />
               <div class="price_total">
@@ -668,7 +668,7 @@
                         >
                           <span
                             ><img
-                              src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/pay_pc_icon.png"
+                              src="/src/assets/icons/pay_pc_icon.png"
                               alt="신용카드"
                           /></span>
                         </label>
@@ -687,7 +687,7 @@
                         >
                           <span
                             ><img
-                              src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/pay_pb_icon.png"
+                              src="/src/assets/icons/pay_pb_icon.png"
                               alt="계좌이체"
                           /></span>
                         </label>
@@ -706,7 +706,7 @@
                         >
                           <span
                             ><img
-                              src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/pay_ph_icon.png"
+                              src="/src/assets/icons/pay_ph_icon.png"
                               alt="휴대폰결제"
                           /></span>
                         </label>
@@ -725,7 +725,7 @@
                         >
                           <span
                             ><img
-                              src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/pay_pk_icon.png"
+                              src="/src/assets/icons/pay_pk_icon.png"
                               alt="카카오페이"
                           /></span>
                         </label>
@@ -745,7 +745,7 @@
                         >
                           <span
                             ><img
-                              src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/pay_payco_icon.png"
+                              src="/src/assets/icons/pay_payco_icon.png"
                               alt="페이코결제"
                           /></span>
                         </label>

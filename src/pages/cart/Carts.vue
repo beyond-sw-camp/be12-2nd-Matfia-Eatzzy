@@ -14,14 +14,14 @@
             <span>01</span> 장바구니
             <span
               ><img
-                src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/member/icon_join_step_on.png"
+                src="/src/assets/icons/icon_join_step_on.png"
                 alt=""
             /></span>
           </li>
           <li>
             <span>02</span> 주문서작성/결제<span
               ><img
-                src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/member/icon_join_step_off.png"
+                src="/src/assets/icons/icon_join_step_off.png"
                 alt=""
             /></span>
           </li>
@@ -122,7 +122,7 @@
                   </p>
                 </div>
                 <!-- <img
-                  src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/order_price_total.png"
+                  src="/src/assets/icons/order_price_total.png"
                   alt="합계"
                 /> -->
                 <!-- <div>
@@ -130,11 +130,11 @@
                   <p class="price"><strong>3,960</strong>원</p>
                 </div>
                 <img
-                  src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/order_price_plus.png"
+                  src="/src/assets/icons/order_price_plus.png"
                   alt="더하기"
                 /> -->
                 <img
-                  src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/order_price_plus.png"
+                  src="/src/assets/icons/order_price_plus.png"
                   alt="더하기"
                 />
                 <div>
@@ -142,16 +142,13 @@
                   <p class="price"><strong>4,000</strong>원</p>
                 </div>
                 <img
-                  src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/order_price_total.png"
+                  src="/src/assets/icons/order_price_total.png"
                   alt="합계"
                 />
                 <div class="price_total">
                   <p>합계</p>
                   <p class="price">
-                    <strong>{{
-                      cartStore.totalPrice + cartStore.deliveryFee
-                    }}</strong
-                    >원
+                    <strong>{{cartStore.totalPrice + cartStore.deliveryFee}}</strong>원
                   </p>
                 </div>
               </div>
@@ -175,7 +172,7 @@
 
           <em class="chk_none"
             ><img
-              src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/icon/etc/icon_warning_new.png"
+              src="/src/assets/icons/icon_warning_new.png"
             />주문서 작성단계에서 할인/적립금 적용을 하실 수 있습니다.</em
           >
         </div>

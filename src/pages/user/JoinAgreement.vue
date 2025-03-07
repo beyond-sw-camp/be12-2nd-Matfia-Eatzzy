@@ -1613,7 +1613,7 @@ export default {
 }
 
 .join_agreebox_wrap .form_element .agreenment_toggle_btn {
-  background: url(https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/member/join_chosen_sprite.png)
+  background: url("/src/assets/icons/join_chosen_sprite.png")
     no-repeat 0.4375rem 0.4375rem;
   border: 0.0625rem solid #c9c9c9;
   border-radius: 0.3125rem;
@@ -1710,7 +1710,7 @@ export default {
 
 .join_certify_list .form_element label.choice_s {
   padding: 0 0 0 1.75rem;
-  background: url(https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/common/input/radio_off_small.png)
+  background: url("/src/assets/icons/radio_off_small.png")
     no-repeat 0.0625rem 50%;
 }
 

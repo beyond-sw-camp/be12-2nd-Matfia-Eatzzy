@@ -41,7 +41,7 @@
       />
       <div class="pick_add_cont">
         <img
-          src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/common/layer/btn_layer_close.png"
+          src="/src/assets/icons/btn_layer_close.png"
           class="cart_delete"
           data-cart-sno="4556515"
           @click="cartStore.removeItem(cartProduct.idx)"
@@ -55,6 +55,7 @@
               alt="패션후르츠 샤베트 300ml (50ml x 6ea)_겨울에도 식을줄 모르는 디저트샤벳"
               title="패션후르츠 샤베트 300ml (50ml x 6ea)_겨울에도 식을줄 모르는 디저트샤벳"
               class="middle"
+              onerror="this.src='/src/assets/icons/noimage_s.png'"
             />
           </router-link>
         </span>
