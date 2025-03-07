@@ -9,7 +9,7 @@ const adminStore = useAdminStore();
 const storeList = ref([]);
 
 onMounted(async () => {
-  loadingStore.startLoading("storeReview");
+  loadingStore.startLoading("storeList");
   
   try {
     const response = await adminStore.getStoreListAll();
@@ -46,7 +46,7 @@ onMounted(async () => {
                       <td>{{ store.name }}</td>
                       <td>{{ store.shortAddress }}</td>
                       <td>{{ store.categoryName }}</td>
-                      <td><router-link :to="`/admin/store/${store.idx}`"><button class="btn_admin">상세보기</button></router-link></td>
+                      <td><router-link :to="`/admin/store/${store.idx}`"><button class="btn edit">상세보기</button></router-link></td>
                   </tr>
               </tbody>
           </table>
