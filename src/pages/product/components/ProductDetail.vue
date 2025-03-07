@@ -15,6 +15,7 @@
                   alt="패션후르츠 샤베트 300ml (50ml x 6ea)_겨울에도 식을줄 모르는 디저트샤벳"
                   title="패션후르츠 샤베트 300ml (50ml x 6ea)_겨울에도 식을줄 모르는 디저트샤벳"
                   class="middle"
+                  onerror="this.src='/src/assets/icons/noimage.png'"
                 />
                 <span class="img_brand_icon"></span>
               </span>
@@ -907,7 +908,7 @@ onMounted(async () => {
   display: inline-block;
   width: 38px;
   height: 38px;
-  background: url(https://thenaum.cdn-nhncommerce.com/data/img/allnew/goods/goods_view_top.svg)
+  background: url("/src/assets/icons/goods_view_top.svg")
     no-repeat;
 }
 
@@ -934,7 +935,7 @@ onMounted(async () => {
   display: inline-block;
   width: 38px;
   height: 38px;
-  background: url(https://thenaum.cdn-nhncommerce.com/data/img/allnew/goods/goods_view_top.svg)
+  background: url("/src/assets/icons/goods_view_top.svg")
     no-repeat;
 }
 
@@ -1045,7 +1046,7 @@ onMounted(async () => {
   display: inline-block;
   align-items: center;
   cursor: pointer;
-  background: url(https://thenaum.cdn-nhncommerce.com/data/img/allnew/goods/star_back.svg)
+  background: url("/src/assets/icons/star_back.svg")
     no-repeat;
   width: 120px;
   height: 20px;
@@ -1205,7 +1206,7 @@ element.style {
 }
 
 .add_cart_layer p.success {
-  background: url(https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/common/layer/add_cart_success.png)
+  background: url("/src/assets/icons/add_cart_success.png")
     no-repeat center top;
 }
 
@@ -1216,7 +1217,7 @@ element.style {
   font-size: 14px;
   line-height: 22px;
   text-align: center;
-  background: url(https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/common/layer/add_cart_success.png)
+  background: url("/src/assets/icons/add_cart_success.png")
     no-repeat center top;
 }
 
@@ -1228,7 +1229,7 @@ element.style {
   width: 18px;
   height: 18px;
   text-indent: -9999px;
-  background: url(https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/btn/layer-close.png)
+  background: url("/src/assets/icons/btn/layer-close.png")
     no-repeat left top;
 }
 

@@ -24,6 +24,7 @@ import JoinAgreement from "../pages/user/JoinAgreement.vue";
 import JoinForm from "../pages/user/JoinForm.vue";
 import Login from "../pages/user/LoginView.vue";
 import Kakao from "../pages/user/LoginKakao.vue";
+import LoginKakaoRedirect from "../pages/user/LoginKakaoRedirect.vue";
 
 import ProductEdit from "../pages/mypage/seller/ProductEdit.vue";
 import SellerInsertMenu from "../pages/mypage/seller/SellerInsertMenu.vue";
@@ -36,6 +37,10 @@ import Order from "../pages/order/Order.vue";
 import OrderDetail from "../pages/mypage/components/OrderDetail.vue";
 import MyInfo from "../pages/mypage/components/MyInfo.vue";
 import SellerMenuList from "../pages/mypage/seller/SellerMenuList.vue";
+
+import Admin from "../pages/admin/Admin.vue";
+import AdminStoreList from "../pages/admin/store/List.vue";
+import AdminStoreDetail from "../pages/admin/store/Detail.vue";
 
 const checkUserType = (from, to, next) => {
   // 고객인지 점주인지 확인 후 경로 이동
@@ -67,6 +72,7 @@ const routes = [
   { path: "/stores/:id", component: StoreDetail },
   { path: "/login", component: Login },
   { path: "/login/kakao", component: Kakao },
+  { path: "/login/kakao/:id", component: LoginKakaoRedirect },
   { path: "/join", component: Join },
   { path: "/join_agreement", component: JoinAgreement },
   { path: "/products/:id", component: ProductDetail },
@@ -119,6 +125,15 @@ const routes = [
           { path: "store/menu/:id/modify", component: SellerEditMenu },
         ],
       },
+    ],
+  },
+  {
+    path: "/admin",
+    component: Admin,
+    redirect: "/admin/store/list",
+    children: [
+      { path: "store/list", component: AdminStoreList },
+      { path: "store/:id", component: AdminStoreDetail },
     ],
   },
   { path: "/carts", component: Carts },

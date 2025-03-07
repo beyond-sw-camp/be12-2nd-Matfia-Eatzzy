@@ -50,9 +50,9 @@ const login = async () => {
               <li>
                 <a href="./Join" class="btn_member_join_new"> 회원가입 </a>
               </li>
-              <!-- <li>
+              <li>
                 <a href="./login/kakao" class="btn_member_join_new">카카오로 가입/로그인 </a>
-              </li> -->
+              </li>
             </ul>
           </div>
           <!-- //login_box -->
@@ -67,7 +67,7 @@ const login = async () => {
                 data-return-url="https%3A%2F%2Fwww.foodingfactory.com%2Fgoods%2Fbest.php"
               >
                 <img
-                  src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/member/icon_kakao.png"
+                  src="/src/assets/icons/icon_kakao.png"
                   alt="카카오 아이디 로그인"
                 />
               </a>
@@ -77,7 +77,7 @@ const login = async () => {
                 data-naver-url="https://socialmember.godo.co.kr/NaverLogin/naver_api.php?mode=login&amp;response_type=code&amp;client_id=JFIziYYgMBSYpY5KjrY9&amp;redirect_uri=https%3A%2F%2Fwww.foodingfactory.com%2Fgoods%2Fbest.php&amp;state=9cd077e6ebb76da5ccf25819b39b6736"
               >
                 <img
-                  src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/member/icon_naver.png"
+                  src="/src/assets/icons/icon_naver.png"
                   alt="naver 아이디 로그인"
                 />
               </a>
@@ -85,7 +85,7 @@ const login = async () => {
               <a href="#" class="btn_apple_login js_btn_apple_login">
                 <img
                   id="apple_btn"
-                  src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/member/icon_apple.png"
+                  src="/src/assets/icons/icon_apple.png"
                   alt="Apple 아이디 로그인"
                 />
               </a>

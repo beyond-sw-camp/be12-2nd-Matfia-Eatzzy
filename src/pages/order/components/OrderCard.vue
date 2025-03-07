@@ -17,6 +17,7 @@
               alt="치즈롤까스(25cm) 1kg (250g*4ea)"
               title="치즈롤까스(25cm) 1kg (250g*4ea)"
               class="middle"
+              onerror="this.src='/src/assets/icons/noimage_s.png'"
           /></router-link>
         </span>
         <div class="pick_add_info">

@@ -8,16 +8,12 @@
           <li>
             <span>01</span> 장바구니
             <span
-              ><img
-                src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/member/icon_join_step_off.png"
-                alt=""
+              ><img src="/src/assets/icons/icon_join_step_off.png" alt=""
             /></span>
           </li>
           <li class="page_on">
             <span>02</span> 주문서작성/결제<span
-              ><img
-                src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/member/icon_join_step_on.png"
-                alt=""
+              ><img src="/src/assets/icons/icon_join_step_on.png" alt=""
             /></span>
           </li>
           <li><span>03</span> 주문완료</li>
@@ -89,18 +85,12 @@
                   >원
                 </p>
               </div>
-              <img
-                src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/order_price_plus.png"
-                alt="더하기"
-              />
+              <img src="/src/assets/icons/order_price_plus.png" alt="더하기" />
               <div>
                 <p>배송비</p>
                 <p class="price"><strong>4,000</strong>원</p>
               </div>
-              <img
-                src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/order_price_total.png"
-                alt="합계"
-              />
+              <img src="/src/assets/icons/order_price_total.png" alt="합계" />
               <div class="price_total">
                 <p>합계</p>
                 <p class="price">
@@ -668,7 +658,7 @@
                         >
                           <span
                             ><img
-                              src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/pay_pc_icon.png"
+                              src="/src/assets/icons/pay_pc_icon.png"
                               alt="신용카드"
                           /></span>
                         </label>
@@ -687,7 +677,7 @@
                         >
                           <span
                             ><img
-                              src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/pay_pb_icon.png"
+                              src="/src/assets/icons/pay_pb_icon.png"
                               alt="계좌이체"
                           /></span>
                         </label>
@@ -706,7 +696,7 @@
                         >
                           <span
                             ><img
-                              src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/pay_ph_icon.png"
+                              src="/src/assets/icons/pay_ph_icon.png"
                               alt="휴대폰결제"
                           /></span>
                         </label>
@@ -725,7 +715,7 @@
                         >
                           <span
                             ><img
-                              src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/pay_pk_icon.png"
+                              src="/src/assets/icons/pay_pk_icon.png"
                               alt="카카오페이"
                           /></span>
                         </label>
@@ -745,7 +735,7 @@
                         >
                           <span
                             ><img
-                              src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/pay_payco_icon.png"
+                              src="/src/assets/icons/pay_payco_icon.png"
                               alt="페이코결제"
                           /></span>
                         </label>
@@ -1211,7 +1201,7 @@ const order = ref(null); // 주문 데이터를 저장할 반응형 변수
 // 주문 정보를 가져오는 함수
 const fetchOrderDetails = async (idx) => {
   try {
-    // const response = await axios.get(`/api/orders/${idx}`);
+    const response = await axios.get(`/api/app/orders/${idx}`);
     const readResponse = {
       idx: 1, // 주문 ID
       price: 10000, // 가격
@@ -1264,7 +1254,7 @@ const pay = async () => {
 // 결제 정보를 서버로 전송하는 함수
 const sendPaymentData = async (paymentData) => {
   try {
-    const response = await axios.post("/api/payments", paymentData);
+    const response = await axios.post("/api/app/payments", paymentData);
 
     console.log("결제 정보 전송 성공:", response.data);
     return response.data;

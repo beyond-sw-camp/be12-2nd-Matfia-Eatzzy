@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useMemberStore } from "../../stores/useMemberStore";
+
 const router = useRouter();
 const memberStore = useMemberStore();
 const formData = ref({
@@ -13,10 +14,107 @@ const formData = ref({
   address: "",
   addressDetail: "",
   phone: "",
+  userType: "CLIENT"
+});
+
+const errors = ref({
+  userId: "",
+  password: "",
+  birthDate: "",
+  name: "",
+  email: "",
+  address: "",
+  addressDetail: "",
+  phone: "",
   userType: ""
 });
+
+// 유효성 검사 함수
+const validateForm = () => {
+  errors.value = {}; // 에러 초기화
+
+  let isValid = true;
+
+  // 아이디 검증 (영어, 숫자만 허용)
+  if (!formData.value.userId) {
+    errors.value.userId = "아이디는 필수 입력값입니다.";
+    isValid = false;
+  } else if (!/^[a-zA-Z0-9]{4,20}$/.test(formData.value.userId)) {
+    errors.value.userId = "아이디는 4~20글자, 영어와 숫자만 가능합니다.";
+    isValid = false;
+  }
+
+  // 비밀번호 검증
+  if (!formData.value.password) {
+    errors.value.password = "비밀번호는 필수 입력값입니다.";
+    isValid = false;
+  } else if (!/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(formData.value.password)) {
+    errors.value.password = "비밀번호는 영어, 숫자, 특수문자를 모두 포함하여 8자 이상이어야 합니다.";
+    isValid = false;
+  }
+
+  // 생년월일 검증 (8자리)
+  if (!formData.value.birthDate) {
+    errors.value.birthDate = "생년월일은 필수 입력값입니다.";
+    isValid = false;
+  } else if (!/^\d{8}$/.test(formData.value.birthDate)) {
+    errors.value.birthDate = "생년월일은 8자리 숫자로 입력해주세요.";
+    isValid = false;
+  }
+
+  // 이름 검증 (한글만 허용)
+  if (!formData.value.name) {
+    errors.value.name = "이름은 필수 입력값입니다.";
+    isValid = false;
+  } else if (!/^[가-힣]{2,17}$/.test(formData.value.name)) {
+    errors.value.name = "이름은 2~17글자 한글만 가능합니다.";
+    isValid = false;
+  }
+
+  // 이메일 검증
+  if (!formData.value.email) {
+    errors.value.email = "이메일은 필수 입력값입니다.";
+    isValid = false;
+  } else if (!/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(formData.value.email)) {
+    errors.value.email = "유효한 이메일을 입력해주세요.";
+    isValid = false;
+  }
+
+  // 주소 검증
+  if (!formData.value.address) {
+    errors.value.address = "주소는 필수 입력값입니다.";
+    isValid = false;
+  }
+
+  // 상세주소 검증
+  if (!formData.value.addressDetail) {
+    errors.value.addressDetail = "상세주소는 필수 입력값입니다.";
+    isValid = false;
+  }
+
+  // 전화번호 검증 (숫자만, 최대 13자리)
+  if (!formData.value.phone) {
+    errors.value.phone = "전화번호는 필수 입력값입니다.";
+    isValid = false;
+  } else if (!/^\d{10,13}$/.test(formData.value.phone)) {
+    errors.value.phone = "전화번호는 숫자만 입력해주세요.";
+    isValid = false;
+  }
+
+  // 회원타입 검증
+  if (!formData.value.userType) {
+    errors.value.userType = "회원타입은 필수 입력값입니다.";
+    isValid = false;
+  }
+
+  return isValid;
+};
+
 const signup = async () => {
-  await memberStore.signUp(formData.value);
+  if (validateForm()) {
+    // 검증이 성공하면 회원가입 진행
+    await memberStore.signUp(formData.value);
+  }
 };
 </script>
 
@@ -26,11 +124,9 @@ const signup = async () => {
     <form
       id="formData"
       name="formData"
-      action=""
-      method="post"
+      @submit.prevent="signup"
       class="join_frm"
       autocomplete="off"
-      novalidate="novalidate"
     >
       <div class="join_view">
         <section class="join_form_tabarea base_info_box join_common">
@@ -38,7 +134,7 @@ const signup = async () => {
             <tbody>
               <tr>
                 <td>
-                  <strong>회원타입</strong>
+                  <strong class="essential">회원타입</strong>
                   <div class="user_type_area">
                     <input
                       type="radio"
@@ -52,125 +148,100 @@ const signup = async () => {
                       type="radio"
                       id="userType_seller"
                       name="userType"
-                      value="SELLER"
-                      v-model="formData.userType"
+                      value="SELLER"                       
+                      v-model="formData.userType"                      
                     />
                     <label for="userType_seller">점주</label>
                   </div>
+                  <div v-if="errors.userType" class="error-message">{{ errors.userType }}</div>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <strong>아이디</strong>
+                  <strong class="essential">아이디</strong>
                   <div class="member_warning">
                     <input
                       type="text"
                       id="userId"
                       name="userId"
                       maxlength="40"
-                      placeholder="아이디"
-                      value=""
+                      placeholder="4~20글자, 영어와 숫자"
                       v-model="formData.userId"
                     />
+                    <div v-if="errors.userId" class="error-message">{{ errors.userId }}</div>
                   </div>
                 </td>
               </tr>
 
               <tr class="member_password">
                 <td>
-                  <strong>비밀번호</strong>
+                  <strong class="essential">비밀번호</strong>
                   <div class="member_warning">
                     <input
                       type="password"
                       id="password"
                       name="password"
                       autocomplete="off"
-                      placeholder="비밀번호"
+                      placeholder="영어, 숫자, 특수문자를 모두 포함하여 8자 이상"
                       v-model="formData.password"
                     />
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="re_pw">
-                  <div class="member_warning">
-                    <input
-                      type="password"
-                      class="check-id"
-                      name="rePassword"
-                      autocomplete="off"
-                      placeholder="비밀번호 확인"
-                    />
+                    <div v-if="errors.password" class="error-message">{{ errors.password }}</div>
                   </div>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <strong>이름</strong>
+                  <strong class="essential">이름</strong>
                   <div>
                     <input
                       type="text"
                       id="name"
                       name="name"
                       maxlength="40"
-                      placeholder="이름"
-                      value=""
+                      placeholder="2~17글자 한글"
                       v-model="formData.name"
                     />
+                    <div v-if="errors.name" class="error-message">{{ errors.name }}</div>
                   </div>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <strong>생년월일</strong>
+                  <strong class="essential">생년월일</strong>
                   <div>
                     <input
                       type="text"
                       id="birthDate"
                       name="birthDate"
                       maxlength="40"
-                      placeholder="생년월일"
-                      value=""
+                      placeholder="8자리 숫자"
                       v-model="formData.birthDate"
                     />
+                    <div v-if="errors.birthDate" class="error-message">{{ errors.birthDate }}</div>
                   </div>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <strong>이메일</strong>
+                  <strong class="essential">이메일</strong>
                   <div class="member_email">
                     <div class="member_warning">
                       <input
                         type="text"
                         name="email"
                         id="email"
-                        value=""
                         placeholder="이메일"
                         autocomplete="off"
-                        tabindex="9"
                         v-model="formData.email"
                       />
-                      <select
-                        id="emailDomain"
-                        name="emailDomain"
-                        class="chosen-select"
-                      >
-                        <option value="">직접입력</option>
-                        <option value="naver.com">naver.com</option>
-                        <option value="daum.net">daum.net</option>
-                        <option value="nate.com">nate.com</option>
-                        <option value="hotmail.com">hotmail.com</option>
-                        <option value="gmail.com">gmail.com</option>
-                      </select>
+                      <div v-if="errors.email" class="error-message">{{ errors.email }}</div>
                     </div>
-                    <div class="member_warning js_email"></div>
                   </div>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <strong>주소</strong>
+                  <strong class="essential">주소</strong>
                   <div>
                     <input
                       type="text"
@@ -178,9 +249,9 @@ const signup = async () => {
                       name="address"
                       maxlength="40"
                       placeholder="주소"
-                      value=""
                       v-model="formData.address"
                     />
+                    <div v-if="errors.address" class="error-message">{{ errors.address }}</div>
                   </div>
                   <div>
                     <input
@@ -189,50 +260,50 @@ const signup = async () => {
                       name="addressDetail"
                       maxlength="40"
                       placeholder="상세주소"
-                      value=""
                       v-model="formData.addressDetail"
                     />
+                    <div v-if="errors.addressDetail" class="error-message">{{ errors.addressDetail }}</div>
                   </div>
                 </td>
               </tr>
               <tr>
                 <td class="member_address">
-                  <strong>휴대폰 번호</strong>
+                  <strong class="essential">휴대폰 번호</strong>
                   <div class="address_postcode">
                     <input
                       type="text"
                       id="phone"
                       name="phone"
-                      maxlength="12"
-                      placeholder="- 없이 입력하세요."
-                      value=""
+                      maxlength="13"
+                      placeholder="-없이 숫자"
                       v-model="formData.phone"
                     />
+                    <div v-if="errors.phone" class="error-message">{{ errors.phone }}</div>
                   </div>
                 </td>
               </tr>
             </tbody>
           </table>
         </section>
-        <!-- 회원가입/정보 기본정보 -->
       </div>
       <div class="btn_center_box">
-        <button type="button" id="btnCancel" class="btn_cancel" tabindex="18">
-          취소
-        </button>
-        <button
-          @click="signup"
-          type="button"
-          class="js_btn_join btn_ok"
-          tabindex="17"
-        >
-          회원가입
-        </button>
+        <button type="button" id="btnCancel" class="btn_cancel">취소</button>
+        <button type="submit" class="js_btn_join btn_ok">회원가입</button>
       </div>
     </form>
   </div>
 </template>
 <style scoped>
+.error-message {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+.essential::before {
+  content: '*';
+  color: red;
+  font-size: 12px;
+}
 .main {
   width: 50%;
   min-width: 600px;
@@ -421,7 +492,7 @@ h2 {
   margin: 0;
   width: 100%;
   color: #333;
-  background: url(https://thenaum.cdn-nhncommerce.com/data/img/allnew/layout/arrow_down_wide.svg)
+  background: url("/src/assets/icons/arrow_down_wide.svg")
     no-repeat;
   background-size: 0.75rem 0.375rem;
   background-position: right 1.5rem center;
