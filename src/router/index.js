@@ -41,6 +41,7 @@ import SellerMenuList from "../pages/mypage/seller/SellerMenuList.vue";
 import Admin from "../pages/admin/Admin.vue";
 import AdminStoreList from "../pages/admin/store/List.vue";
 import AdminStoreDetail from "../pages/admin/store/Detail.vue";
+import AdminCategoryList from "../pages/admin/category/List.vue";
 
 const checkUserType = (from, to, next) => {
   // 고객인지 점주인지 확인 후 경로 이동
@@ -134,6 +135,7 @@ const routes = [
     children: [
       { path: "store/list", component: AdminStoreList },
       { path: "store/:id", component: AdminStoreDetail },
+      { path: "category/list", component: AdminCategoryList },
     ],
   },
   { path: "/carts", component: Carts },

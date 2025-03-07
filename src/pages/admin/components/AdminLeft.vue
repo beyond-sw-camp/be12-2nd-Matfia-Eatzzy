@@ -13,7 +13,15 @@
                         <li>전체 식당 리스트</li>
                     </router-link>
                 </ul>
-            </li>        
+            </li> 
+            <li>
+                <strong>Category</strong>
+                <ul class="depth2">
+                    <router-link to="/admin/category/list">
+                        <li>카테고리 수정/삭제</li>
+                    </router-link>
+                </ul>
+            </li>       
       </ul>
     </div>
 </template>
