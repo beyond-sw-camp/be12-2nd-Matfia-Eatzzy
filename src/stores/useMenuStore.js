@@ -6,11 +6,10 @@ export const useMenuStore = defineStore("menu", {
     menus: [],
   }),
   actions: {
-    async getMenuList() {
-      const response = await axios.get(
-        "/api/menulist"
-      );
-      this.menus = response.data;
+    async getMenuList(id) {
+      const response = await axios.get(`/api/app/menu/list/${id}`);
+      console.log(response.data);
+      this.menus = response.data.result;
     },
     async deleteMenu(menuId = 1) {
       const response = await axios.post(`/store/menu/1/delete`);

@@ -35,7 +35,7 @@ const deleteMenu = async (menuId) => {
     </div>
     <div class="menu_info_box">
       <div class="menu_title">{{ menu.name }}</div>
-      <div class="menu_price">{{ menu.price.toLocaleString() }}원</div>
+      <div class="menu_price">{{ menu.price }}원</div>
       <div class="menu_description">{{ menu.info }}</div>
     </div>
     <div class="menu_buttons">
