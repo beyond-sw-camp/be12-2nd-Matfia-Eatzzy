@@ -8,11 +8,7 @@ const loadingStore = useLoadingStore();
 const storesStore = useStoresStore();
 
 onMounted(async () => {
-  loadingStore.startLoading();
   await storesStore.getSellerStoresList();
-  setTimeout(() => {
-    loadingStore.stopLoading();
-  }, 500);
 });
 </script>
 
@@ -26,8 +22,7 @@ onMounted(async () => {
     </div>
       <div class="store_list">
         <SellerStoreCard
-          v-for="store in storesStore.stores"
-          :key="store.id"
+          v-for="store in storesStore.mystores"
           :store="store"
         />
       </div>
