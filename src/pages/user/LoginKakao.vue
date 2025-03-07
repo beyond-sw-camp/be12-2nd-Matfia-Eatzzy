@@ -13,7 +13,6 @@
       script.crossOrigin = 'anonymous';
       script.onload = () => {
         Kakao.init('98e4641859cc03067b49c6ba3660bc36'); // 사용하려는 앱의 JavaScript 키 입력
-        this.displayToken();
       };
       document.head.appendChild(script);
     },
@@ -22,22 +21,7 @@
         Kakao.Auth.authorize({
           redirectUri: 'http://localhost:8080/app/users/kakao/code',
         });
-      },
-      displayToken() {
-        const token = this.getCookie('authorize-access-token');
-        if (token) {
-          Kakao.Auth.setAccessToken(token);
-          Kakao.Auth.getStatusInfo()
-            .then((res) => {
-              if (res.status === 'connected') {
-                this.tokenResult = `login success, token: ${Kakao.Auth.getAccessToken()}`;
-              }
-            })
-            .catch(() => {
-              Kakao.Auth.setAccessToken(null);
-            });
-        }
-      },
+      },      
     },
   };
   </script>
@@ -48,7 +32,6 @@
         <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222"
              alt="카카오 로그인 버튼" />
       </a>
-      <p id="token-result">{{ tokenResult }}</p>
     </div>
   </template>
   
