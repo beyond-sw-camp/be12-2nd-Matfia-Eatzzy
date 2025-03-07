@@ -20,10 +20,8 @@
         <div class="member_cont">
           <div class="member_login_box">
             <!-- <a
-              href="#"
+              href="./login/kakao"
               class="js_btn_kakao_login"
-              data-kakao-type="join_method"
-              data-return-url="/member/join_method.php"
             >
               <span class="left">
                 <img
