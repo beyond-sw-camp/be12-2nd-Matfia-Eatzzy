@@ -4,6 +4,7 @@ import { defineStore } from "pinia";
 export const useStoresStore = defineStore("stores", {
   state: () => ({
     stores: [],
+    mystores:[],
     storeTab: "description",
     sort: "",
   }),
@@ -49,10 +50,9 @@ export const useStoresStore = defineStore("stores", {
     },
 
     async getSellerStoresList() {
-      const response = await axios.get(
-        "/api/storeitem"
-      );
-      this.stores = response.data;
+      const response = await axios.get("/api/app/store/mypage/storelist");
+      console.log(response.data);
+      this.mystores = response.data.result;
     },
 
     setStoreTab(tab) {
