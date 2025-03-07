@@ -4,13 +4,8 @@ import { useCategoryStore } from "../../../stores/useCategoryStore";
 
 const categoryStore = useCategoryStore();
 
-const smallCate = ref({
-  idx: 0,
-  name: "전체",
-});
-
 const changeSmallCate = (cate) => {
-  smallCate.value = cate;
+  categoryStore.setSmallCate(cate);
 };
 
 const getSmallCategoryList = async () => {
@@ -31,10 +26,10 @@ onMounted(async () => {
 </script>
 
 <template>
-  <ul class="small_category_list">
+  <ul v-if="categoryStore.bigCate.idx !== 0" class="small_category_list">
     <li
       class="small_category"
-      :class="{ picked: smallCate.idx === 0 }"
+      :class="{ picked: categoryStore.smallCate.idx === 0 }"
       @click="changeSmallCate({ idx: 0, name: '전체' })"
     >
       전체
@@ -43,7 +38,7 @@ onMounted(async () => {
       v-for="cate in categoryStore.smallCategory"
       :key="cate.idx"
       class="small_category"
-      :class="{ picked: smallCate.idx === cate.idx }"
+      :class="{ picked: categoryStore.smallCate.idx === cate.idx }"
       @click="changeSmallCate(cate)"
     >
       {{ cate.name }}

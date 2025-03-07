@@ -1,8 +1,15 @@
 <script setup>
-import { ref } from 'vue';
-import { useStoresStore } from '../../../stores/useStoresStore';
+import { ref, watch } from "vue";
+import { useStoresStore } from "../../../stores/useStoresStore";
 
 const storesStore = useStoresStore();
+
+watch(
+  () => storesStore.sort,
+  async () => {
+    await storesStore.getStoreList(page.value, size.value, categoryIdx.value);
+  }
+);
 
 const setOrder = (newOrder) => {
   storesStore.sort = newOrder;
@@ -14,22 +21,22 @@ const setOrder = (newOrder) => {
     <ul class="orderby">
       <li
         class="orderby_list"
-        :class="{ picked: storesStore.sort === 'HOT' }"
-        @click="setOrder('HOT')"
+        :class="{ picked: storesStore.sort === 'likecount' }"
+        @click="setOrder('likecount')"
       >
         좋아요순
       </li>
       <li
         class="orderby_list"
-        :class="{ picked: storesStore.sort === 'STAR' }"
-        @click="setOrder('STAR')"
+        :class="{ picked: storesStore.sort === 'starPoint' }"
+        @click="setOrder('starPoint')"
       >
         평점순
       </li>
       <li
         class="orderby_list"
-        :class="{ picked: storesStore.sort === 'REVIEW' }"
-        @click="setOrder('REVIEW')"
+        :class="{ picked: storesStore.sort === 'reviewCount' }"
+        @click="setOrder('reviewCount')"
       >
         리뷰 많은 순
       </li>

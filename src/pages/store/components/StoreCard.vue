@@ -9,7 +9,12 @@ const props = defineProps({
 
 <template>
   <router-link :to="`/stores/${store.idx}`" id="store_item">
-    <img class="store_img" :src="store.storeImg" onerror="this.src='/src/assets/icons/noimage.png'" />
+    <img
+      class="store_img"
+      :src="store.thumbnail || '/src/assets/icons/noimage.png'"
+      @error="(event) => (event.target.src = '/src/assets/icons/noimage.png')"
+    />
+
     <div class="info_box">
       <span class="subtitle">{{ store.category }}</span>
       <span class="store_name">{{ store.name }}</span>
@@ -17,7 +22,7 @@ const props = defineProps({
         <img src="/src/assets/icons/star_fill.svg" alt="star" class="icon" />
         <div class="review_content_box">
           <span>{{ store.starPoint }}</span>
-          <span class="subtitle">({{ store.reviewCnt }})</span>
+          <span class="subtitle">({{ store.reviewCount }})</span>
         </div>
       </div>
       <span class="subtitle">{{ store.shortAddress }}</span>
@@ -72,5 +77,4 @@ const props = defineProps({
   font-weight: 500;
   margin-right: 0.2rem;
 }
-
 </style>
