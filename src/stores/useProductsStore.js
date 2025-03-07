@@ -22,23 +22,23 @@ export const useProductsStore = defineStore("products", {
   }),
   actions: {
     async getProductBestList() {
-      const response = await axios.get("/api/products/list");
+      const response = await axios.get("/api/app/products/list");
       console.log(response.data);
       this.productsBest = response.data.result;
     },
 
     async getProductsDetail(id) {
-      const response = await axios.get(`/api/products/${id}`);
+      const response = await axios.get(`/api/app/products/${id}`);
       this.product = response.data.result;
     },
 
     async getProductsWithReviews(id) {
-      const response = await axios.get(`/api/products/${id}/reviews`);
+      const response = await axios.get(`/api/app/products/${id}/reviews`);
       this.reviews = response.data.result;
     },
 
     async getProductsList() {
-      const response = await axios.get("/api/products/list");
+      const response = await axios.get("/api/app/products/list");
       this.products = response.data.result;
     },
 
