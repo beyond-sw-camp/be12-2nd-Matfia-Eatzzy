@@ -37,7 +37,7 @@
                 class="right_arrow"
               />
             </a> -->
-            <a
+            <!-- <a
               href="/join_agreement"
               class="js_btn_naver_login"
               data-naver-type="join_method"
@@ -54,9 +54,9 @@
                 src="/src/assets/icons/arrow_right_b.svg"
                 class="right_arrow"
               />
-            </a>
+            </a> -->
 
-            <a href="/join_agreement" id="btnJoin" class="login_box">
+            <a href="/join_form" id="btnJoin" class="login_box">
               <span class="left">
                 <img
                   src="/src/assets/icons/fd_gom.svg"
