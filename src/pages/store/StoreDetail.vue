@@ -31,18 +31,18 @@ const like = ref(false);
 const route = useRoute();
 const loadingStore = useLoadingStore();
 const storesStore = useStoresStore();
+const storeIdx = route.params.id;
 
 const changeTab = (tab) => {
   storesStore.setStoreTab(tab);
 };
 
-const likeClick = () => { 
+const likeClick = () => {
   like.value = !like.value;
-}
+};
 
 onMounted(async () => {
   loadingStore.startLoading("storeDetail");
-  const storeIdx = route.params.id;
   const result = await storesStore.getStoreDetail(storeIdx);
   storeData.value = result.store;
   setTimeout(() => {
@@ -52,9 +52,9 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div v-if="loadingStore.getIsLoading('storeDetail')" class="spinner_box">
-      <VueSpinner size="30" color="#ff7400"/>
-    </div>
+  <div v-if="loadingStore.getIsLoading('storeDetail')" class="spinner_box">
+    <VueSpinner size="30" color="#ff7400" />
+  </div>
   <div v-else class="main">
     <section class="store">
       <div class="store_info">
@@ -64,8 +64,16 @@ onMounted(async () => {
           <div class="title_box">
             <h1 class="name">{{ storeData.name }}</h1>
             <button class="heart_box" @click="likeClick">
-              <img v-if="!like" src="/src/assets/icons/heart_empty.svg" alt="heart" />
-              <img v-if="like" src="/src/assets/icons/heart_fill.svg" alt="heart" />
+              <img
+                v-if="!like"
+                src="/src/assets/icons/heart_empty.svg"
+                alt="heart"
+              />
+              <img
+                v-if="like"
+                src="/src/assets/icons/heart_fill.svg"
+                alt="heart"
+              />
             </button>
           </div>
 
@@ -103,7 +111,7 @@ onMounted(async () => {
       </div>
 
       <div class="mobile_reservation">
-        <ReservationBox />
+        <ReservationBox :storeId="storeIdx" />
       </div>
 
       <ul class="store_tab_list">

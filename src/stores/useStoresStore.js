@@ -4,18 +4,30 @@ import { defineStore } from "pinia";
 export const useStoresStore = defineStore("stores", {
   state: () => ({
     stores: [],
-    mystores:[],
+    mystores: [],
     storeTab: "description",
+    page: 0,
+    size: 10,
     sort: "",
   }),
 
   actions: {
-    async getStoreList(filter) {
-      const response = await axios.get("/api/stores", filter).catch((error) => {
+    async getStoreList(page, size, categoryIdx) {
+      try {
+        let params = `page=${page}&size=${size}`;
+
+        // categoryIdx와 sort 값이 있으면 추가
+        if (categoryIdx) params += `&categoryIdx=${categoryIdx}`;
+        if (this.sort !== "") params += `&sort=${this.sort}`;
+
+        const response = await axios.get(`/api/app/store/list?${params}`);
+
+        console.log(response.data);
+        return response.data.result;
+      } catch (error) {
         console.error("Error fetching data:", error);
-      });
-      console.log(response.data);
-      return response.data;
+        return null;
+      }
     },
 
     async getStoreBestList() {

@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useStoresStore } from "../../stores/useStoresStore";
 import { useLoadingStore } from "../../stores/useLoadingStore";
 import OrderBox from "./components/OrderBox.vue";
@@ -11,21 +11,35 @@ import { VueSpinner } from "vue3-spinners";
 const loadingStore = useLoadingStore();
 const storesStore = useStoresStore();
 
-const filter = ref({
-  sort: storesStore.sort,
-  place: "서울",
-  category: 1,
-});
 const storeList = ref([]);
 
-onMounted(async () => {
+// sort값 변경 시 리스트 업데이트
+watch(
+  () => storesStore.sort,
+  async () => {
+    await fetchStores();
+  }
+);
+
+// 식당 리스트 불러오기
+const fetchStores = async () => {
   loadingStore.startLoading("stores");
-  const result = await storesStore.getStoreList(filter);
-  storeList.value = result.stores;
+
+  const result = await storesStore.getStoreList(
+    storesStore.page,
+    storesStore.size
+  );
+
+  if (result) {
+    storeList.value = result.stores;
+  }
+
   setTimeout(() => {
     loadingStore.stopLoading();
   }, 500);
-});
+};
+
+onMounted(fetchStores);
 </script>
 
 <template>
