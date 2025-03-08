@@ -8,7 +8,9 @@ const loadingStore = useLoadingStore();
 const storesStore = useStoresStore();
 
 onMounted(async () => {
+  loadingStore.startLoading();
   await storesStore.getSellerStoresList();
+  loadingStore.stopLoading();
 });
 </script>
 
