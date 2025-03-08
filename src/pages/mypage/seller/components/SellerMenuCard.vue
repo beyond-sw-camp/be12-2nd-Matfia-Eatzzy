@@ -1,6 +1,7 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { useMenuStore } from "../../../../stores/useMenuStore";
+import { reactive } from "vue";
 
 const props = defineProps({
   menu: {
@@ -17,12 +18,19 @@ const editMenu = (menuId) => {
   router.push(`/mypage/seller/store/menu/${menuId}/modify/`);
 };
 
+const deleteidx = reactive({
+  menuIdx: null, // 기본값을 null로 설정
+});
+
 const deleteMenu = async (menuId) => {
+  deleteidx.menuIdx = menuId; // menuId 값을 deleteidx.menuIdx에 할당
+
   const conf = confirm("메뉴를 삭제하시겠습니까?");
   if (conf) {
-    const result = await menuStore.deleteMenu(menuId);
+    const result = await menuStore.deleteMenu(deleteidx); // 삭제 요청
     if (result.isSuccess) {
       alert("삭제되었습니다.");
+      window.location.reload();
     }
   }
 };
@@ -42,12 +50,12 @@ const deleteMenu = async (menuId) => {
       <img
         src="/src/assets/icons/edit.svg"
         alt="edit"
-        @click="editMenu(menu.id)"
+        @click="editMenu(menu.idx)"
       />
       <img
         src="/src/assets/icons/delete.svg"
         alt="delete"
-        @click="deleteMenu(menu.id)"
+        @click="deleteMenu(menu.idx)"
       />
     </div>
   </div>

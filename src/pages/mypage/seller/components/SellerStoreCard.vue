@@ -24,7 +24,7 @@ const menuStore = (storeIdx) => {
   router.push(`/mypage/seller/store/${storeIdx}/menu`);
 };
 
-const deleteStore = () => {
+const deleteStore = (menuIdx) => {
   const conf = confirm("가게를 삭제하시겠습니까?")
   if (conf) {
     alert("삭제되었습니다.");
