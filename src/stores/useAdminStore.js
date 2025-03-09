@@ -66,6 +66,47 @@ export const useAdminStore = defineStore("admin", {
       } catch (error) {
         alert(error.response?.data?.message || "카테고리명 삭제 중 오류가 발생했습니다.");
       }
-    }
+    },
+    async updateStoreStatus(storeIdx, category, allow) {
+      try {
+        const response = await axios.patch(`/api/app/admin/store/${storeIdx}`,
+          {
+            categoryIdx: category,
+            allowed: allow
+          },
+          {
+            withCredentials: true,
+          }
+        );
+    
+        if (response.status === 200) {
+          alert("수정되었습니다.");
+        }
+        return response;
+      } catch (error) {
+        alert(error.response?.data?.message || "수정 중 오류가 발생했습니다.");
+      }
+    },
+    async createCategory(categoryIdx, categoryName) {
+      try {
+        const response = await axios.post(
+          `/api/app/admin/category/create`,
+          {
+            name: categoryName,
+            parentIdx: categoryIdx
+          },
+          {
+            withCredentials: true,
+          }
+        );
+    
+        if (response.status === 200) {
+          alert("카테고리가 추가 되었습니다.");
+        }
+        return response;
+      } catch (error) {
+        alert(error.response?.data?.message || "카테고리 추가 중 오류가 발생했습니다.");
+      }
+    },
   },  
 });

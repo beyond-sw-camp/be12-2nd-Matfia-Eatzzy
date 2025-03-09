@@ -37,6 +37,7 @@ onMounted(async () => {
                       <td>식당이름</td>
                       <td>위치</td>
                       <td>카테고리명</td>
+                      <td>등록여부</td>
                       <td></td>
                   </tr>
               </thead>
@@ -46,6 +47,9 @@ onMounted(async () => {
                       <td>{{ store.name }}</td>
                       <td>{{ store.shortAddress }}</td>
                       <td>{{ store.categoryName }}</td>
+                      <td>
+                        {{ store.allowed === "YES" ? "O" : store.allowed === "NO" ? "X" : store.allowed === "WAITING" ? "대기중" : "알 수 없음" }}
+                      </td>
                       <td><router-link :to="`/admin/store/${store.idx}`"><button class="btn edit">상세보기</button></router-link></td>
                   </tr>
               </tbody>
