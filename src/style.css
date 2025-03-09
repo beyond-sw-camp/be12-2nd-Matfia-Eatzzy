@@ -443,10 +443,9 @@ input[type="submit"] {
 .admin_header {
   width: 100%;
   background-color: #fff;
-  height: 55px;
+  height: 80px;
   border-bottom: 1px solid #f0f0f0;
   box-sizing: border-box;
-  margin-bottom: 20px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -460,10 +459,16 @@ input[type="submit"] {
 }
 
 .admin_body_layout {
-  width: calc(100% - 200px);
+  width: 100%;
   background-color: #f5f5f5;
-  min-height: 100vh;
+  min-height: calc(100vh - 85px);
   box-sizing: border-box;
+}
+
+.admin_wrap {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .admin_left {
@@ -565,6 +570,22 @@ input[type="submit"] {
   cursor: pointer;
 }
 
+.admin_contents .btn_area {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+  padding: 20px 0;
+}
+.admin_contents .btn.big {
+  width: 200px;
+}
+
+.admin_contents .btn.list {
+  color: #666;
+  border: 1px solid #666;
+}
+
 .admin_contents .btn.edit {
   color: var(--point-color);
   border: 1px solid var(--point-color);
@@ -573,4 +594,8 @@ input[type="submit"] {
 .admin_contents .btn.del {
   color: #fff;
   background-color: var(--color-red);
+}
+
+.admin_contents select {
+  height: 31px;
 }
