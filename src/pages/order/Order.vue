@@ -66,11 +66,11 @@
           </tbody>
         </table>
         <!-- 장바구니 상품리스트 끝 -->
-        <!-- <OrderCard
-          v-for="cartProduct in cartStore.cartProducts"
-          :cartProduct="cartProduct"
-        >
-        </OrderCard> -->
+        <OrderCard
+          v-for="product in order.OrderProductResponse"
+          :key="product.idx"
+          :cartProduct="{ ...product, ...product.productsResponse }"
+        />
 
         <div class="price_sum">
           <div class="price_sum_cont">
@@ -1188,6 +1188,7 @@
 </template>
 
 <script setup>
+import { useRoute } from "vue-router";
 import axios from "axios";
 import PortOne from "@portone/browser-sdk/v2";
 import { useCartStore } from "../../stores/useCartStore";
@@ -1198,18 +1199,13 @@ const cartStore = useCartStore();
 const orderStore = useOrderStore();
 const order = ref(null); // 주문 데이터를 저장할 반응형 변수
 
+const route = useRoute();
+const orderIdx = route.params.orderIdx; // ✅ URL에서 orderIdx 가져오기
 // 주문 정보를 가져오는 함수
 const fetchOrderDetails = async (idx) => {
   try {
     const response = await axios.get(`/api/app/orders/${idx}`);
-    const readResponse = {
-      idx: 1, // 주문 ID
-      price: 10000, // 가격
-      message: "테스트 주문입니다.", // 메시지
-      status: "완료", // 상태
-    };
-
-    order.value = readResponse; // 반응형 변수에 데이터 저장
+    order.value = response.data.result; // 반응형 변수에 데이터 저장
     console.log("주문 정보:", order.value);
   } catch (error) {
     console.error("주문 정보를 가져오는 중 오류 발생:", error);
@@ -1218,7 +1214,7 @@ const fetchOrderDetails = async (idx) => {
 
 // 컴포넌트 마운트 시 주문 정보 가져오기
 onMounted(async () => {
-  await fetchOrderDetails(1); // 주문 정보를 가져올 때까지 대기
+  await fetchOrderDetails(orderIdx); // 주문 정보를 가져올 때까지 대기
 });
 
 // 결제 함수

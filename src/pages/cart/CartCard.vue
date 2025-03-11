@@ -50,7 +50,7 @@
         <span class="pick_add_img">
           <router-link :to="`/products/${cartProduct.idx}`">
             <img
-              :src="cartProduct.imgPath"
+              :src="cartProduct.imagePath"
               width="40"
               alt="패션후르츠 샤베트 300ml (50ml x 6ea)_겨울에도 식을줄 모르는 디저트샤벳"
               title="패션후르츠 샤베트 300ml (50ml x 6ea)_겨울에도 식을줄 모르는 디저트샤벳"
