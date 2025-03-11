@@ -4,6 +4,7 @@ import { defineStore } from "pinia";
 export const useOrderStore = defineStore("order", {
   state: () => ({
     modalChecked: false,
+    order: {},
   }),
 
   actions: {
@@ -23,6 +24,19 @@ export const useOrderStore = defineStore("order", {
     },
     modal() {
       this.modalChecked = !this.modalChecked;
+    },
+
+    // ✅ fetchOrderDetails 추가 (원래 코드 이전)
+    async fetchOrderDetails(idx) {
+      console.log("📢 fetchOrderDetails 실행됨, orderIdx:", idx);
+
+      try {
+        const response = await axios.get(`/api/app/orders/${idx}`);
+        console.log(response.data.result);
+        this.order = response.data.result;
+      } catch (error) {
+        console.error("주문 정보를 가져오는 중 오류 발생:", error);
+      }
     },
   },
 });

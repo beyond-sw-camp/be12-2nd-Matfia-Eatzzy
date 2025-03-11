@@ -139,7 +139,7 @@ const routes = [
     ],
   },
   { path: "/carts", component: Carts },
-  { path: "/order/:orderIdx", component: Order, beforeEnter: checkLogin },
+  { path: "/orders/:orderIdx", component: Order, beforeEnter: checkLogin },
 ];
 
 const router = createRouter({
