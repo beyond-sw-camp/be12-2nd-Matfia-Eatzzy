@@ -10,7 +10,7 @@
             <div class="item_content_img">
               <span class="img_photo_big">
                 <img
-                  :src="`${productStore.product.imagePath}`"
+                  :src="`${productStore.product.imgPath}`"
                   width="500"
                   alt="패션후르츠 샤베트 300ml (50ml x 6ea)_겨울에도 식을줄 모르는 디저트샤벳"
                   title="패션후르츠 샤베트 300ml (50ml x 6ea)_겨울에도 식을줄 모르는 디저트샤벳"
@@ -67,7 +67,7 @@
               <h1 class="goods_name">
                 <!-- 패션후르츠 샤베트 300ml (50ml x 6ea)_겨울에도 식을줄 모르는
                 디저트샤벳 -->
-                {{ productStore.product.productName }}
+                {{ productStore.product.name }}
               </h1>
               <div class="short_des"></div>
             </div>
