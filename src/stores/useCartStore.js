@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import axios from "axios";
 
 // localStorage에서 데이터 불러오기
 const loadCartFromStorage = () => {
@@ -8,6 +9,7 @@ const loadCartFromStorage = () => {
 
 export const useCartStore = defineStore("carts", {
   state: () => ({
+    deliveryFee: 4000,
     isMadal: false,
     isAllChecked: true,
     cartChecked: {},
@@ -21,6 +23,13 @@ export const useCartStore = defineStore("carts", {
   getters: {
     cartCount: (state) => state.items.length,
     //items.isChecked 확인 하는 메서드
+
+    // ✅ 체크된 상품들의 총 가격 계산
+    checkedTotalPrice: (state) => {
+      return state.items
+        .filter((item) => item.isChecked) // 체크된 상품만 계산
+        .reduce((sum, item) => sum + item.price * item.quantity, 0);
+    },
   },
 
   //직접 state를 변경하는 것이 아니라, actions를 통해 비즈니스 로직을 캡슐화하여 상태를 변경
@@ -36,6 +45,7 @@ export const useCartStore = defineStore("carts", {
       if (existingItem) {
         existingItem.quantity += 1;
       } else {
+        //상품의 quantity 가
         this.items.push({ ...item, quantity: 1, isChecked: true });
       }
       this.totalPrice = this.items.reduce(
@@ -43,6 +53,20 @@ export const useCartStore = defineStore("carts", {
         0
       );
       this.saveToLocalStorage();
+    },
+
+    // ✅ `productCnt`만큼 추가하는 새로운 addItemWithCount 메서드
+    addItemWithCount(item, productCnt) {
+      const existingItem = this.items.find((i) => i.idx === item.idx);
+      if (existingItem) {
+        // ✅ 장바구니에 이미 있으면 `productCnt`만큼 추가
+        existingItem.quantity += productCnt;
+      } else {
+        // ✅ 장바구니에 없으면 `productCnt`로 새 상품 추가
+        this.items.push({ ...item, quantity: productCnt, isChecked: true });
+      }
+      this.updateTotalPrice(); // ✅ 총 가격 업데이트
+      this.saveToLocalStorage(); // ✅ localStorage 저장
     },
 
     async orderCreate() {
@@ -58,8 +82,8 @@ export const useCartStore = defineStore("carts", {
 
         // ✅ 필요한 데이터만 포함한 배열 (idx, price)
         const orderItems = selectedItems.map((item) => ({
-          productIdx: item.idx,
           quantity: item.quantity,
+          productIdx: item.idx,
           price: item.price,
         }));
 
@@ -69,16 +93,21 @@ export const useCartStore = defineStore("carts", {
           0
         );
 
-        // ✅ 최종 API 요청 데이터
+        console.log("보내는 데이터:", JSON.stringify(orderItems));
+
+        // ✅ 서버에서 예상하는 데이터 형식에 맞춰 요청 데이터 생성
         const requestData = {
-          items: orderItems, // 필요한 데이터만 포함된 리스트
-          totalPrice: totalPrice, // 총 주문 금액
+          orderProductRegisterRequest: [...orderItems], // ✅ 반드시 리스트로 전달해야 함
+          totalPrice: totalPrice,
         };
 
         // ✅ 서버로 주문 요청 보내기
-        const response = await axios.post(`/api/orders/create`, requestData);
+        const response = await axios.post(
+          `/api/app/orderproducts/orderregister`,
+          requestData
+        );
 
-        return response.data;
+        return response.data.result.orderIdx;
       } catch (error) {
         console.error("주문 생성 중 오류 발생:", error);
         alert("주문 처리 중 문제가 발생했습니다. 다시 시도해주세요.");
@@ -137,6 +166,18 @@ export const useCartStore = defineStore("carts", {
 
       item.isChecked = !item.isChecked; // ✅ 체크 여부 토글
       this.updateTotalPrice(); // ✅ 체크된 상품만 총 가격에 포함
+      this.saveToLocalStorage();
+    },
+
+    // ✅ 선택된 상품만 삭제
+    removeSelectedItems() {
+      // 선택된 상품만 삭제
+      this.items = this.items.filter((item) => !item.isChecked);
+
+      // 총 가격 업데이트
+      this.updateTotalPrice();
+
+      // 변경된 장바구니를 localStorage에 저장
       this.saveToLocalStorage();
     },
 

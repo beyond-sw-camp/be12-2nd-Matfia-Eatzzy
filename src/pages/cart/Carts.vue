@@ -13,16 +13,12 @@
           <li class="page_on">
             <span>01</span> 장바구니
             <span
-              ><img
-                src="/src/assets/icons/icon_join_step_on.png"
-                alt=""
+              ><img src="/src/assets/icons/icon_join_step_on.png" alt=""
             /></span>
           </li>
           <li>
             <span>02</span> 주문서작성/결제<span
-              ><img
-                src="/src/assets/icons/icon_join_step_off.png"
-                alt=""
+              ><img src="/src/assets/icons/icon_join_step_off.png" alt=""
             /></span>
           </li>
           <li><span>03</span> 주문완료</li>
@@ -88,7 +84,7 @@
               <button
                 type="button"
                 class="btn_order_choice_del"
-                onclick="gd_cart_process('cartDelete');"
+                @click="cartStore.removeSelectedItems"
               >
                 선택상품삭제
               </button>
@@ -141,14 +137,14 @@
                   <p>배송비</p>
                   <p class="price"><strong>4,000</strong>원</p>
                 </div>
-                <img
-                  src="/src/assets/icons/order_price_total.png"
-                  alt="합계"
-                />
+                <img src="/src/assets/icons/order_price_total.png" alt="합계" />
                 <div class="price_total">
                   <p>합계</p>
                   <p class="price">
-                    <strong>{{cartStore.totalPrice + cartStore.deliveryFee}}</strong>원
+                    <strong>{{
+                      cartStore.checkedTotalPrice + cartStore.deliveryFee
+                    }}</strong
+                    >원
                   </p>
                 </div>
               </div>
@@ -159,21 +155,20 @@
         </div>
 
         <div class="order_btn_group">
-          <router-link to="/order">
+          <router-link to="/orders">
             <button type="button" class="btn_order_choice_buy">
               선택 상품 주문
             </button>
           </router-link>
-          <router-link to="/order">
+          <router-link to="/orders" @click.prevent="handleOrder">
             <button type="button" class="btn_order_whole_buy">
               전체 상품 주문
             </button>
           </router-link>
 
           <em class="chk_none"
-            ><img
-              src="/src/assets/icons/icon_warning_new.png"
-            />주문서 작성단계에서 할인/적립금 적용을 하실 수 있습니다.</em
+            ><img src="/src/assets/icons/icon_warning_new.png" />주문서
+            작성단계에서 할인/적립금 적용을 하실 수 있습니다.</em
           >
         </div>
       </div>
@@ -183,12 +178,27 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import CartCard from "./CartCard.vue";
 import "./../../../src/assets/cart/cart.css";
 import { useCartStore } from "../../stores/useCartStore";
 import { onMounted } from "vue";
 const cartStore = useCartStore();
+const router = useRouter();
+const handleOrder = async () => {
+  try {
+    const orderIdx = await cartStore.orderCreate(); // ✅ 주문 요청 실행 후 orderIdx 반환
 
+    if (orderIdx) {
+      router.push(`/order/${orderIdx}`); // ✅ 주문 완료 후 해당 주문 상세 페이지로 이동
+    } else {
+      alert("주문 ID를 받아오지 못했습니다. 다시 시도해주세요.");
+    }
+  } catch (error) {
+    console.error("주문 처리 중 오류 발생:", error);
+  }
+};
 onMounted(async () => {
   await cartStore.getCartProducts();
   initalProductCheckList();

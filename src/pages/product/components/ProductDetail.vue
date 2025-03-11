@@ -10,7 +10,7 @@
             <div class="item_content_img">
               <span class="img_photo_big">
                 <img
-                  :src="`${productStore.product.image}`"
+                  :src="`${productStore.product.imagePath}`"
                   width="500"
                   alt="패션후르츠 샤베트 300ml (50ml x 6ea)_겨울에도 식을줄 모르는 디저트샤벳"
                   title="패션후르츠 샤베트 300ml (50ml x 6ea)_겨울에도 식을줄 모르는 디저트샤벳"
@@ -505,6 +505,7 @@
                       class="btn_add_cart_relation btn_open_layer"
                       data-mode="cartIn"
                       data-goods-no="1000000238"
+                      @click="cartStore.addCart()"
                     >
                       장바구니
                     </button>
@@ -649,7 +650,7 @@
                   찜
                 </button> -->
               <button
-                @click="openModal"
+                @click="addToCart"
                 class="btn_add_cart btn_buy_cart bc2 fc5"
                 id="cartBtn"
               >
@@ -749,17 +750,24 @@ import { useRoute } from "vue-router";
 import { ref } from "vue";
 import ProductDescription from "./ProductDescription.vue";
 import ProductReviewList from "./ProductReviewList.vue";
+import { useCartStore } from "../../../stores/useCartStore";
 const productStore = useProductsStore();
 const route = useRoute();
 const productId = route.params.id;
 const isModal = ref(false);
 const productCnt = ref(1);
+const cartStore = useCartStore();
 
 const changeTab = (str) => {
   productStore.productTab = str;
 };
 const addCart = () => {
   productCnt.value = productCnt.value + 1;
+};
+
+const addToCart = () => {
+  cartStore.addItemWithCount(productStore.product, productCnt);
+  openModal();
 };
 
 const substactCart = () => {
@@ -908,8 +916,7 @@ onMounted(async () => {
   display: inline-block;
   width: 38px;
   height: 38px;
-  background: url("/src/assets/icons/goods_view_top.svg")
-    no-repeat;
+  background: url("/src/assets/icons/goods_view_top.svg") no-repeat;
 }
 
 .top_summary .right_cont .info .count input[name="goodsCnt[]"] {
@@ -935,8 +942,7 @@ onMounted(async () => {
   display: inline-block;
   width: 38px;
   height: 38px;
-  background: url("/src/assets/icons/goods_view_top.svg")
-    no-repeat;
+  background: url("/src/assets/icons/goods_view_top.svg") no-repeat;
 }
 
 .goods_qtycs button {
@@ -1046,8 +1052,7 @@ onMounted(async () => {
   display: inline-block;
   align-items: center;
   cursor: pointer;
-  background: url("/src/assets/icons/star_back.svg")
-    no-repeat;
+  background: url("/src/assets/icons/star_back.svg") no-repeat;
   width: 120px;
   height: 20px;
 }
@@ -1206,8 +1211,7 @@ element.style {
 }
 
 .add_cart_layer p.success {
-  background: url("/src/assets/icons/add_cart_success.png")
-    no-repeat center top;
+  background: url("/src/assets/icons/add_cart_success.png") no-repeat center top;
 }
 
 .add_cart_layer p {
@@ -1217,8 +1221,7 @@ element.style {
   font-size: 14px;
   line-height: 22px;
   text-align: center;
-  background: url("/src/assets/icons/add_cart_success.png")
-    no-repeat center top;
+  background: url("/src/assets/icons/add_cart_success.png") no-repeat center top;
 }
 
 .layer_wrap .box .view .close {
@@ -1229,8 +1232,7 @@ element.style {
   width: 18px;
   height: 18px;
   text-indent: -9999px;
-  background: url("/src/assets/icons/btn/layer-close.png")
-    no-repeat left top;
+  background: url("/src/assets/icons/btn/layer-close.png") no-repeat left top;
 }
 
 .add_cart_layer .btn_box,
