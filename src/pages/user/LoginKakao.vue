@@ -19,7 +19,7 @@
     methods: {
       loginWithKakao() {
         Kakao.Auth.authorize({
-          redirectUri: 'http://localhost:8080/app/users/kakao/code',
+          redirectUri: 'http://www.eatzzy-back.kro.kr:8082/app/users/kakao/code',
         });
       },      
     },
