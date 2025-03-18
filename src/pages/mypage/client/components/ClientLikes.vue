@@ -12,7 +12,7 @@ const handleCancelClick = async (likeIdx) => {
   if (isConfirmed) {
     alert("삭제되었습니다.");
     try {
-      await axios.get(`/api/app/likes/mypage/deletestore/${likeIdx}`);
+      await axios.post(`/api/app/likes/mypage/updatestore/${likeIdx}`);
       window.location.reload(); // 삭제 후 데이터 새로 불러오기
     } catch (error) {
       console.error("삭제 실패:", error);

@@ -1,39 +1,57 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useReviewedStore } from "../../../../stores/useReviewedStore";
+import axios from "axios";
 
-const reviewedStore = useReviewedStore();
+//const reviewedStore = useReviewedStore();
+const pReviewed = ref([]);
 
-const handleCancelClick = (likeId) => {
-  // JavaScript 기본 confirm 대화상자 표시
+const handleCancelClick = async (reviewIdx) => {
   const isConfirmed = confirm("정말로 이 상품의 리뷰를 삭제할까요?");
   if (isConfirmed) {
-    alert("삭제되었습니다."); // 확인 시 동작
-    // 실제 취소 로직을 여기에 추가 가능
-    // 예: API 호출 후 목록 갱신
+    alert("삭제되었습니다.");
+    try {
+      console.log(reviewIdx);
+      await axios.delete(`/api/app/products/reviews/mypage/productdelete/${reviewIdx}`);
+      window.location.reload(); // 삭제 후 데이터 새로 불러오기
+    } catch (error) {
+      console.error("삭제 실패:", error);
+    }
   }
 };
+
+const fetchAReviewed = async () => {
+  try {
+    const response = await axios.get("/api/app/products/reviews/mypage/store");
+    pReviewed.value = response.data.result; // 받아온 데이터를 ref에 저장
+    console.log("작성한 목록 :", pReviewed.value);
+  } catch (error) {
+    console.error("데이터 가져오기 실패:", error);
+  }
+};
+
 onMounted(() => {
-  reviewedStore.getreviewedStores();
+  //reviewedStore.getreviewedStores();
+  fetchAReviewed();
 });
 </script>
 
 <template>
-  <div class="review_item" v-for="(PAreview, index) in reviewedStore.reviewedProducts" :key="index">
+  <div class="review_item" v-for="(PAreview, index) in pReviewed" :key="index">
     <div class="review_left">
-      <div class="review_itemName">{{ PAreview.product_name }}</div>
+      <div class="review_itemName">{{ PAreview.title }}</div>
       <div class="star_box">
-        <img v-for="n in PAreview.score" src="/src/assets/icons/star_fill.svg" alt="star" />
-        <img v-for="n in 5 - PAreview.score" src="/src/assets/icons/star_empty.svg" alt="star" />
+        <img v-for="n in PAreview.starPoint" src="/src/assets/icons/star_fill.svg" alt="star" />
+        <img v-for="n in 5 - PAreview.starPoint" src="/src/assets/icons/star_empty.svg" alt="star" />
       </div>
-      <p class="review_text">{{ PAreview.content }}</p>
+      <p class="review_text">{{ PAreview.contents }}</p>
       <div class="img_box">
-        <img v-for="(image, index) in PAreview.review_images" :src="image" :alt="'Review Image ' + (index + 1)" class="review_image" :key="index" />
+        <img v-for="(image, index) in PAreview.reviewImage" :src="image" :alt="'Review Image ' + (index + 1)" class="review_image" :key="index" />
       </div>
     </div>
     <div class="review_right after_right">
       <div class="review_date">{{ PAreview.purchase }}</div>
-      <button class="review_button" @click="handleCancelClick(PAreview.id)">리뷰 삭제하기</button>
+      <button class="review_button" @click="handleCancelClick(PAreview.idx)">리뷰 삭제하기</button>
     </div>
   </div>
 </template>

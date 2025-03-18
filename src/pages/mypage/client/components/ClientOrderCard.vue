@@ -7,6 +7,10 @@ const props = defineProps({
     required: true,
   },
 });
+
+onMounted(() => {
+  //reviewedStore.getreviewedStores();
+});
 </script>
 
 <template>
@@ -16,10 +20,7 @@ const props = defineProps({
         <p>{{ order.createdAt }}</p>
         <p>주문번호: {{ order.idx }}</p>
       </div>
-      <router-link
-        :to="`/mypage/client/orders/${order.idx}`"
-        class="detail_btn"
-      >
+      <router-link :to="`/mypage/client/orders/${order.idx}`" class="detail_btn">
         <span>주문 상세보기</span>
         <img src="/src/assets/icons/angle_right.svg" alt="상세보기" />
       </router-link>

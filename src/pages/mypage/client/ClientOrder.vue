@@ -2,15 +2,31 @@
 import { onMounted, ref } from "vue";
 import { useOrderStore } from "../../../stores/useOrderStore";
 import ClientOrderCard from "./components/ClientOrderCard.vue";
+import axios from "axios";
 
 const orderList = ref([]);
 
 const orderStore = useOrderStore();
 
+const ordered = ref([]);
+
+const fetchOrder = async () => {
+  try {
+    const response = await axios.get("/api/app/orders/mypage/orderlist");
+    ordered.value = ordered.data.result; // 받아온 데이터를 ref에 저장
+    console.log("dd");
+    console.log("작성한 목록 :", ordered.value);
+  } catch (error) {
+    console.error("데이터 가져오기 실패:", error);
+  }
+};
+
 onMounted(async () => {
+  console.log("시작");
   const result = await orderStore.getClientOrderList();
   console.log(result);
   orderList.value = result.orders;
+  fetchOrder();
 });
 </script>
 
