@@ -3,10 +3,37 @@ import { ref, onMounted } from "vue";
 import { useReviewableStore } from "../../../../stores/useReviewableStore";
 import { useReviewStore } from "../../../../stores/useReviewStore";
 import { useRouter } from "vue-router";
+import axios from "axios";
 
 const router = useRouter();
 const reviewStore = useReviewStore();
 const reviewableStore = useReviewableStore();
+
+const pBReviewed = ref([]);
+
+const handleCancelClick = async (reviewIdx) => {
+  const isConfirmed = confirm("정말로 이 상품의 리뷰를 삭제할까요?");
+  if (isConfirmed) {
+    alert("삭제되었습니다.");
+    try {
+      console.log(reviewIdx);
+      await axios.delete(`/api/app/products/reviews/mypage/productdelete/${reviewIdx}`);
+      window.location.reload(); // 삭제 후 데이터 새로 불러오기
+    } catch (error) {
+      console.error("삭제 실패:", error);
+    }
+  }
+};
+
+const fetchBReview = async () => {
+  try {
+    const response = await axios.get("/api/app/products/reviews/reviewable");
+    pBReviewed.value = response.data.result; // 받아온 데이터를 ref에 저장
+    console.log("작성할 목록 :", pBReviewed.value);
+  } catch (error) {
+    console.error("데이터 가져오기 실패:", error);
+  }
+};
 
 const createReview = (product) => {
   reviewStore.setProduct(product);
@@ -14,29 +41,20 @@ const createReview = (product) => {
 };
 
 onMounted(() => {
-  reviewableStore.getreviewableStores();
+  //reviewableStore.getreviewableStores();
+  fetchBReview();
 });
 </script>
 
 <template>
-  <div
-    class="review_item"
-    v-for="(PBreview, index) in reviewableStore.reviewableProducts"
-    :key="index"
-  >
+  <div class="review_item" v-for="(PBreview, index) in pBReviewed" :key="index">
     <a href="/products/1" class="review_left">
       <div class="review_itemName">{{ PBreview.product_name }}</div>
-      <img
-        :src="PBreview.review_images"
-        alt="Review Image"
-        class="review_image"
-      />
+      <img :src="PBreview.review_images" alt="Review Image" class="review_image" />
     </a>
     <div class="review_right notYet_right">
       <div class="review_date">{{ PBreview.purchase }}</div>
-      <button class="review_button" @click="createReview(PBreview)">
-        리뷰 쓰러 가기
-      </button>
+      <button class="review_button" @click="createReview(PBreview)">리뷰 쓰러 가기</button>
     </div>
   </div>
 </template>

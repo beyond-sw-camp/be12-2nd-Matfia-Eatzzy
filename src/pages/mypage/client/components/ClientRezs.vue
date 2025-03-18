@@ -12,8 +12,9 @@ const handleCancelClick = async (idx) => {
   if (isConfirmed) {
     alert("예약이 취소되었습니다."); // 확인 시 동작
     try {
-      // await axios.get(`/api/app/likes/mypage/deletestore/${idx}`);
-      // window.location.reload(); // 삭제 후 데이터 새로 불러오기
+      console.log(idx);
+      await axios.delete(`/api/app/resv/mypage/delete/${idx}`);
+      window.location.reload();
     } catch (error) {
       console.error("삭제 실패:", error);
     }
@@ -42,17 +43,17 @@ onMounted(() => {
 <template>
   <div class="storeRez_item" v-for="(review, index) in rez" :key="index">
     <a class="storeRez_left" href="/stores/1">
-      <div class="store_name">{{ review.store_name }}</div>
-      <div class="rez_category store_address">{{ review.store_address }}</div>
-      <img :src="review.store_image" alt="Review Image" class="review_image" />
+      <div class="store_name">{{ review.storeName }}</div>
+      <div class="rez_category store_address">{{ review.storeAddress }}</div>
+      <img :src="review.storeImage" alt="Review Image" class="review_image" />
     </a>
     <div class="storeRez_right notYet_right">
       <div>
-        <div class="rez_date">{{ review.reservation }}</div>
-        <div class="rez_time">{{ review.rez_time }}</div>
+        <div class="rez_date">{{ review.date }}</div>
+        <div class="rez_time">{{ review.time }}</div>
         <div class="rez_count">2명</div>
       </div>
-      <button class="rez_button" @click="handleCancelClick(review.id)">예약 취소하기</button>
+      <button class="rez_button" @click="handleCancelClick(review.idx)">예약 취소하기</button>
     </div>
   </div>
 </template>
