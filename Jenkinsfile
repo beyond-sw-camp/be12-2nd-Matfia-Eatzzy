@@ -50,7 +50,6 @@ pipeline {
         stage('Docker Build & Push') {
             steps {
                 script {
-                    dir('nginx') { // Dockerfile이 있는 디렉토리에서 실행
                         echo "Building Docker Image: ${IMAGE_NAME}:${IMAGE_TAG}"
                         def dockerImage = docker.build("${IMAGE_NAME}:${IMAGE_TAG}", "--no-cache .")
 
@@ -58,7 +57,7 @@ pipeline {
                         withDockerRegistry([credentialsId: 'DOCKER_HUB']) {
                             dockerImage.push()
                         }
-                    }
+                    
                 }
             }
         }
