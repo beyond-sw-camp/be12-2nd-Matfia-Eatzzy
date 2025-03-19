@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: agh # 네임스페이스 지정
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0 # 기존 Pod가 제거되기 전에 새로운 Pod가 준비됨
+      maxSurge: 1 # 한 번에 추가할 최대 Pod
+  selector:
+    matchLabels:
+      type: frontend
+  template:
+    metadata:
+      labels:
+        type: frontend
+    spec:
+      containers:
+        - name: nginx
+          image: gyuho0897/frontend:latest
+          ports:
+            - containerPort: 80
+          volumeMounts: # ✅ 들여쓰기 수정 (containers 내부로 이동)
+            - name: config
+              mountPath: /etc/nginx/conf.d/
+      volumes: # ✅ volumes는 containers 바깥에 위치해야 함
+        - name: config
+          configMap:
+            name: nginx-config
