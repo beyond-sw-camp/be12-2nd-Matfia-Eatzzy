@@ -47,6 +47,16 @@ pipeline {
             }
         }
 
+        stages {
+        stage('Check Environment') {
+            steps {
+                sh 'whoami'  // 현재 실행 계정 확인
+                sh 'pwd'     // 현재 작업 디렉토리 확인
+                sh 'ls -l'   // 현재 디렉토리의 파일 목록 확인
+            }
+        }
+        }
+
         stage('Docker Build & Push') {
             steps {
                 script {
