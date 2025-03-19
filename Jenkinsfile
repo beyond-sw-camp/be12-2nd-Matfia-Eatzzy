@@ -16,13 +16,22 @@ pipeline {
         }
 
         stage('Node.js Build') {
-            steps {
+                steps{
                 dir('nginx') { // Git Clone한 프로젝트 디렉토리로 이동
                     echo "Removing old dependencies"
                     sh 'rm -rf node_modules package-lock.json'
 
+                    echo "Cleaning npm cache"
+                    sh 'npm cache clean --force'
+
                     echo "Installing Node.js dependencies"
                     sh 'npm install --force'
+
+                    echo "Ensuring rollup & vite are installed"
+                    sh 'npm install --save-dev rollup vite'
+
+                    echo "Creating dist folder (prevent build failure)"
+                    sh 'mkdir -p dist'
 
                     echo "Building the project"
                     sh 'npm run build'
