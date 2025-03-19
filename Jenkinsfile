@@ -4,7 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME = "gyuho0897/frontend"
         IMAGE_TAG = "${BUILD_NUMBER}"
-        WORKSPACE_DIR = "/var/lib/jenkins/workspace/nginx"
+        WORKSPACE_DIR = "/var/lib/jenkins/workspace/matfia-frontend"
     }
 
     stages {
@@ -17,7 +17,6 @@ pipeline {
 
         stage('Node.js Build') {
                 steps{
-                dir('nginx') { // Git Clone한 프로젝트 디렉토리로 이동
                     echo "Removing old dependencies"
                     sh 'rm -rf node_modules package-lock.json'
 
@@ -43,7 +42,7 @@ pipeline {
                             error("Error: dist directory not found!")
                         }
                     }
-                }
+                
             }
         }
 
