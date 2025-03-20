@@ -1,52 +1,52 @@
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router'
+import { ref, reactive } from "vue";
+import { useRouter } from "vue-router"; 
+import { useMenuStore } from "../../../stores/useMenuStore";
 
-const router = useRouter()
-// 반응형 상태 변수 정의
-const menuName = ref('');
-const menuImage = ref(null);
-const menuDescription = ref('');
-const menuPrice = ref('');
+// 메뉴 데이터
 
+const menuStore = useMenuStore();
+const menuData = reactive({
+  name: "",
+  price: null,
+  info: "",
+  storeIdx: 3, // 기본값
+});
+
+// 이미지 변수 추가
+const menuImage = ref(null); // menuImage를 ref로 선언하여 파일 URL을 저장
+
+// 취소 버튼
 const cancel = () => {
+  const router = useRouter();
   router.push(`/mypage/seller`);
 };
+
 // 이미지 파일 업로드 처리
 const handleImageUpload = (event) => {
-  const file = event.target.files[0];
+  const file = event.target.files[0];  // 파일 선택
   if (file) {
-    menuImage.value = URL.createObjectURL(file); // 미리보기용 URL 생성
+    menuImage.value = URL.createObjectURL(file);  // 선택한 파일의 미리보기 URL 생성
   }
 };
 
 // 메뉴 추가 제출 처리
-const submitMenu = () => {
-  // 유효성 체크 후 메뉴 추가 작업
-  if (!menuName.value || !menuDescription.value || !menuPrice.value || !menuImage.value) {
-    alert("모든 항목을 입력해주세요.");
+const submitMenu = async () => {
+  console.log(menuData); // menuData 값 확인
+
+  if (!menuData.name || !menuData.price || !menuData.info) {
+    alert("모든 항목을 입력해주세요!");
     return;
   }
 
-  // 서버에 전송할 데이터 준비
-  const menuData = {
-    name: menuName.value,
-    image: menuImage.value, // 실제 파일 업로드 시 FormData를 사용하여 전송
-    description: menuDescription.value,
-    price: menuPrice.value
-  };
-
-  console.log("메뉴 추가:", menuData);
-
-  resetForm();
-};
-
-// 폼 초기화
-const resetForm = () => {
-  menuName.value = '';
-  menuImage.value = null;
-  menuDescription.value = '';
-  menuPrice.value = '';
+  try {
+    const response = await menuStore.addMenu(menuData);
+    alert("메뉴가 추가되었습니다.");
+    window.location.reload();
+  } catch (error) {
+    console.error("메뉴 추가 실패:", error);
+    alert("메뉴 추가 중 오류가 발생했습니다.");
+  }
 };
 </script>
 
@@ -61,47 +61,59 @@ const resetForm = () => {
         <!-- 메뉴명 -->
         <div class="form_group">
           <label for="menuName"><strong>메뉴명 (30자 이내)</strong></label>
-          <input type="text" id="menuName" v-model="menuName" maxlength="30" placeholder="메뉴명을 입력하세요" required />
+          <input
+            type="text"
+            id="menuName"
+            v-model="menuData.name"
+            maxlength="30"
+            placeholder="메뉴명을 입력하세요"
+            required
+          />
         </div>
 
-        <div class="image_group">
-          <label for="restaurantImages"><strong>메뉴 사진 (1개)</strong></label>
-          <div class="image_container">
-            <!-- 미리보기 공간 -->
-            <div class="preview_container">
-              <div v-if="menuImage" class="preview_box">
-                <img :src="menuImage" alt="Preview" class="preview-img" />
-              </div>
-              <div v-else class="preview_box">미리보기</div>
-            </div>
-
-            <!-- 파일 선택 부분 -->
-            <div class="file_input_container">
-              <input type="file" class="store_image" @change="handleImageUpload" accept="image/*" multiple />
-              <p>1개의 이미지만 선택할 수 있습니다.</p>
-            </div>
+        <!-- 이미지 업로드 -->
+        <div class="form_group">
+          <label for="menuImage"><strong>메뉴 사진</strong></label>
+          <input
+            type="file"
+            id="menuImage"
+            @change="handleImageUpload"
+            accept="image/*"
+          />
+          <div v-if="menuImage">
+            <img :src="menuImage" alt="Preview" class="preview-img" />
           </div>
         </div>
 
         <!-- 메뉴 소개 -->
         <div class="form_group">
-          <label for="menuDescription"><strong>메뉴 소개 (150자 이내)</strong></label>
-          <textarea id="menuDescription" v-model="menuDescription" maxlength="150" placeholder="메뉴 소개를 입력하세요"
-            required></textarea>
+          <label for="menuDescription"><strong>메뉴 소개 (150 이내)</strong></label>
+          <textarea
+            id="menuDescription"
+            v-model="menuData.info"
+            maxlength="150"
+            placeholder="메뉴 소개를 입력하세요"
+            required
+          ></textarea>
         </div>
 
         <!-- 가격 -->
         <div class="form_group">
           <label for="menuPrice"><strong>가격</strong></label>
           <div class="price_container">
-            <input type="number" id="menuPrice" v-model="menuPrice" placeholder="가격을 입력하세요" required />
+            <input
+              type="number"
+              id="menuPrice"
+              v-model="menuData.price"
+              placeholder="가격을 입력하세요"
+              required
+            />
             <span class="currency">원</span>
           </div>
         </div>
 
         <!-- 제출 버튼 -->
         <div class="button_group">
-
           <button type="button" @click="cancel" class="cancel_button">취소</button>
           <button type="button" @click="submitMenu" class="submit_menu">메뉴 추가</button>
         </div>
@@ -109,6 +121,7 @@ const resetForm = () => {
     </section>
   </main>
 </template>
+
 
 <style scoped>
 .preview-img {
