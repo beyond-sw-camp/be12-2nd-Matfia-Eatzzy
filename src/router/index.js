@@ -122,7 +122,7 @@ const routes = [
           { path: "product/register", component: ProductEdit },
           { path: "product/modify", component: ProductEdit },
           { path: "store/:id/menu", component: SellerMenuList },
-          { path: "store/:id/menu/add", component: SellerEditMenu },
+          { path: "store/:id/menu/add", component: SellerInsertMenu },
           { path: "store/menu/:id/modify", component: SellerEditMenu },
         ],
       },

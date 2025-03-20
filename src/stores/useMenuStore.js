@@ -20,6 +20,17 @@ export const useMenuStore = defineStore("menu", {
       });
       return response.data;
     },
+
+    async addMenu(menuData) {
+      const response = await axios.post("/api/app/menu/create", {
+        name: menuData.name,
+        price: menuData.price,
+        info: menuData.info,
+        storeIdx: menuData.storeIdx,
+      });
+      return response.data;
+    },
+
     getMenu(menuId = 1) {
       return this.menus.find((menu) => menu.id === menuId);
     },
