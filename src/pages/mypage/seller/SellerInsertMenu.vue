@@ -4,7 +4,6 @@ import { useRouter } from "vue-router";
 import { useMenuStore } from "../../../stores/useMenuStore";
 
 // 메뉴 데이터
-
 const menuStore = useMenuStore();
 const menuData = reactive({
   name: "",
@@ -26,27 +25,51 @@ const cancel = () => {
 const handleImageUpload = (event) => {
   const file = event.target.files[0];  // 파일 선택
   if (file) {
-    menuImage.value = URL.createObjectURL(file);  // 선택한 파일의 미리보기 URL 생성
+    menuImage.value = file;  // 선택한 파일을 menuImage에 할당
   }
 };
 
-// 메뉴 추가 제출 처리
 const submitMenu = async () => {
   console.log(menuData); // menuData 값 확인
 
-  if (!menuData.name || !menuData.price || !menuData.info) {
+  // 모든 항목 입력되었는지 확인
+  if (!menuData.name || !menuData.price || !menuData.info || !menuImage.value) {
     alert("모든 항목을 입력해주세요!");
     return;
   }
 
-  try {
-    const response = await menuStore.addMenu(menuData);
-    alert("메뉴가 추가되었습니다.");
-    window.location.reload();
-  } catch (error) {
-    console.error("메뉴 추가 실패:", error);
-    alert("메뉴 추가 중 오류가 발생했습니다.");
+  // 이미지 파일이 존재하는지 확인
+  if (!(menuImage.value instanceof File)) {
+    alert("이미지를 선택해주세요!");
+    return;
   }
+
+  // 이미지 파일을 Base64로 변환
+  const reader = new FileReader();
+  reader.onloadend = async () => {
+    const base64Image = reader.result.split(',')[1]; // Base64 데이터 추출
+
+    // JSON 객체 생성 (imagePath는 Base64 문자열)
+    const menuPayload = {
+      name: menuData.name,
+      imagePath: base64Image,  // Base64로 인코딩된 이미지
+      price: menuData.price,
+      info: menuData.info,
+      storeIdx: menuData.storeIdx,
+    };
+
+    try {
+      // 메뉴 추가 요청
+      const response = await menuStore.addMenu(menuPayload); // JSON 형태로 요청
+      alert("메뉴가 추가되었습니다.");
+      window.location.reload(); // 페이지 새로고침
+    } catch (error) {
+      console.error("메뉴 추가 실패:", error.response ? error.response.data : error);
+      alert("메뉴 추가 중 오류가 발생했습니다. 서버 로그를 확인해주세요.");
+    }
+  };
+
+  reader.readAsDataURL(menuImage.value); // 파일을 Base64로 읽기 시작
 };
 </script>
 
