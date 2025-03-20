@@ -22,14 +22,14 @@ export const useMenuStore = defineStore("menu", {
     },
 
     async addMenu(menuData) {
-      const response = await axios.post("/api/app/menu/create", {
-        name: menuData.name,
-        price: menuData.price,
-        info: menuData.info,
-        storeIdx: menuData.storeIdx,
+      const response = await axios.post("/api/app/menu/create", menuData, {
+        headers: {
+          'Content-Type': 'application/json', // JSON 형태로 요청
+        },
       });
       return response.data;
     },
+    
 
     getMenu(menuId = 1) {
       return this.menus.find((menu) => menu.id === menuId);
