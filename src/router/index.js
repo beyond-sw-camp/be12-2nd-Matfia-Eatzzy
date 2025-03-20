@@ -35,6 +35,7 @@ import Order from "../pages/order/Order.vue";
 import OrderDetail from "../pages/mypage/components/OrderDetail.vue";
 import MyInfo from "../pages/mypage/components/MyInfo.vue";
 import SellerMenuList from "../pages/mypage/seller/SellerMenuList.vue";
+import Search from "../pages/search/Search.vue";
 
 const checkUserType = (from, to, next) => {
   // 고객인지 점주인지 확인 후 경로 이동
@@ -121,6 +122,7 @@ const routes = [
   },
   { path: "/carts", component: Carts },
   { path: "/order", component: Order, beforeEnter: checkLogin },
+  { path: "/search", component: Search },
 ];
 
 const router = createRouter({
