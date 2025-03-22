@@ -37,6 +37,7 @@ import Order from "../pages/order/Order.vue";
 import OrderDetail from "../pages/mypage/components/OrderDetail.vue";
 import MyInfo from "../pages/mypage/components/MyInfo.vue";
 import SellerMenuList from "../pages/mypage/seller/SellerMenuList.vue";
+import Search from "../pages/search/Search.vue";
 
 import Admin from "../pages/admin/Admin.vue";
 import AdminStoreList from "../pages/admin/store/List.vue";
@@ -139,6 +140,8 @@ const routes = [
     ],
   },
   { path: "/carts", component: Carts },
+  { path: "/order", component: Order, beforeEnter: checkLogin },
+  { path: "/search", component: Search },
   { path: "/orders/:orderIdx", component: Order, beforeEnter: checkLogin },
 ];
 
