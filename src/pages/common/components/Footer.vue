@@ -37,7 +37,7 @@
             </button>
           </div>
           <img
-            src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/banner/fee4e47f3e4c529b1f2c751035a4492c_42374.gif"
+            src="/src/assets/icons/fee4e47f3e4c529b1f2c751035a4492c_42374.gif"
             alt="KGINISIS KB국민은행 롯데택배 공정거래위원회인증 표준약관사용 COMODO"
             title="KGINISIS KB국민은행 롯데택배 공정거래위원회인증 표준약관사용 COMODO"
           />

@@ -1,6 +1,7 @@
 <script setup>
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch, reactive } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import axios from "axios";
 import { useProductsStore } from "../../../stores/useProductsStore";
 
 const route = useRoute();
@@ -9,8 +10,7 @@ const currentPath = computed(() => route.path);
 
 const productsStore = useProductsStore();
 const productAction = ref("");
-const productData = ref({
-  idx: 0,
+const productData = reactive({
   name: "",
   price: 0,
   stock: 0,
@@ -18,8 +18,10 @@ const productData = ref({
   cooking_time: 0,
   category: "",
   description: "",
-  image: "",
+  imagePaths: [],
 });
+
+const selectedFiles = ref(null);
 
 const updateProductAction = () => {
   const match = currentPath.value.match(/\/product\/([^/]+)/);
@@ -54,10 +56,53 @@ watch(
   }
 );
 
+const handleFileChange = (event) => {
+  selectedFiles.value = event.target.files;
+  const files = Array.from(event.target.files);
+  productData.imagePaths = files.map((file) => file.name);
+
+  console.log(selectedFiles.value);
+};
+
 onMounted(() => {
   updateProductAction();
   productData.value = productsStore.modifyProduct;
 });
+const submitForm = async () => {
+  try {
+    // productData를 전송하여 presigned URLs을 받습니다.
+    const response = await axios.post("/api/products/create", productData);
+    console.log("Upload successful:", response.data);
+
+    // presigned URLs과 파일 목록을 가져옵니다.
+    const presignedUrls = response.data.result.imageUrls;
+
+    // 각 파일을 presigned URL을 사용하여 업로드합니다.
+    console.log(selectedFiles.value);
+    const uploadPromises = [];
+    for (let i = 0; i < selectedFiles.value.length; i++) {
+      const file = selectedFiles.value[i];
+      const url = presignedUrls[i];
+
+      const uploadPromise = axios.put(url, file, {
+        headers: {
+          "Content-Type": file.type,
+        },
+      });
+
+      uploadPromises.push(uploadPromise);
+    }
+
+    // 모든 파일 업로드가 완료될 때까지 대기합니다.
+    await Promise.all(uploadPromises);
+    alert("모든 파일 업로드 완료!");
+
+    // 업로드 완료 후 특정 페이지로 이동합니다.
+    router.push("/product/" + response.data.result.idx);
+  } catch (error) {
+    console.error("Upload failed:", error);
+  }
+};
 </script>
 
 <template>
@@ -174,12 +219,13 @@ onMounted(() => {
         <div v-if="productData.image" class="image_preview">
           <img :src="productData.image || ''" alt="상품 이미지 미리보기" />
         </div>
-        <input type="file" id="image" name="image" accept="image/*" required />
+        <input name="files" type="file" multiple @change="handleFileChange" />
+        <!-- <input type="file" id="image" name="image" accept="image/*" required /> -->
       </div>
     </form>
     <div class="btn_box">
       <button
-        @click="editProduct"
+        @click="submitForm"
         class="btn"
         :class="{ modify: productAction === 'modify' }"
       >

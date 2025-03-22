@@ -15,19 +15,9 @@ export const useMemberStore = defineStore("member", {
         });
 
         if (response.status === 200) {
-          const userTypeValue = response.data.userType;
-
-          const cookieValue = document.cookie
-            .split("; ")
-            .find((row) => row.startsWith("LOGIN="))
-            ?.split("=")[1];
-
-          if (cookieValue) {
-            sessionStorage.setItem("LOGIN", cookieValue);
-            sessionStorage.setItem("UserType", userTypeValue);
-            alert("로그인 되었습니다.");
-            window.location.href = "/";
-          }
+          sessionStorage.setItem("LOGIN", response.data.userType);
+          alert("로그인 되었습니다.");
+          window.location.href = "/";
         }
         return response;
       } catch (error) {
@@ -40,6 +30,35 @@ export const useMemberStore = defineStore("member", {
       }
     },
 
+    async loginWithKakao() {
+      try {
+        // 카카오 로그인 API 호출
+        const kakaoToken = await Kakao.Auth.login({
+          scope: "profile, account_email", // 필요한 스코프 지정
+        });
+    
+        if (kakaoToken.access_token) {
+          // 액세스 토큰을 백엔드로 전송
+          const response = await axios.post("/api/app/users/kakao/code", {
+            accessToken: kakaoToken.access_token,
+          });
+    
+          if (response.status === 200) {
+            const userTypeValue = response.data.userType;
+            sessionStorage.setItem("LOGIN", userTypeValue);
+            alert("로그인 되었습니다.");
+            window.location.href = "/";
+          }
+        }
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          alert("아이디나 비밀번호가 맞지 않습니다.");
+        } else {
+          alert("로그인 중 문제가 발생했습니다. 다시 시도해주세요.");
+        }
+      }
+    },
+
     logout() {
       sessionStorage.removeItem("LOGIN");
       sessionStorage.removeItem("UserType");
@@ -47,6 +66,28 @@ export const useMemberStore = defineStore("member", {
         "LOGIN=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       alert("로그아웃 되었습니다.");
       window.location.href = "/";
+    },
+
+    async signUp(formData) {
+      try {
+        // POST 요청: 로그인 처리
+        const response = await axios.post("/api/app/users/signup", formData, {
+          withCredentials: true, // 쿠키 전달 허용
+        });
+
+        if (response.status === 200) {
+          alert("회원가입 되었습니다.");
+          window.location.href = "/login";
+        }
+        return response;
+      } catch (error) {
+        // 서버 오류 처리
+        if (error.response && error.response.status === 401) {
+          alert("회원가입에 실패하였습니다.");
+        } else {
+          alert(error);
+        }
+      }
     },
   },
 });

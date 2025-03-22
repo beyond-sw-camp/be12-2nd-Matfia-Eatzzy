@@ -4,16 +4,8 @@ import axios from "axios";
 export const useProductsStore = defineStore("products", {
   state: () => ({
     productsBest: [],
-    product: {
-      productId: 0,
-      productName: "",
-      price: 0,
-      image: "",
-      expirationDate: "",
-      description: "",
-      reviewCnt: 0,
-      startPoint: 0,
-    },
+    product: {},
+    reviews: {},
     products: [],
     productTab: "description",
     modifyProduct: {
@@ -30,19 +22,24 @@ export const useProductsStore = defineStore("products", {
   }),
   actions: {
     async getProductBestList() {
-      const response = await axios.get("/api/productBest");
-
-      this.productsBest = response.data;
+      const response = await axios.get("/api/app/products/list");
+      console.log(response.data);
+      this.productsBest = response.data.result;
     },
 
     async getProductsDetail(id) {
-      const response = await axios.get(`/api/products/${id}`);
-      this.product = response.data;
+      const response = await axios.get(`/api/app/products/${id}`);
+      this.product = response.data.result;
+    },
+
+    async getProductsWithReviews(id) {
+      const response = await axios.get(`/api/app/products/${id}/reviews`);
+      this.reviews = response.data.result;
     },
 
     async getProductsList() {
-      const response = await axios.get("/api/products");
-      this.products = response.data;
+      const response = await axios.get("/api/app/products/list");
+      this.products = response.data.result;
     },
 
     async addProduct() {

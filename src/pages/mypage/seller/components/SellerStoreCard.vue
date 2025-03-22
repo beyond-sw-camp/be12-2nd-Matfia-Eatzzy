@@ -9,9 +9,9 @@ const props = defineProps({
   },
 });
 
-const editStore = (storeId) => {
+const editStore = (storeIdx) => {
   // 해당 가게의 id를 URL 경로로 전달하여 이동
-  router.push(`/mypage/seller/store/modify/${storeId}`);
+  router.push(`/mypage/seller/store/modify/${storeIdx}`);
 };
 
 const insertMenu = () => {
@@ -19,12 +19,12 @@ const insertMenu = () => {
   router.push(`/mypage/seller/menu/insert`);
 };
 
-const menuStore = (storeId) => {
+const menuStore = (storeIdx) => {
   // 해당 가게의 id를 URL 경로로 전달하여 이동
-  router.push(`/mypage/seller/store/${storeId}/menu`);
+  router.push(`/mypage/seller/store/${storeIdx}/menu`);
 };
 
-const deleteStore = () => {
+const deleteStore = (menuIdx) => {
   const conf = confirm("가게를 삭제하시겠습니까?")
   if (conf) {
     alert("삭제되었습니다.");
@@ -35,14 +35,14 @@ const deleteStore = () => {
 <template>
   <div class="store">
     <div class="store_image_box">
-      <img :src="store.image" class="store_image" alt="Store image" />
+      <img :src="store.imagePath" class="store_image" alt="Store image" />
     </div>
     <div class="store_info_box">
       <router-link :to="`/stores/${store.id}`" class="store_title">{{ store.name }}</router-link>
       <div class="store_stars">
         <!-- 채워진 별 -->
         <div
-          v-for="n in store.stars"
+          v-for="n in store.starPoint"
           :key="'filled-' + n"
           class="star_image_box"
         >
@@ -54,7 +54,7 @@ const deleteStore = () => {
         </div>
         <!-- 비어있는 별 -->
         <div
-          v-for="n in 5 - store.stars"
+          v-for="n in 5 - store.starPoint"
           :key="'empty-' + n"
           class="star_image_box"
         >
@@ -63,14 +63,14 @@ const deleteStore = () => {
             class="star_image"
             alt="Empty star"
           />
-        </div>
-        <div class="review_score_write">{{ store.stars }}</div>
+        </div> 
+        <div class="review_score_write">{{ store.stars }}</div> 
       </div>
-      <p>서울 동작구</p>
+      <p>{{ store.address }}</p>
     </div>
     <div class="store_buttons">
-      <button class="edit_button" @click="menuStore(store.id)">메뉴조회</button>
-      <button class="edit_button" @click="editStore(store.id)">가게수정</button>
+      <button class="edit_button" @click="menuStore(store.idx)">메뉴조회</button>
+      <button class="edit_button" @click="editStore(store.idx)">가게수정</button>
       <button class="delete_button" @click="deleteStore">가게삭제</button>
     </div>
   </div>

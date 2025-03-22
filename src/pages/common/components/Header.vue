@@ -8,9 +8,11 @@ const logout = () => {
   memberStore.logout();
 };
 
-const mypage = "/mypage/" + sessionStorage.getItem("UserType");
-const orders = "/mypage/" + sessionStorage.getItem("UserType") + "/orders";
-const loginStatus = sessionStorage.getItem("LOGIN");
+const userType = sessionStorage.getItem("LOGIN")?.toLowerCase() || null;
+const mypage = "/mypage/" + userType;
+const orders = "/mypage/" + userType + "/orders";
+const admin = "/admin/"
+const loginStatus = sessionStorage.getItem("LOGIN")?.length > 0;
 
 const gnbOpen = () => {
   let gnb = document.querySelector("#gnb");
@@ -32,9 +34,12 @@ const gnbOpen = () => {
         <div v-if="!loginStatus">
           <router-link to="/join">회원가입</router-link>
         </div>
-        <div v-if="loginStatus"><router-link :to="orders">주문조회</router-link></div>
         <div v-if="loginStatus">
-          <router-link :to="mypage">마이페이지</router-link>
+          <router-link :to="orders">주문조회</router-link>
+        </div>
+        <div v-if="loginStatus">
+          <router-link :to="mypage" v-if="userType !== 'admin'">마이페이지</router-link>
+          <router-link :to="admin" v-if="userType == 'admin'">관리자페이지</router-link>
         </div>
       </div>
       <div class="search_area">
@@ -101,7 +106,7 @@ const gnbOpen = () => {
             </li>
             <li class="cart_btn">
               <router-link to="/carts"
-                ><span class="num">{{ cartStore.cartProducts.length }}</span
+                ><span class="num">{{ cartStore.cartCount }}</span
                 >장바구니</router-link
               >
             </li>
@@ -189,8 +194,7 @@ header .search_area .header_search {
 
 header .search_area .logo {
   display: block;
-  /* background: url(https://thenaum.cdn-nhncommerce.com/data/img/allnew/layout/n_fd_logo.gif) no-repeat 0 0; */
-  background: url(/src/assets/icons/logo.png) no-repeat 0 0;
+  background: url("/src/assets/icons/logo.png") no-repeat 0 0;
   font-size: 0;
 }
 header .search_area .logo a {
@@ -240,7 +244,7 @@ header .search_area .search .search_box .search_btn:after {
   display: block;
   width: 1.5625rem;
   height: 1.5625rem;
-  background: url(/src/assets/icons/search_btn.svg) no-repeat;
+  background: url("/src/assets/icons/search_btn.svg") no-repeat;
   flex-shrink: 0;
 }
 
@@ -273,19 +277,19 @@ header .search_area .util_menu > ul > li a {
   font-size: 0;
 }
 header .search_area .util_menu .join_btn {
-  background-image: url(https://www.foodingfactory.com/data/img/allnew/layout/gnb_user.svg);
+  background-image: url("/src/assets/icons/gnb_user.svg");
   background-repeat: no-repeat;
   background-position: 0 0;
   background-size: cover;
 }
 header .search_area .util_menu .cart_btn {
-  background-image: url(https://www.foodingfactory.com/data/img/allnew/layout/gnb_cart.svg);
+  background-image: url("/src/assets/icons/gnb_cart.svg");
   background-repeat: no-repeat;
   background-position: 0 0;
   background-size: cover;
 }
 header .delevery_btn {
-  background-image: url(https://www.foodingfactory.com/data/img/allnew/layout/gnb_delevery.svg);
+  background-image: url("/src/assets/icons/gnb_delevery.svg");
   background-repeat: no-repeat;
   background-position: 0 0;
   background-size: cover;
@@ -374,7 +378,7 @@ header nav .l_nav_wrap li.first_nav:after {
 }
 
 header nav .l_nav_wrap li.first_nav.on {
-  background: url(/src/assets/icons/menu.svg) no-repeat 2.4375rem 1.125rem;
+  background: url("/src/assets/icons/menu.svg") no-repeat 2.4375rem 1.125rem;
 }
 
 header nav .l_nav_wrap li .n_nav_newst {
@@ -395,11 +399,11 @@ header nav .l_nav_wrap li .n_nav_newst {
 
 /* GNB */
 nav .l_nav_wrap li.first_nav {
-  background: url(/src/assets/icons/category.svg) no-repeat 2.4375rem 1.125rem;
+  background: url("/src/assets/icons/category.svg") no-repeat 2.4375rem 1.125rem;
 }
 
 nav .l_nav_wrap li.first_nav.off {
-  background: url("https://thenaum.cdn-nhncommerce.com/data/img/allnew/layout/close_w.svg")
+  background: url("/src/assets/icons/close_w.svg")
     no-repeat 2.5625rem 1.125rem #ff7400;
   color: #fff;
   background-size: 0.875rem;
@@ -463,136 +467,6 @@ header nav .gnb .ctg_wrap .depth2 > li:hover > a {
 
 header nav .gnb .ctg_wrap .depth2 > li {
   display: flex;
-}
-
-/* 푸딩브랜드 */
-header nav .gnb .ctg_wrap > ul li.fd_brand {
-  position: static;
-}
-
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 {
-  width: 19rem;
-  left: 13.625rem;
-  top: -0.125rem;
-  height: calc(100% + 0.25rem);
-  border-left: 0.0625rem solid #cbcbcb;
-  padding: 0;
-}
-
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 li {
-  border-bottom: 0.0625rem solid #e9e9e9;
-  box-sizing: border-box;
-}
-
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 li:last-child {
-  border-bottom: none;
-}
-
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 li a {
-  display: inline-block;
-  width: 100%;
-  height: 100%;
-  vertical-align: top;
-  padding: 0 0 0 1.5625rem;
-  box-sizing: border-box;
-}
-
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 li a p {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 li a p span {
-  float: left;
-  width: calc(100% - 4.6875rem);
-  line-height: normal;
-}
-
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 li a p .title {
-  display: inline-block;
-  width: 100%;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  letter-spacing: -0.05rem;
-  color: #333;
-  line-height: 0.8125rem;
-  margin: 0.375rem 0 0 0;
-}
-
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 li a p .sub {
-  display: inline-block;
-  width: 100%;
-  font-size: 0.7188rem;
-  font-weight: 400;
-  letter-spacing: -0.025rem;
-  color: #575757;
-  line-height: 0.7188rem;
-  margin: 0.4375rem 0 0 0;
-}
-
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 li.on {
-  background: none;
-}
-
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 li.on a .title,
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 li.on a .sub {
-  color: var(--point-color);
-}
-
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 li a p:before {
-  content: "";
-  width: 2.6875rem;
-  height: 2.6875rem;
-  display: block;
-  background: url(https://thenaum.cdn-nhncommerce.com/data/img/allnew/layout/brand_icon_allnew.png)
-    no-repeat 0 0;
-  float: left;
-  margin: 0 1.375rem 0 0;
-  background-size: cover;
-}
-
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 li.fooding a p:before {
-  background-position-y: -59.125rem;
-}
-
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 li.single a p:before {
-  background-position-y: -5.375rem;
-}
-
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 li.bunsic a p:before {
-  background-position-y: -10.75rem;
-}
-
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 li.pub a p:before {
-  background-position-y: -16.125rem;
-}
-
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 li.sicdang a p:before {
-  background-position-y: -21.5rem;
-}
-
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 li.banjum a p:before {
-  background-position-y: -26.875rem;
-}
-
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 li.pocha a p:before {
-  background-position-y: -32.25rem;
-}
-
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 li.cafe a p:before {
-  background-position-y: -37.625rem;
-}
-
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 li.sauce a p:before {
-  background-position-y: -43rem;
-}
-
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 li.meat a p:before {
-  background-position-y: -48.375rem;
-}
-
-header nav .gnb .ctg_wrap > ul li.fd_brand .depth_2 li.farm a p:before {
-  background-position-y: -53.75rem;
 }
 
 .n_container_fix.fixed header nav .gnb .ctg_wrap {

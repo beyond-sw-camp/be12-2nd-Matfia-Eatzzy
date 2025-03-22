@@ -10,11 +10,12 @@
             <div class="item_content_img">
               <span class="img_photo_big">
                 <img
-                  :src="`${productStore.product.image}`"
+                  :src="`${productStore.product.imgPath}`"
                   width="500"
                   alt="패션후르츠 샤베트 300ml (50ml x 6ea)_겨울에도 식을줄 모르는 디저트샤벳"
                   title="패션후르츠 샤베트 300ml (50ml x 6ea)_겨울에도 식을줄 모르는 디저트샤벳"
                   class="middle"
+                  onerror="this.src='/src/assets/icons/noimage.png'"
                 />
                 <span class="img_brand_icon"></span>
               </span>
@@ -34,7 +35,10 @@
                   data-install-method="hardcoded"
                   data-observed-install="false"
                   data-applied-widgets='[".crema-product-reviews-score"]'
-                  ><div class="crema_product_reviews_score__container" style="display: inline-block; font-family: inherit">
+                  ><div
+                    class="crema_product_reviews_score__container"
+                    style="display: inline-block; font-family: inherit"
+                  >
                     {{ productStore.product.startPoint }}
                   </div></span
                 >
@@ -56,30 +60,69 @@
           <div class="right_cont">
             <!-- 상품명 -->
             <div class="prd_title">
-              <h4 class="fc1 add_info">🎆유명 호프집 인기급상승 디저트! 상큼 터지는 달콤한 샤벳 디저트🍊</h4>
+              <h4 class="fc1 add_info">
+                🎆유명 호프집 인기급상승 디저트! 상큼 터지는 달콤한 샤벳
+                디저트🍊
+              </h4>
               <h1 class="goods_name">
                 <!-- 패션후르츠 샤베트 300ml (50ml x 6ea)_겨울에도 식을줄 모르는
                 디저트샤벳 -->
-                {{ productStore.product.productName }}
+                {{ productStore.product.name }}
               </h1>
               <div class="short_des"></div>
             </div>
             <!-- //상품명 -->
             <!-- 상품 상세정보 -->
-            <form name="frmView" id="frmView" method="post" action="../order/cart_ps.php" target="">
+            <form
+              name="frmView"
+              id="frmView"
+              method="post"
+              action="../order/cart_ps.php"
+              target=""
+            >
               <input type="hidden" name="mode" value="cartIn" />
               <input type="hidden" name="scmNo" value="1" />
               <input type="hidden" name="cartMode" value="" />
               <input type="hidden" name="set_goods_price" value="7900" />
-              <input type="hidden" id="set_goods_fixedPrice" name="set_goods_fixedPrice" value="7900.00" />
+              <input
+                type="hidden"
+                id="set_goods_fixedPrice"
+                name="set_goods_fixedPrice"
+                value="7900.00"
+              />
               <input type="hidden" name="set_goods_mileage" value="0" />
               <input type="hidden" name="set_goods_stock" value="∞" />
               <input type="hidden" name="set_coupon_dc_price" value="7900" />
-              <input type="hidden" id="set_goods_total_price" name="set_goods_total_price" value="0" />
-              <input type="hidden" id="set_option_price" name="set_option_price" value="0" />
-              <input type="hidden" id="set_option_text_price" name="set_option_text_price" value="0" />
-              <input type="hidden" id="set_add_goods_price" name="set_add_goods_price" value="0" />
-              <input type="hidden" id="total_price_fixed" name="set_total_price" value="7900" />
+              <input
+                type="hidden"
+                id="set_goods_total_price"
+                name="set_goods_total_price"
+                value="0"
+              />
+              <input
+                type="hidden"
+                id="set_option_price"
+                name="set_option_price"
+                value="0"
+              />
+              <input
+                type="hidden"
+                id="set_option_text_price"
+                name="set_option_text_price"
+                value="0"
+              />
+              <input
+                type="hidden"
+                id="set_add_goods_price"
+                name="set_add_goods_price"
+                value="0"
+              />
+              <input
+                type="hidden"
+                id="total_price_fixed"
+                name="set_total_price"
+                value="7900"
+              />
               <input type="hidden" name="mileageFl" value="c" />
               <input type="hidden" name="mileageGoods" value="0.00" />
               <input type="hidden" name="mileageGoodsUnit" value="percent" />
@@ -130,7 +173,9 @@
                       2024년 04월 27일 <br />
                       2026년 04월 26일
                     </p>
-                    <span class="pop_btn js_pop_btn" data-type="exp"> 소비기한 표시제 </span>
+                    <span class="pop_btn js_pop_btn" data-type="exp">
+                      소비기한 표시제
+                    </span>
                     <!-- 소비기한 레이어 팝업 -->
                     <div class="exp pop_wrap" style="display: none">
                       <div class="pop_title">
@@ -140,7 +185,8 @@
                       <div class="pop_cont">
                         <p class="des">
                           소비기한 표시제 시행으로 식품에 표기하는
-                          <span>'유통기한'이 '소비기한' 으로 변경</span>되며, 상품에 따라 순차적으로 적용됩니다.
+                          <span>'유통기한'이 '소비기한' 으로 변경</span>되며,
+                          상품에 따라 순차적으로 적용됩니다.
                         </p>
                         <div class="exp_info">
                           <p>
@@ -150,10 +196,15 @@
                             </strong>
                             : 소비자에게 판매가 허용되는 기한
                           </p>
-                          <p><strong>소비기한</strong> : 섭취하여도 안전에 이상이 없는 기한</p>
+                          <p>
+                            <strong>소비기한</strong> : 섭취하여도 안전에 이상이
+                            없는 기한
+                          </p>
                         </div>
                         <p class="des_small">
-                          2023년은 계도기간으로 현재 유통기한 또는 소비기한으로 병행해서 사용될 수 있으니 자세한 내용은 하단 상세고시에서 확인 가능합니다.
+                          2023년은 계도기간으로 현재 유통기한 또는 소비기한으로
+                          병행해서 사용될 수 있으니 자세한 내용은 하단
+                          상세고시에서 확인 가능합니다.
                         </p>
                       </div>
                     </div>
@@ -171,7 +222,11 @@
                 <dl class="mileage">
                   <dt>적립금</dt>
                   <dd>
-                    최대 <span class="total_benefit_mileage">1,070</span>원 적립<span class="benefit_pop_btn js_pop_btn" data-type="benefit"></span>
+                    최대 <span class="total_benefit_mileage">1,070</span>원
+                    적립<span
+                      class="benefit_pop_btn js_pop_btn"
+                      data-type="benefit"
+                    ></span>
 
                     <div class="benefit pop_wrap" style="display: none">
                       <div class="pop_title">
@@ -182,7 +237,9 @@
                         <div class="benefit_wrap">
                           <dl>
                             <dt>구매 적립금</dt>
-                            <dd><span class="purchase_benefit mileage">70</span>원</dd>
+                            <dd>
+                              <span class="purchase_benefit mileage">70</span>원
+                            </dd>
                           </dl>
                           <dl>
                             <dt>
@@ -191,12 +248,15 @@
                             </dt>
                             <dd>
                               최대
-                              <span class="mileage review_mileage">1,000</span>원
+                              <span class="mileage review_mileage">1,000</span
+                              >원
                             </dd>
                           </dl>
                           <dl class="pop_total_benefit">
                             <dt>예상 적립금</dt>
-                            <dd><span class="total_benefit_mileage">1,070</span>원</dd>
+                            <dd>
+                              <span class="total_benefit_mileage">1,070</span>원
+                            </dd>
                           </dl>
                         </div>
                         <ul class="note">
@@ -206,7 +266,9 @@
                           <li>반품 시 적립된 포인트는 자동 회수</li>
                           <li>
                             자세한 리뷰 적립 금액은
-                            <span class="red review_pop_open">싱품리뷰 &gt; 리뷰 적립금 혜택</span>을 확인하시기 바랍니다.
+                            <span class="red review_pop_open"
+                              >싱품리뷰 &gt; 리뷰 적립금 혜택</span
+                            >을 확인하시기 바랍니다.
                           </li>
                         </ul>
                       </div>
@@ -216,17 +278,27 @@
                 <!-- //적립금 -->
                 <!-- 배송정보 -->
                 <dl class="delivery">
-                  <dt>배송정보<span class="benefit_pop_btn delivery_icon"></span></dt>
+                  <dt>
+                    배송정보<span class="benefit_pop_btn delivery_icon"></span>
+                  </dt>
                   <dd>
                     <p class="f2"></p>
-                    <div><span class="fc1 delivery_info1_1 css_date">지금주문하면 12/19(목)</span><span class="fc3 delivery_info1_1"> 출고예정</span></div>
+                    <div>
+                      <span class="fc1 delivery_info1_1 css_date"
+                        >지금주문하면 12/19(목)</span
+                      ><span class="fc3 delivery_info1_1"> 출고예정</span>
+                    </div>
                     <p></p>
                     <div class="btn_wrap">
                       <span class="pop_btn js_pop_btn" data-type="delivery">
                         <!--긴급공지-->
                         비식품 및 도서산간 배송안내
                       </span>
-                      <span class="pop_btn js_pop_btn" data-type="delivery_calendar_layer">예상 배송 일정</span>
+                      <span
+                        class="pop_btn js_pop_btn"
+                        data-type="delivery_calendar_layer"
+                        >예상 배송 일정</span
+                      >
                     </div>
                     <!-- 배송안내 레이어 팝업 -->
                     <div class="delivery pop_wrap" style="display: none">
@@ -236,14 +308,24 @@
                       </div>
                       <div class="pop_cont">
                         <!--								<p>최근 택배 물량이 폭증하여 특히 물량이 집중되는 <b style="color: #e40000">월요일의 경우 낮 2시까지 주문하시더라도 당일 출고가 어려울 수 있습니다.</b><br>택배사의 물량 제한으로 부득이하게 배송기간이 1~2일 정도 더 소요될 수 있으니 고객님들의 너그러운 이해 부탁드립니다.</p>-->
-                        <p>· 제주/도서산간 지역은 선박스케쥴과 해당지역 최단 배송기간을 위해 <u class="fc1">월화수목</u>에만 출고됩니다.</p>
-                        <p>· 비식품의 경우 업체 설치유무에 따라 배송일정이 상이합니다.</p>
+                        <p>
+                          · 제주/도서산간 지역은 선박스케쥴과 해당지역 최단
+                          배송기간을 위해 <u class="fc1">월화수목</u>에만
+                          출고됩니다.
+                        </p>
+                        <p>
+                          · 비식품의 경우 업체 설치유무에 따라 배송일정이
+                          상이합니다.
+                        </p>
                       </div>
                     </div>
                     <!-- //배송안내 레이어 팝업 -->
 
                     <!--//배송정보 달력-->
-                    <div class="delivery_calendar_layer pop_wrap" style="display: none">
+                    <div
+                      class="delivery_calendar_layer pop_wrap"
+                      style="display: none"
+                    >
                       <div class="pop_title">
                         <h6 class="title">예상 배송 일정</h6>
                         <span class="pop_close_btn"></span>
@@ -266,25 +348,70 @@
                               <td></td>
                               <td></td>
                               <td></td>
-                              <td class=""><span class="today">12-18</span><span class="blue">오후 2시</span></td>
-                              <td class=""><span class="">12-19</span><span class="blue">오후 2시</span></td>
-                              <td class=""><span class="">12-20</span><span class="blue">오후 2시</span></td>
-                              <td class=""><span class="">12-21</span><span class="red">X</span></td>
+                              <td class="">
+                                <span class="today">12-18</span
+                                ><span class="blue">오후 2시</span>
+                              </td>
+                              <td class="">
+                                <span class="">12-19</span
+                                ><span class="blue">오후 2시</span>
+                              </td>
+                              <td class="">
+                                <span class="">12-20</span
+                                ><span class="blue">오후 2시</span>
+                              </td>
+                              <td class="">
+                                <span class="">12-21</span
+                                ><span class="red">X</span>
+                              </td>
                             </tr>
                             <tr>
-                              <td class=""><span class="">12-22</span><span class="red">X</span></td>
-                              <td class=""><span class="">12-23</span><span class="blue">오후 2시</span></td>
-                              <td class=""><span class="">12-24</span><span class="blue">오후 2시</span></td>
-                              <td class=""><span class="">12-25</span><span class="blue">오후 2시</span></td>
-                              <td class=""><span class="">12-26</span><span class="blue">오후 2시</span></td>
-                              <td class=""><span class="">12-27</span><span class="blue">오후 2시</span></td>
-                              <td class=""><span class="">12-28</span><span class="red">X</span></td>
+                              <td class="">
+                                <span class="">12-22</span
+                                ><span class="red">X</span>
+                              </td>
+                              <td class="">
+                                <span class="">12-23</span
+                                ><span class="blue">오후 2시</span>
+                              </td>
+                              <td class="">
+                                <span class="">12-24</span
+                                ><span class="blue">오후 2시</span>
+                              </td>
+                              <td class="">
+                                <span class="">12-25</span
+                                ><span class="blue">오후 2시</span>
+                              </td>
+                              <td class="">
+                                <span class="">12-26</span
+                                ><span class="blue">오후 2시</span>
+                              </td>
+                              <td class="">
+                                <span class="">12-27</span
+                                ><span class="blue">오후 2시</span>
+                              </td>
+                              <td class="">
+                                <span class="">12-28</span
+                                ><span class="red">X</span>
+                              </td>
                             </tr>
                             <tr>
-                              <td class=""><span class="">12-29</span><span class="red">X</span></td>
-                              <td class=""><span class="">12-30</span><span class="blue">오후 2시</span></td>
-                              <td class=""><span class="">12-31</span><span class="blue">오후 2시</span></td>
-                              <td class=""><span class="">01-01</span><span class="blue">오후 2시</span></td>
+                              <td class="">
+                                <span class="">12-29</span
+                                ><span class="red">X</span>
+                              </td>
+                              <td class="">
+                                <span class="">12-30</span
+                                ><span class="blue">오후 2시</span>
+                              </td>
+                              <td class="">
+                                <span class="">12-31</span
+                                ><span class="blue">오후 2시</span>
+                              </td>
+                              <td class="">
+                                <span class="">01-01</span
+                                ><span class="blue">오후 2시</span>
+                              </td>
                               <td></td>
                               <td></td>
                               <td></td>
@@ -293,9 +420,15 @@
                         </table>
                         <p class="des">
                           ※ 위 달력은
-                          <span class="red">예상 배송 일정으로 상황에 따라 변동될 수 있으니 참고용으로 확인</span>해주시기 바랍니다.
+                          <span class="red"
+                            >예상 배송 일정으로 상황에 따라 변동될 수 있으니
+                            참고용으로 확인</span
+                          >해주시기 바랍니다.
                         </p>
-                        <p class="des">※ 제주/도서산간을 제외한 일반 지역의 예상 배송 일정입니다.</p>
+                        <p class="des">
+                          ※ 제주/도서산간을 제외한 일반 지역의 예상 배송
+                          일정입니다.
+                        </p>
                       </div>
                     </div>
                   </dd>
@@ -308,7 +441,16 @@
                     <div class="change_btn">
                       <span class="count">
                         <span class="goods_qtycs">
-                          <button type="button" class="down goods_cnt" title="감소" value="dn^|^0" id="tMinusBtn" @click="substactCart">감소</button>
+                          <button
+                            type="button"
+                            class="down goods_cnt"
+                            title="감소"
+                            value="dn^|^0"
+                            id="tMinusBtn"
+                            @click="substactCart"
+                          >
+                            감소
+                          </button>
                           <!--<input type="text" name="goodsCnt[]" class="goodsCnt_0" title="수량" value="1" data-min-order="1" data-key="0" data-value="1" data-stock="0" data-max-order="0" data-sales-unit="1" data-stock-fl="n" onchange="goodsViewController.input_count_change(this, '1');return false;" />-->
                           <input
                             type="text"
@@ -324,7 +466,16 @@
                             data-sales-unit="1"
                             data-stock-fl="n"
                           />
-                          <button type="button" class="up goods_cnt" title="증가" value="up^|^0" id="tPlusBtn" @click="addCart">증가</button>
+                          <button
+                            type="button"
+                            class="up goods_cnt"
+                            title="증가"
+                            value="up^|^0"
+                            id="tPlusBtn"
+                            @click="addCart"
+                          >
+                            증가
+                          </button>
                         </span>
                       </span>
                     </div>
@@ -334,7 +485,12 @@
 
                 <!--  -->
                 <div class="dry_ice">
-                  <a href="/goods/goods_view.php?goodsNo=1000000238" class="img"> 드라이 아이스 추가 구매 </a>
+                  <a
+                    href="/goods/goods_view.php?goodsNo=1000000238"
+                    class="img"
+                  >
+                    드라이 아이스 추가 구매
+                  </a>
                   <div class="text">
                     <strong
                       ><a href="/goods/goods_view.php?goodsNo=1000000238"
@@ -343,7 +499,14 @@
                       ></strong
                     >
                     <p>(냉동 상품 전용 / 7만원당 1개 추가 권장)</p>
-                    <button type="button" href="#optionViewLayer" class="btn_add_cart_relation btn_open_layer" data-mode="cartIn" data-goods-no="1000000238">
+                    <button
+                      type="button"
+                      href="#optionViewLayer"
+                      class="btn_add_cart_relation btn_open_layer"
+                      data-mode="cartIn"
+                      data-goods-no="1000000238"
+                      @click="cartStore.addCart()"
+                    >
                       장바구니
                     </button>
                   </div>
@@ -355,7 +518,9 @@
               <div class="total_wrap">
                 <!-- 최종 가격 -->
                 <div class="total_price_wrap">
-                  <span>총 </span><strong class="total_price"> {{ productStore.product.price * productCnt }}</strong
+                  <span>총 </span
+                  ><strong class="total_price">
+                    {{ productStore.product.price * productCnt }}</strong
                   ><span>원</span>
                 </div>
                 <!-- //최종 가격 -->
@@ -373,7 +538,13 @@
                       <dd class="fc1 f_r">7,900<span>원</span></dd>
                     </dl>
                   </div>
-                  <table class="option_display_area" border="0" cellpadding="0" cellspacing="0" style="display: none">
+                  <table
+                    class="option_display_area"
+                    border="0"
+                    cellpadding="0"
+                    cellspacing="0"
+                    style="display: none"
+                  >
                     <colgroup>
                       <col width="330px" />
                       <col />
@@ -383,16 +554,47 @@
                     <tbody id="option_display_item_0">
                       <tr class="check optionKey_0">
                         <td class="cart_prdt_name">
-                          <input type="hidden" name="goodsNo[]" value="1000016025" />
-                          <input type="hidden" name="optionSno[]" value="26350" />
-                          <input type="hidden" name="goodsPriceSum[]" value="7900" />
-                          <input type="hidden" name="addGoodsPriceSum[]" value="0" />
-                          <input type="hidden" name="couponApplyNo[]" value="" />
-                          <input type="hidden" name="couponSalePriceSum[]" value="" />
-                          <input type="hidden" name="couponAddPriceSum[]" value="" />
+                          <input
+                            type="hidden"
+                            name="goodsNo[]"
+                            value="1000016025"
+                          />
+                          <input
+                            type="hidden"
+                            name="optionSno[]"
+                            value="26350"
+                          />
+                          <input
+                            type="hidden"
+                            name="goodsPriceSum[]"
+                            value="7900"
+                          />
+                          <input
+                            type="hidden"
+                            name="addGoodsPriceSum[]"
+                            value="0"
+                          />
+                          <input
+                            type="hidden"
+                            name="couponApplyNo[]"
+                            value=""
+                          />
+                          <input
+                            type="hidden"
+                            name="couponSalePriceSum[]"
+                            value=""
+                          />
+                          <input
+                            type="hidden"
+                            name="couponAddPriceSum[]"
+                            value=""
+                          />
                           <div class="cart_tit_box">
                             <strong class="cart_tit">
-                              <span>패션후르츠 샤베트 300ml (50ml x 6ea)_겨울에도 식을줄 모르는 디저트샤벳</span>
+                              <span
+                                >패션후르츠 샤베트 300ml (50ml x 6ea)_겨울에도
+                                식을줄 모르는 디저트샤벳</span
+                              >
 
                               <span id="option_text_display_0"></span>
                             </strong>
@@ -401,9 +603,18 @@
                         </td>
                         <!-- //cart_prdt_name -->
                         <td class="item_choice_price">
-                          <input type="hidden" name="optionPriceSum[]" value="0" />
-                          <input type="hidden" name="option_price_0" value="0.00" />
-                          <strong class="option_price_display_0">7,900</strong>원
+                          <input
+                            type="hidden"
+                            name="optionPriceSum[]"
+                            value="0"
+                          />
+                          <input
+                            type="hidden"
+                            name="option_price_0"
+                            value="0.00"
+                          />
+                          <strong class="option_price_display_0">7,900</strong
+                          >원
                         </td>
                         <!-- //item_choice_price -->
                         <td></td>
@@ -418,7 +629,9 @@
                 <div class="item_content_right_price_right">
                   <dl>
                     <dt class="fc1">총 합계</dt>
-                    <dd class="fc1"><strong class="total_price"> 7,900</strong><span>원</span></dd>
+                    <dd class="fc1">
+                      <strong class="total_price"> 7,900</strong><span>원</span>
+                    </dd>
                   </dl>
                 </div>
               </div>
@@ -436,8 +649,18 @@
                 >
                   찜
                 </button> -->
-              <button @click="openModal" class="btn_add_cart btn_buy_cart bc2 fc5" id="cartBtn">장바구니</button>
-              <router-link to="/order" class="btn_add_order btn_buy_order bc1 fc5">바로구매</router-link>
+              <button
+                @click="addToCart"
+                class="btn_add_cart btn_buy_cart bc2 fc5"
+                id="cartBtn"
+              >
+                장바구니
+              </button>
+              <router-link
+                to="/order"
+                class="btn_add_order btn_buy_order bc1 fc5"
+                >바로구매</router-link
+              >
             </div>
             <!-- //상품 주문버튼 -->
             <div class="naver_sample"></div>
@@ -445,10 +668,22 @@
           <!-- //상품상단 오른쪽 -->
         </div>
         <ul class="submenu_list">
-          <li class="product_tab_item" @click="changeTab('description')" :class="{ picked: productStore.productTab === 'description' }" data-target="intro_box">
+          <li
+            class="product_tab_item"
+            @click="changeTab('description')"
+            :class="{ picked: productStore.productTab === 'description' }"
+            data-target="intro_box"
+          >
             소개
           </li>
-          <li class="product_tab_item" @click="changeTab('review')" :class="{ picked: productStore.productTab === 'review' }" data-target="review_box">리뷰</li>
+          <li
+            class="product_tab_item"
+            @click="changeTab('review')"
+            :class="{ picked: productStore.productTab === 'review' }"
+            data-target="review_box"
+          >
+            리뷰
+          </li>
           <!-- <li
             class="submenu_item"
             style="font-weight: 400; color: rgb(26, 26, 26)"
@@ -456,19 +691,31 @@
             밀키트
           </li> -->
         </ul>
-        <ProductDescription v-if="productStore.productTab === 'description'" :description="productStore.product.description" />
-        <ProductReviewList v-if="productStore.productTab === 'review'" />
+        <ProductDescription
+          v-if="productStore.productTab === 'description'"
+          :description="productStore.product.description"
+        />
+        <ProductReviewList
+          v-if="productTab === 'review'"
+          :reviews="productStore.reviews"
+        />
 
         <!-- <div id="intro_box" class="content_box">
           
         </div> -->
 
         <div id="addCartLayer" v-if="isModal" class="layer_wrap">
-          <div class="box add_cart_layer" style="position: absolute; margin: 0px; top: 211.5px; left: 551px">
+          <div
+            class="box add_cart_layer"
+            style="position: absolute; margin: 0px; top: 211.5px; left: 551px"
+          >
             <div class="view">
               <h2>장바구니 담기</h2>
               <div class="scroll_box">
-                <p class="success"><strong>상품이 장바구니에 담겼습니다.</strong><br />바로 확인하시겠습니까?</p>
+                <p class="success">
+                  <strong>상품이 장바구니에 담겼습니다.</strong><br />바로
+                  확인하시겠습니까?
+                </p>
               </div>
               <div class="btn_box">
                 <button @click="closeModal" class="btn_cancel">
@@ -480,7 +727,14 @@
                   </button>
                 </router-link>
               </div>
-              <button @click="closeModal" title="닫기" class="close layer_close" type="button">닫기</button>
+              <button
+                @click="closeModal"
+                title="닫기"
+                class="close layer_close"
+                type="button"
+              >
+                닫기
+              </button>
             </div>
           </div>
         </div>
@@ -496,17 +750,24 @@ import { useRoute } from "vue-router";
 import { ref } from "vue";
 import ProductDescription from "./ProductDescription.vue";
 import ProductReviewList from "./ProductReviewList.vue";
+import { useCartStore } from "../../../stores/useCartStore";
 const productStore = useProductsStore();
 const route = useRoute();
 const productId = route.params.id;
 const isModal = ref(false);
 const productCnt = ref(1);
+const cartStore = useCartStore();
 
 const changeTab = (str) => {
   productStore.productTab = str;
 };
 const addCart = () => {
   productCnt.value = productCnt.value + 1;
+};
+
+const addToCart = () => {
+  cartStore.addItemWithCount(productStore.product, productCnt);
+  openModal();
 };
 
 const substactCart = () => {
@@ -526,6 +787,7 @@ const closeModal = () => {
 
 onMounted(async () => {
   await productStore.getProductsDetail(productId);
+  await productStore.getProductsWithReviews(productId);
 });
 </script>
 
@@ -654,7 +916,7 @@ onMounted(async () => {
   display: inline-block;
   width: 38px;
   height: 38px;
-  background: url(https://thenaum.cdn-nhncommerce.com/data/img/allnew/goods/goods_view_top.svg) no-repeat;
+  background: url("/src/assets/icons/goods_view_top.svg") no-repeat;
 }
 
 .top_summary .right_cont .info .count input[name="goodsCnt[]"] {
@@ -680,7 +942,7 @@ onMounted(async () => {
   display: inline-block;
   width: 38px;
   height: 38px;
-  background: url(https://thenaum.cdn-nhncommerce.com/data/img/allnew/goods/goods_view_top.svg) no-repeat;
+  background: url("/src/assets/icons/goods_view_top.svg") no-repeat;
 }
 
 .goods_qtycs button {
@@ -790,7 +1052,7 @@ onMounted(async () => {
   display: inline-block;
   align-items: center;
   cursor: pointer;
-  background: url(https://thenaum.cdn-nhncommerce.com/data/img/allnew/goods/star_back.svg) no-repeat;
+  background: url("/src/assets/icons/star_back.svg") no-repeat;
   width: 120px;
   height: 20px;
 }
@@ -949,7 +1211,7 @@ element.style {
 }
 
 .add_cart_layer p.success {
-  background: url(https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/common/layer/add_cart_success.png) no-repeat center top;
+  background: url("/src/assets/icons/add_cart_success.png") no-repeat center top;
 }
 
 .add_cart_layer p {
@@ -959,7 +1221,7 @@ element.style {
   font-size: 14px;
   line-height: 22px;
   text-align: center;
-  background: url(https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/common/layer/add_cart_success.png) no-repeat center top;
+  background: url("/src/assets/icons/add_cart_success.png") no-repeat center top;
 }
 
 .layer_wrap .box .view .close {
@@ -970,7 +1232,7 @@ element.style {
   width: 18px;
   height: 18px;
   text-indent: -9999px;
-  background: url(https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/btn/layer-close.png) no-repeat left top;
+  background: url("/src/assets/icons/btn/layer-close.png") no-repeat left top;
 }
 
 .add_cart_layer .btn_box,

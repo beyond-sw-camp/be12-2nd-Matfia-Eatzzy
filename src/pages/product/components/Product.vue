@@ -7,12 +7,17 @@ const props = defineProps({
   },
 });
 
+// 클릭 이벤트 핸들러 함수
+const handleCartClick = (product) => {
+  cartStore.addItem(product); // 상품 추가
+  cartStore.openModal(); // 모달 열기
+};
 const cartStore = useCartStore();
 </script>
 <template>
   <div class="list">
-    <router-link :to="`/products/${product.id}`" class="img_box">
-      <img :src="`${product.imgPath}`" />
+    <router-link :to="`/products/${product.idx}`" class="img_box">
+      <img :src="`${product.imgPath}`" onerror="this.src='/src/assets/icons/noimage.png'" />
     </router-link>
     <div class="info_box">
       <!-- 브랜드명, 상품명 -->
@@ -39,7 +44,7 @@ const cartStore = useCartStore();
           </div>
           <!-- 장바구니 버튼 -->
           <button
-            @click="cartStore.openModal"
+            @click="handleCartClick(product)"
             type="button"
             href="#optionViewLayer"
             class="n_list_cart btn_add_cart btn_open_layer list_basket_cart"
@@ -162,7 +167,7 @@ const cartStore = useCartStore();
   display: block;
   width: 1.65rem;
   height: 1.65rem;
-  background: url(https://thenaum.cdn-nhncommerce.com/data/img/allnew/layout/ncart.svg)
+  background: url("/src/assets/icons/ncart.svg")
     no-repeat;
 }
 </style>

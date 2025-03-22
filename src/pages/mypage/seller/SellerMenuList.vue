@@ -7,15 +7,13 @@ import SellerMenuCard from "./components/SellerMenuCard.vue";
 const menuStore = useMenuStore();
 const route = useRoute(); // 라우터 파라미터 사용
 const router = useRouter(); // 라우터 파라미터 사용
-const storeId = ref(null); // URL에서 id 파라미터 저장
 
+const storeId = route.params.id;
 const addMenu = () => { 
   router.push(`/mypage/seller/store/${storeId}/menu/add`);
 }
-
 onMounted(async () => {
-  await menuStore.getMenuList();
-  storeId.value = route.params.id;
+  await menuStore.getMenuList(storeId);
 });
 </script>
 
@@ -26,7 +24,6 @@ onMounted(async () => {
     <div v-if="menuStore.menus.length > 0" class="menu_list">
       <SellerMenuCard
         v-for="menu in menuStore.menus"
-        :key="menu.id"
         :menu="menu"
       />
     </div>

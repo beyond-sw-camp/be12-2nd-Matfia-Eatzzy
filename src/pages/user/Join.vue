@@ -20,24 +20,22 @@
         <div class="member_cont">
           <div class="member_login_box">
             <!-- <a
-              href="#"
+              href="./login/kakao"
               class="js_btn_kakao_login"
-              data-kakao-type="join_method"
-              data-return-url="/member/join_method.php"
             >
               <span class="left">
                 <img
-                  src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/member/icon_kakao.png"
+                  src="/src/assets/icons/icon_kakao.png"
                   alt="카카오"
                 />
                 <span> 카카오톡 회원가입</span>
               </span>
               <img
-                src="https://thenaum.cdn-nhncommerce.com/data/img/allnew/layout/arrow_right_b.svg"
+                src="/src/assets/icons/arrow_right_b.svg"
                 class="right_arrow"
               />
             </a> -->
-            <a
+            <!-- <a
               href="/join_agreement"
               class="js_btn_naver_login"
               data-naver-type="join_method"
@@ -45,27 +43,27 @@
             >
               <span class="left">
                 <img
-                  src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/member/icon_naver.png"
+                  src="/src/assets/icons/icon_naver.png"
                   alt="네이버"
                 />
                 <span>네이버 회원가입</span>
               </span>
               <img
-                src="https://thenaum.cdn-nhncommerce.com/data/img/allnew/layout/arrow_right_b.svg"
+                src="/src/assets/icons/arrow_right_b.svg"
                 class="right_arrow"
               />
-            </a>
+            </a> -->
 
-            <a href="/join_agreement" id="btnJoin" class="login_box">
+            <a href="/join_form" id="btnJoin" class="login_box">
               <span class="left">
                 <img
-                  src="https://thenaum.cdn-nhncommerce.com/data/img/allnew/layout/fd_gom.svg"
+                  src="/src/assets/icons/fd_gom.svg"
                   alt="쇼핑몰"
                 />
                 <span>쇼핑몰 회원가입</span>
               </span>
               <img
-                src="https://thenaum.cdn-nhncommerce.com/data/img/allnew/layout/arrow_right_b.svg"
+                src="/src/assets/icons/arrow_right_b.svg"
                 class="right_arrow"
               />
             </a>

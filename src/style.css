@@ -121,7 +121,7 @@ audio {
   left: -999em;
   width: 0.0625rem;
   height: 0.0625rem;
-  background: url("https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/common/bg/bg_skip.gif")
+  background: url("/src/assets/icons/bg_skip.gif")
     repeat;
 }
 
@@ -314,7 +314,7 @@ input[type="submit"] {
 
 /* 체크박스 라디오버튼 스타일 */
 .form_element label.check_dis_s:before {
-  background-image: url("https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/common/input/check_dis_s.png");
+  background-image: url("/src/assets/icons/check_dis_s.png");
   cursor: not-allowed;
 }
 
@@ -437,4 +437,165 @@ input[type="submit"] {
   .main {
     min-width: unset;
   }
+}
+
+/* admin */
+.admin_header {
+  width: 100%;
+  background-color: #fff;
+  height: 80px;
+  border-bottom: 1px solid #f0f0f0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 40px;
+}
+
+.page_admin {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.admin_body_layout {
+  width: 100%;
+  background-color: #f5f5f5;
+  min-height: calc(100vh - 85px);
+  box-sizing: border-box;
+}
+
+.admin_wrap {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.admin_left {
+  min-width: 200px;
+  background-color: #fff;
+  border-right: 1px solid #f0f0f0;
+  min-height: calc(100vh - 55px);
+  box-sizing: border-box;
+}
+
+.admin_left .depth1 {
+  margin-top: 50px;
+}
+
+.admin_left .depth1 strong {
+  font-size: 18px;
+  border-bottom: 1px solid #ddd;
+  display: block;
+  padding: 0 0 10px 20px;
+}
+
+.admin_left .depth1 > li {
+  padding-bottom: 40px;
+}
+
+.admin_left .depth2 li {
+  color: #333;
+  padding: 20px 30px;
+  font-size: 15px;
+}
+
+.admin_title {
+  padding: 20px 0 0 40px;
+  font-size: 24px;
+}
+
+.admin_contents {
+  border-radius: 10px;
+  background-color: #fff;
+  margin: 40px;
+  box-sizing: border-box;
+  padding: 20px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.02);
+}
+
+.admin_contents > strong {
+  font-size: 16px;
+  padding: 20px;
+  display: block;
+}
+
+.admin_contents .table_wrap {
+  overflow-x: auto;
+}
+
+.admin_contents .table_wrap > * {
+  min-width: 500px;
+}
+
+.admin_contents table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  word-break: keep-all;
+}
+
+.admin_contents table thead td {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  font-weight: bold;
+}
+.admin_contents table td {
+  padding: 15px;
+  text-align: center;
+}
+
+.admin_contents table tbody th {
+  font-weight: bold;
+  text-align: left;
+  padding: 0 50px;
+  border-bottom: 1px solid #ddd;
+}
+
+.admin_contents table tbody th+td {
+  text-align: left;
+  padding-left: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.admin_contents table tbody tr:last-child th,
+.admin_contents table tbody tr:last-child th+td {
+  border-bottom: 0;
+}
+
+.admin_contents .btn {
+  border-radius: 8px;
+  font-weight: bold;  
+  padding: 8px;
+  cursor: pointer;
+}
+
+.admin_contents .btn_area {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+  padding: 20px 0;
+}
+.admin_contents .btn.big {
+  width: 200px;
+}
+
+.admin_contents .btn.list {
+  color: #666;
+  border: 1px solid #666;
+}
+
+.admin_contents .btn.edit {
+  color: var(--point-color);
+  border: 1px solid var(--point-color);
+}
+
+.admin_contents .btn.del {
+  color: #fff;
+  background-color: var(--color-red);
+}
+
+.admin_contents select {
+  height: 31px;
 }

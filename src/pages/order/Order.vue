@@ -8,16 +8,12 @@
           <li>
             <span>01</span> 장바구니
             <span
-              ><img
-                src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/member/icon_join_step_off.png"
-                alt=""
+              ><img src="/src/assets/icons/icon_join_step_off.png" alt=""
             /></span>
           </li>
           <li class="page_on">
             <span>02</span> 주문서작성/결제<span
-              ><img
-                src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/member/icon_join_step_on.png"
-                alt=""
+              ><img src="/src/assets/icons/icon_join_step_on.png" alt=""
             /></span>
           </li>
           <li><span>03</span> 주문완료</li>
@@ -71,8 +67,9 @@
         </table>
         <!-- 장바구니 상품리스트 끝 -->
         <OrderCard
-          v-for="cartProduct in cartStore.cartProducts"
-          :cartProduct="cartProduct"
+          v-for="product in orderStore.order.orderProductResponse"
+          :key="product.idx"
+          :cartProduct="{ ...product, ...product.productsResponse }"
         ></OrderCard>
 
         <div class="price_sum">
@@ -80,30 +77,24 @@
             <div class="price_sum_list">
               <div>
                 <p>
-                  총 <strong>{{ cartStore.cartProducts.length }}</strong> 개의
+                  <!-- 총 <strong>{{ cartStore.cartProducts.length }}</strong> 개의 -->
                   상품금액
                 </p>
                 <p class="price">
-                  <strong>{{ cartStore.calTotalPrice }}</strong
+                  <strong>{{ orderStore.order.price }}</strong
                   >원
                 </p>
               </div>
-              <img
-                src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/order_price_plus.png"
-                alt="더하기"
-              />
+              <img src="/src/assets/icons/order_price_plus.png" alt="더하기" />
               <div>
                 <p>배송비</p>
                 <p class="price"><strong>4,000</strong>원</p>
               </div>
-              <img
-                src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/order_price_total.png"
-                alt="합계"
-              />
+              <img src="/src/assets/icons/order_price_total.png" alt="합계" />
               <div class="price_total">
                 <p>합계</p>
                 <p class="price">
-                  <strong>{{ cartStore.getTotalPrice }}</strong
+                  <strong>{{ orderStore.order.price + 4000 }}</strong
                   >원
                 </p>
               </div>
@@ -396,7 +387,7 @@
                 <th scope="row">상품 합계 금액</th>
                 <td>
                   <span id="totalGoodsPrice"
-                    >{{ cartStore.calTotalPrice }}원</span
+                    >{{ orderStore.order.price }}원</span
                   >
                 </td>
               </tr>
@@ -409,210 +400,7 @@
                   >원
                 </td>
               </tr>
-              <!-- <tr id="rowDeliveryInsuranceFee" class="dn">
-                <th scope="row">해외배송 보험료</th>
-                <td>
-                  <span id="deliveryInsuranceFee">0</span>원
-                  <input type="hidden" name="deliveryInsuranceFee" value="0" />
-                </td>
-              </tr>
-              <tr id="rowDeliverAreaCharge" class="dn">
-                <th scope="row">지역별 배송비</th>
-                <td>
-                  <span id="deliveryAreaCharge">0</span>원
-                  <input
-                    type="hidden"
-                    name="totalDeliveryCharge"
-                    value="4000"
-                  />
-                  <input type="hidden" name="deliveryAreaCharge" value="0" />
-                  (* 일부 도서지역에 추가로 부과되는 추가배송료 입니다.)
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">할인 및 적립</th>
-                <td>
-                  <ul class="order_benefit_list">
-                    <li class="order_benefit_sale">
-                      <em id="saleDefault">
-                        할인 :
-                        <strong
-                          >(-)
-                          <b class="total-member-dc-price">3,960</b>원</strong
-                        >
-                        <span
-                          >( 상품 3,960원 , 회원
-                          <span class="member-dc-price">0원</span> , 쿠폰
-                          <span class="goods-coupon-dc-price">0</span>원 )</span
-                        >
-                      </em>
-                      <em id="saleWithoutMember" class="dn">
-                        할인 : <strong>(-) 3,960원</strong>
-                        <span>( 상품 3,960원 , 회원 0원 , 쿠폰 0원 )</span>
-                      </em>
-                    </li>
-                    <li class="order_benefit_mileage js_mileage">
-                      <em id="mileageDefault">
-                        적립 적립금 :
-                        <strong
-                          >(+) <b class="total-member-mileage">150</b>원</strong
-                        >
-                        <span>
-                          ( 상품 <span class="goods-mileage">150</span>원, 회원
-                          <span class="member-mileage">0</span>원, 쿠폰 0원 )
-                        </span>
-                      </em>
-                      <em id="mileageWithoutMember" class="js_mileage dn">
-                        적립 적립금 : <strong>(+) 150원</strong>
-                        <span> ( 상품 150원, 회원 0원, 쿠폰 0원 ) </span>
-                      </em>
-                    </li>
-                  </ul>
-                </td>
-              </tr> -->
-              <!-- <tr class="notCoupon" style="display: none">
-                <th scope="row">쿠폰 사용</th>
-                <td>
-                  <b style="color: #00a7b3"
-                    >주문서에 디자인지원센터 상품이 포함되어 쿠폰 사용이
-                    불가능합니다.</b
-                  >
-                  <p>
-                    디자인지원센터 주문건은 쿠폰사용이 제한되니 장바구니에서
-                    별도로 선택하여 결제해주세요!
-                  </p>
-                </td>
-              </tr> -->
 
-              <!-- <tr class="useCoupon">
-                <th scope="row">쿠폰 사용</th>
-                <td>
-                  <input type="hidden" name="couponApplyOrderNo" value="" />
-                  <input
-                    type="hidden"
-                    name="totalCouponOrderDcPrice"
-                    value=""
-                  />
-                  <input type="hidden" name="totalCouponOrderPrice" value="" />
-                  <input
-                    type="hidden"
-                    name="totalCouponOrderMileage"
-                    value=""
-                  />
-                  <input
-                    type="hidden"
-                    name="totalCouponDeliveryDcPrice"
-                    value=""
-                  />
-                  <input
-                    type="hidden"
-                    name="totalCouponDeliveryPrice"
-                    value=""
-                  />
-                  <ul class="order_benefit_list order_coupon_benefits dn">
-                    <li class="order_benefit_sale">
-                      <em>
-                        주문할인 :
-                        <strong
-                          >(-) <b id="useDisplayCouponDcPrice">0</b>원</strong
-                        >
-                      </em>
-                    </li>
-                    <li class="order_benefit_sale">
-                      <em>
-                        배송비할인 :
-                        <strong
-                          >(-) <b id="useDisplayCouponDelivery">0</b>원</strong
-                        >
-                      </em>
-                    </li>
-                    <li class="order_benefit_mileage js_mileage">
-                      <em>
-                        적립 적립금 :
-                        <strong
-                          >(+) <b id="useDisplayCouponMileage">0</b>원</strong
-                        >
-                      </em>
-                    </li>
-                  </ul>
-                  <span class="btn_gray_list">
-                    <button
-                      type="button"
-                      href="#couponOrderApplyLayer"
-                      class="btn_gray_mid btn_open_layer"
-                      data-total-price="19800"
-                      data-total-dc-price="3960"
-                    >
-                      <span>쿠폰 조회 및 적용</span>
-                    </button>
-                  </span>
-                </td>
-              </tr>
-
-              <tr>
-                <th scope="row">적립금 사용</th>
-                <td>
-                  <div class="order_money_use">
-                    <div>
-                      <b
-                        ><input
-                          type="text"
-                          name="useMileage"
-                          onblur="gd_mileage_use_check('y', 'y', 'y');"
-                          disabled="disabled"
-                        />
-                        원</b
-                      >
-                      <div class="form_element">
-                        <input
-                          type="checkbox"
-                          id="useMileageAll"
-                          onclick="gd_mileage_use_all();"
-                          disabled="disabled"
-                        />
-                        <label for="useMileageAll" class="check_s"
-                          >전액 사용하기</label
-                        >
-                        <span class="money_use_sum">(보유 적립금 : 0 원)</span>
-                      </div>
-                      <em class="money_use_txt js-mileageInfoArea"></em>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">예치금 사용</th>
-                <td>
-                  <div class="order_money_use">
-                    <div>
-                      <b
-                        ><input
-                          type="text"
-                          name="useDeposit"
-                          onblur="gd_deposit_use_check();"
-                        />
-                        원</b
-                      >
-                      <div class="form_element">
-                        <input
-                          type="checkbox"
-                          id="useDepositAll"
-                          onclick="deposit_use_all();"
-                        />
-                        <label for="useDepositAll" class="check_s"
-                          >전액 사용하기</label
-                        >
-                        <span class="money_use_sum">(보유 예치금 : 0 원)</span>
-                      </div>
-                    </div>
-                    <p class="note">
-                      ※ 예치금 단독 사용, 무통장입금 + 예치금 사용 시에만
-                      현금영수증 발행이 가능합니다.<br />기타 결제수단과 예치금
-                      복합 결제 시 현금영수증 발행 불가한 점 참고 부탁 드립니다.
-                    </p>
-                  </div>
-                </td>
-              </tr> -->
               <tr>
                 <th scope="row">최종 결제 금액</th>
                 <td>
@@ -624,7 +412,7 @@
                     value="KRW"
                   />
                   <strong id="totalSettlePrice" class="order_payment_sum">{{
-                    cartStore.getTotalPrice
+                    orderStore.order.price + cartStore.deliveryFee
                   }}</strong
                   >원
                 </td>
@@ -667,7 +455,7 @@
                         >
                           <span
                             ><img
-                              src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/pay_pc_icon.png"
+                              src="/src/assets/icons/pay_pc_icon.png"
                               alt="신용카드"
                           /></span>
                         </label>
@@ -686,7 +474,7 @@
                         >
                           <span
                             ><img
-                              src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/pay_pb_icon.png"
+                              src="/src/assets/icons/pay_pb_icon.png"
                               alt="계좌이체"
                           /></span>
                         </label>
@@ -705,7 +493,7 @@
                         >
                           <span
                             ><img
-                              src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/pay_ph_icon.png"
+                              src="/src/assets/icons/pay_ph_icon.png"
                               alt="휴대폰결제"
                           /></span>
                         </label>
@@ -724,7 +512,7 @@
                         >
                           <span
                             ><img
-                              src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/pay_pk_icon.png"
+                              src="/src/assets/icons/pay_pk_icon.png"
                               alt="카카오페이"
                           /></span>
                         </label>
@@ -744,7 +532,7 @@
                         >
                           <span
                             ><img
-                              src="https://thenaum.cdn-nhncommerce.com/data/skin/front/moment/img/order/pay_payco_icon.png"
+                              src="/src/assets/icons/pay_payco_icon.png"
                               alt="페이코결제"
                           /></span>
                         </label>
@@ -1175,7 +963,7 @@
           </div>
         </div>
         <div class="btn_center_box">
-          <button @click="orderStore.modal" class="btn_order_buy order-buy">
+          <button @click="pay" class="btn_order_buy order-buy">
             <em>결제하기</em>
           </button>
         </div>
@@ -1197,18 +985,104 @@
 </template>
 
 <script setup>
-import OrderCard from "./components/OrderCard.vue";
-
+import { useRoute } from "vue-router";
+import axios from "axios";
+import PortOne from "@portone/browser-sdk/v2";
 import { useCartStore } from "../../stores/useCartStore";
 import OrderModal from "./OrderModal.vue";
-import { onMounted, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { useOrderStore } from "../../stores/useOrderStore";
-
+import OrderCard from "./components/OrderCard.vue";
 const cartStore = useCartStore();
 const orderStore = useOrderStore();
+const route = useRoute();
+const orderIdx = reactive(route.params.orderIdx); // 반응형 변수로 선언
+console.log(orderIdx);
+// 주문 정보를 가져오는 함수
+// const fetchOrderDetails = async (idx) => {
+//   console.log("📢 fetchOrderDetails 실행됨, orderIdx:", idx); // orderIdx 값 확인
+
+//   try {
+//     const response = await axios.get(`/api/app/orders/${idx}`);
+//     order.value = response.data.result; // 반응형 변수에 데이터 저장
+//     console.log("주문 정보:", order.value);
+//   } catch (error) {
+//     console.error("주문 정보를 가져오는 중 오류 발생:", error);
+//   }
+// };
+
+// 컴포넌트 마운트 시 주문 정보 가져오기
 onMounted(async () => {
-  await cartStore.getCartProducts();
+  console.log(orderIdx);
+  await orderStore.fetchOrderDetails(orderIdx);
 });
+
+// 결제 함수
+const pay = async () => {
+  if (!orderStore.order) {
+    console.error("주문 정보가 없습니다!");
+    return alert("주문 정보를 불러오는 중입니다. 잠시 후 다시 시도해주세요.");
+  }
+
+  let orderName;
+
+  if (orderStore.order.orderProductResponse.length > 0) {
+    const firstProduct =
+      orderStore.order.orderProductResponse[0].productsResponse.name;
+    const otherCount = orderStore.order.orderProductResponse.length - 1;
+
+    if (otherCount === 0) {
+      orderName = `${firstProduct} 1개`;
+    } else {
+      orderName = `${firstProduct} 외 ${otherCount}가지 상품`;
+    }
+  }
+
+  const portoneRes = await PortOne.requestPayment({
+    storeId: "store-5493e266-f9a3-4c57-80a1-8e94fd06935e",
+    channelKey: "channel-key-15f235be-7db2-4b8d-a25a-843ab9536d1b",
+    paymentId: "payment-" + crypto.randomUUID(),
+    orderName: orderName,
+    totalAmount: orderStore.order.price,
+    currency: "CURRENCY_KRW",
+    payMethod: "EASY_PAY",
+  });
+
+  console.log(portoneRes);
+
+  if (portoneRes.code !== undefined) {
+    // 오류 발생
+    return alert(portoneRes.message);
+  }
+
+  handlePayment(portoneRes);
+  orderStore.modalChecked = true;
+};
+
+// 결제 정보를 서버로 전송하는 함수
+const sendPaymentData = async (paymentData) => {
+  try {
+    const response = await axios.post("/api/app/payment/register", paymentData);
+
+    console.log("결제 정보 전송 성공:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("결제 정보를 전송하는 중 오류 발생:", error);
+  }
+};
+
+// 결제 완료 후 서버에 전송
+const handlePayment = async (portoneRes) => {
+  const paymentData = {
+    orderIdx: orderStore.order.idx,
+    userId: 1, // 현재 로그인한 사용자 ID (예: localStorage 또는 Vuex/Pinia에서 가져오기)
+    paymentId: portoneRes.paymentId,
+    transactionType: portoneRes.transactionType,
+    txId: portoneRes.txId,
+  };
+
+  await sendPaymentData(paymentData);
+};
 </script>
 
 <style>
