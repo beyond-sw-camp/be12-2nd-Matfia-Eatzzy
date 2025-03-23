@@ -1,11 +1,10 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { useReviewableStore } from "../../../../stores/useReviewableStore";
 import { useReviewStore } from "../../../../stores/useReviewStore";
 import { useRouter } from "vue-router";
+import axios from "axios";
 
 const reviewStore = useReviewStore();
-const reviewableStore = useReviewableStore();
 const router = useRouter();
 
 const createReview = (store) => {
@@ -13,31 +12,32 @@ const createReview = (store) => {
   router.push("/mypage/client/store/review/create");
 };
 
+const Reviewable = ref([]);
+
+const fetchBReviewed = async () => {
+  try {
+    const response = await axios.get("/api/app/resv/mypage/store/canreview");
+    Reviewable.value = response.data.result; // 받아온 데이터를 ref에 저장
+    console.log("작성한 목록 :", Reviewable.value);
+  } catch (error) {
+    console.error("데이터 가져오기 실패:", error);
+  }
+};
+
 onMounted(async () => {
-  await reviewableStore.getreviewableStores();
-  console.log(reviewableStore.reviewableStores);
+  fetchBReviewed();
 });
 </script>
 
 <template>
-  <div
-    class="review_item"
-    v-for="(Breview, index) in reviewableStore.reviewableStores"
-    :key="index"
-  >
+  <div class="review_item" v-for="(Breview, index) in Reviewable" :key="index">
     <a href="/stores/1" class="review_left">
-      <div class="review_itemName">{{ Breview.store_name }}</div>
-      <img
-        :src="Breview.review_image"
-        alt="Review Image"
-        class="review_image"
-      />
+      <div class="review_itemName">{{ Breview.storeName }}</div>
+      <img :src="Breview.ImageUrl" alt="Review Image" class="review_image" />
     </a>
     <div class="review_right notYet_right">
-      <div class="review_date">{{ Breview.reservation }}</div>
-      <button class="review_button" @click="createReview(Breview)">
-        리뷰 쓰러 가기
-      </button>
+      <div class="review_date">{{ Breview.resvDate }}</div>
+      <button class="review_button" @click="createReview(Breview)">리뷰 쓰러 가기</button>
     </div>
   </div>
 </template>

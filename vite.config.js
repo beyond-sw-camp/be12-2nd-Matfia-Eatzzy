@@ -8,7 +8,7 @@ export default defineConfig({
     proxy: {
       "/api": {
         // 프록시할 경로
-        target: "http://3.34.95.146:3000/", // 대상 서버
+        target: "http://localhost:8082/", // 대상 서버
         changeOrigin: true, // 대상 서버의 호스트 헤더 변경 여부
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
