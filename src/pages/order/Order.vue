@@ -998,19 +998,6 @@ const orderStore = useOrderStore();
 const route = useRoute();
 const orderIdx = reactive(route.params.orderIdx); // 반응형 변수로 선언
 console.log(orderIdx);
-// 주문 정보를 가져오는 함수
-// const fetchOrderDetails = async (idx) => {
-//   console.log("📢 fetchOrderDetails 실행됨, orderIdx:", idx); // orderIdx 값 확인
-
-//   try {
-//     const response = await axios.get(`/api/app/orders/${idx}`);
-//     order.value = response.data.result; // 반응형 변수에 데이터 저장
-//     console.log("주문 정보:", order.value);
-//   } catch (error) {
-//     console.error("주문 정보를 가져오는 중 오류 발생:", error);
-//   }
-// };
-
 // 컴포넌트 마운트 시 주문 정보 가져오기
 onMounted(async () => {
   console.log(orderIdx);

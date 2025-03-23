@@ -51,11 +51,6 @@ onMounted(async () => {
             :key="store.id"
             :store="store"
           />
-          <Products
-            v-for="(product, index) in ProductList"
-            :product="product"
-            :index="index"
-          />
         </div>
       </div>
     </section>
@@ -159,8 +154,7 @@ section:not(:last-child) {
   display: block;
   width: 1.125rem;
   height: 1.125rem;
-  background: url("/src/assets/icons/star_fill.svg")
-    no-repeat;
+  background: url("/src/assets/icons/star_fill.svg") no-repeat;
   background-size: contain;
 }
 .crema-product-reviews-score {

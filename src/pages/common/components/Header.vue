@@ -1,8 +1,13 @@
 <script setup>
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { useCartStore } from "../../../stores/useCartStore";
 import { useMemberStore } from "../../../stores/useMemberStore";
 const memberStore = useMemberStore();
 const cartStore = useCartStore();
+
+const router = useRouter();
+const searchKeyword = ref("");
 
 const logout = () => {
   memberStore.logout();
@@ -11,7 +16,7 @@ const logout = () => {
 const userType = sessionStorage.getItem("LOGIN")?.toLowerCase() || null;
 const mypage = "/mypage/" + userType;
 const orders = "/mypage/" + userType + "/orders";
-const admin = "/admin/"
+const admin = "/admin/";
 const loginStatus = sessionStorage.getItem("LOGIN")?.length > 0;
 
 const gnbOpen = () => {
@@ -21,6 +26,16 @@ const gnbOpen = () => {
     button.classList.toggle("off");
   }
 };
+
+// 검색 버튼 클릭 -> Search 라우트로 이동, query에 검색어 전달
+function goSearch() {
+  router.push({
+    name: "Search", // router 설정에서 path, name이 어떻게 되어있는지 확인
+    query: {
+      keyword: searchKeyword.value,
+    },
+  });
+}
 </script>
 
 <template>
@@ -38,8 +53,12 @@ const gnbOpen = () => {
           <router-link :to="orders">주문조회</router-link>
         </div>
         <div v-if="loginStatus">
-          <router-link :to="mypage" v-if="userType !== 'admin'">마이페이지</router-link>
-          <router-link :to="admin" v-if="userType == 'admin'">관리자페이지</router-link>
+          <router-link :to="mypage" v-if="userType !== 'admin'"
+            >마이페이지</router-link
+          >
+          <router-link :to="admin" v-if="userType == 'admin'"
+            >관리자페이지</router-link
+          >
         </div>
       </div>
       <div class="search_area">
@@ -55,7 +74,7 @@ const gnbOpen = () => {
                   name="keyword"
                   value=""
                   class="search_input search_btn"
-                  title="검색어를 입력하세요."
+                  v-model="searchKeyword"
                   placeholder="검색어를 입력하세요."
                   autocomplete="off"
                   onselectstart="return false"
@@ -65,7 +84,8 @@ const gnbOpen = () => {
                 <button
                   type="submit"
                   id="btnSearchTop"
-                  title="검색"
+                  @click="goSearch"
+                  keyword="검색"
                   value="검색"
                   alt="검색"
                   class="search_btn"
@@ -403,8 +423,8 @@ nav .l_nav_wrap li.first_nav {
 }
 
 nav .l_nav_wrap li.first_nav.off {
-  background: url("/src/assets/icons/close_w.svg")
-    no-repeat 2.5625rem 1.125rem #ff7400;
+  background: url("/src/assets/icons/close_w.svg") no-repeat 2.5625rem 1.125rem
+    #ff7400;
   color: #fff;
   background-size: 0.875rem;
 }

@@ -42,6 +42,18 @@ export const useProductsStore = defineStore("products", {
       this.products = response.data.result;
     },
 
+    async getSearchProductsList(keyword, page, size) {
+      try {
+        const response = await axios.get(
+          `/api/app/products/search?keyword=${keyword}&page=${page}&size=${size}`
+        );
+        this.products = response.data.result.products;
+      } catch (error) {
+        // 에러 처리 로직
+        console.error(error);
+      }
+    },
+
     async addProduct() {
       const response = await axios.post("/api/product/add", {
         name: "pizza",
