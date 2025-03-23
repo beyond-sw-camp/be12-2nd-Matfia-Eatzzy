@@ -18,7 +18,11 @@
         </ul>
       </div>
       <div class="store_list">
-        <Product v-for="product of productsStore.products" :product="product" />
+        <Product
+          v-for="product of productsStore.products"
+          :key="product.idx"
+          :product="product"
+        />
       </div>
       <CartModal v-if="cartStore.isMadal"></CartModal>
     </div>

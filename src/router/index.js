@@ -141,7 +141,7 @@ const routes = [
   },
   { path: "/carts", component: Carts },
   { path: "/order", component: Order, beforeEnter: checkLogin },
-  { path: "/search", component: Search },
+  { path: "/search", name: "Search", component: Search },
   { path: "/orders/:orderIdx", component: Order, beforeEnter: checkLogin },
 ];
 
