@@ -13,6 +13,7 @@ const reviewData = ref({
   title: "",
   content: "",
   image: "",
+  starPoint: "",
 });
 
 const createReview = async () => {
@@ -66,6 +67,14 @@ onMounted(() => {
         <div class="input_box">
           <p>제목</p>
           <input v-model="reviewData.title" type="text" />
+        </div>
+
+        <div class="input_box">
+          <p>별점</p>
+          <select v-model="reviewData.starPoint">
+            <option disabled value="">별점을 선택하세요</option>
+            <option v-for="n in 5" :key="n" :value="n">{{ n }}점</option>
+          </select>
         </div>
 
         <div class="input_box">
