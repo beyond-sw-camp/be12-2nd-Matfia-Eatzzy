@@ -1,30 +1,26 @@
 <script setup>
 import { computed, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { useOrderStore } from "../../../stores/useOrderStore";
 import { formatPrice } from "../../../utils/formatPrice";
 import ProductItem from "../client/components/ProductItem.vue";
 
 const route = useRoute();
 const router = useRouter();
-const orderStore = useOrderStore();
-
-const orderData = ref({
-  idx: 0,
-  createdAt: "",
-  status: "",
-  message: "",
-  username: "",
-  address: "",
-  callNumber: "",
-  courierCompany: "",
-  trackingNumber: "",
-  deliveryStatus: "",
-  payStatus: "",
-  payPrice: 0,
-  paymentName: "",
-  products: [],
+const orderDetails = ref({
+  orderMypageList: {},
 });
+import axios from "axios";
+
+const fetchOrderDetails = async (idx) => {
+  try {
+    const response = await axios.get(`/api/app/orders/mypage/orderdetails?orderIdx=${idx}`);
+    orderDetails.value = response.data.result; // 받아온 데이터를 ref에 저장
+    console.log("oo");
+    console.log("작성한 목록 :", orderDetails.value);
+  } catch (error) {
+    console.error("데이터 가져오기 실패:", error);
+  }
+};
 
 const userType = computed(() => {
   const pathSegments = route.path.split("/");
@@ -45,8 +41,7 @@ const registerDelivery = (orderId) => {
 
 onMounted(async () => {
   const id = Number(route.params.id);
-  const result = await orderStore.getClientOrderDetail(id);
-  orderData.value = result.order;
+  fetchOrderDetails(id);
 });
 </script>
 
@@ -55,20 +50,17 @@ onMounted(async () => {
     <div class="section">
       <h1>주문 내역 상세</h1>
       <div class="box" id="detail_info">
-        <p>{{ orderData.createdAt }}</p>
-        <p>주문번호: {{ orderData.idx }}</p>
+        <p>{{ orderDetails.orderDate }}</p>
+        <p>주문번호: {{ orderDetails.orderMypageList.idx }}</p>
         <div class="line"></div>
-        <p>주문 상태 : {{ orderData.status }}</p>
+        <p>주문 상태 : {{ orderDetails.orderMypageList.status }}</p>
       </div>
     </div>
     <div class="section">
       <h1>주문 상품</h1>
       <div class="box">
         <ul class="product_list">
-          <ProductItem
-            v-for="product in orderData.products"
-            :product="product"
-          />
+          <ProductItem v-for="product in orderDetails.orderMypageList.myOrderList" :product="product" />
         </ul>
       </div>
     </div>
@@ -78,17 +70,17 @@ onMounted(async () => {
         <div class="pay_item">
           <p>상품 금액</p>
           <div class="dots"></div>
-          <p class="price">{{ formatPrice(orderData.payPrice) }}원</p>
+          <p class="price">{{ formatPrice(orderDetails.orderPrice) }}원</p>
         </div>
         <div class="pay_item">
           <p>결제 금액</p>
           <div class="dots"></div>
-          <p class="price">{{ formatPrice(orderData.payPrice) }}원</p>
+          <p class="price">{{ formatPrice(orderDetails.paymentPrice) }}원</p>
         </div>
         <div class="pay_item">
           <p>결제 방법</p>
           <div class="dots"></div>
-          <p class="price">{{ orderData.paymentName }}</p>
+          <p class="price">{{ orderDetails.paymentMethod }}</p>
         </div>
       </div>
     </div>
@@ -97,44 +89,35 @@ onMounted(async () => {
       <div id="delivery" class="box">
         <div class="deliver_item">
           <p>이름</p>
-          <p>{{ orderData.username }}</p>
+          <p>{{ orderDetails.name }}</p>
         </div>
         <div class="deliver_item">
           <p>전화번호</p>
-          <p>{{ orderData.callNumber }}</p>
+          <p>{{ orderDetails.phone }}</p>
         </div>
         <div class="deliver_item">
           <p>주소</p>
-          <p>{{ orderData.address }}</p>
+          <p>{{ orderDetails.address }}</p>
         </div>
         <div class="deliver_item">
           <p>요청사항</p>
-          <p>{{ orderData.message }}</p>
+          <p>{{ orderDetails.message }}</p>
         </div>
-        <div
-          v-if="orderData.deliveryStatus !== '배송 준비 중'"
-          class="deliver_item"
-        >
+        <!--<div v-if="orderDetails.deliveryStatus !== '배송 준비 중'" class="deliver_item">-->
+        <div v-if="orderDetails.deliveryStatus !== '배송 준비 중'" class="deliver_item">
           <p>택배사</p>
-          <p>{{ orderData.courierCompany }}</p>
+          <p>{{ orderDetails.courier_company }}</p>
         </div>
-        <div
-          v-if="orderData.deliveryStatus !== '배송 준비 중'"
-          class="deliver_item"
-        >
+        <!--<div v-if="orderDetails.deliveryStatus !== '배송 준비 중'" class="deliver_item">-->
+        <div v-if="orderDetails.deliveryStatus !== '배송 준비 중'" class="deliver_item">
           <p>운송장 번호</p>
-          <p>{{ orderData.trackingNumber }}</p>
+          <p>{{ orderDetails.tracking_number }}</p>
         </div>
       </div>
     </div>
     <div v-if="userType === 'client'" id="btn" class="box">
       <p>주문 취소는 [결제 완료] 상태일 때만 가능합니다.</p>
-      <button
-        class="btn"
-        :class="{ disabled: orderData.status !== '결제 완료' }"
-        :disabled="orderData.status !== '결제 완료'"
-        @click="cancelOrder"
-      >
+      <button class="btn" :class="{ disabled: orderDetails.status !== '결제 완료' }" :disabled="orderDetails.status !== '결제 완료'" @click="cancelOrder">
         전체 상품 주문 취소
       </button>
     </div>
@@ -143,7 +126,7 @@ onMounted(async () => {
       <button
         class="btn"
         :class="{ disabled: orderData.status !== '결제 완료' }"
-        :disabled="orderData.status !== '결제 완료'"
+        :disabled="orderDetails.status !== '결제 완료'"
         @click="registerDelivery(orderData.idx)"
       >
         배송 등록하기

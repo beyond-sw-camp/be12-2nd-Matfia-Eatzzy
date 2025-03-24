@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
-import { useLoveStore } from "../../../../stores/useLoveStore";
 
 //const loveStore = useLoveStore();
 const rez = ref([]);
@@ -17,6 +16,7 @@ const handleCancelClick = async (idx) => {
       window.location.reload();
     } catch (error) {
       console.error("삭제 실패:", error);
+      x;
     }
     // 실제 취소 로직을 여기에 추가 가능
     // 예: API 호출 후 목록 갱신

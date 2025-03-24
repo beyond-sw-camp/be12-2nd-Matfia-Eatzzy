@@ -1,23 +1,19 @@
 <script setup>
+import { onMounted } from "vue";
 import ProductItem from "./ProductItem.vue";
 
-const props = defineProps({
-  order: {
-    type: Object,
-    required: true,
-  },
+defineProps({
+  order: Object,
 });
 
-onMounted(() => {
-  //reviewedStore.getreviewedStores();
-});
+onMounted(() => {});
 </script>
 
 <template>
   <li class="order_card">
     <div class="order_header">
       <div class="text_box">
-        <p>{{ order.createdAt }}</p>
+        <p>{{ order.orderDate }}</p>
         <p>주문번호: {{ order.idx }}</p>
       </div>
       <router-link :to="`/mypage/client/orders/${order.idx}`" class="detail_btn">
@@ -29,7 +25,7 @@ onMounted(() => {
     <div class="order_body">
       <p>{{ order.status }}</p>
       <ul class="product_list">
-        <ProductItem v-for="product in order.products" :product="product" />
+        <ProductItem v-for="product in order.myOrderList" :product="product" />
       </ul>
     </div>
   </li>

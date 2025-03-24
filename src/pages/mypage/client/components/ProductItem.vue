@@ -1,22 +1,15 @@
 <script setup>
-import { formatPrice } from "../../../../utils/formatPrice";
-
-const props = defineProps({
-  product: {
-    type: Object,
-    required: true,
-  },
+defineProps({
+  product: Object,
 });
-console.log(props.product);
 </script>
 
 <template>
   <li class="product_item">
-    <img :src="product.image" alt="주문상품" />
+    <img :src="product.productImage" alt="주문상품" />
     <div class="product_info">
       <p>{{ product.name }}</p>
       <div class="price_cnt_box">
-        <span v-if="product.orderDate">주문 날짜: {{ product.orderDate }}</span>
         <span v-if="product.quantity">{{ product.quantity }}개</span>
       </div>
     </div>
