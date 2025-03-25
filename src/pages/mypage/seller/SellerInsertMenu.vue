@@ -1,77 +1,87 @@
 <script setup>
-import { ref, reactive } from "vue";
-import { useRouter } from "vue-router"; 
+import { ref, reactive, onMounted } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import axios from "axios";
 import { useMenuStore } from "../../../stores/useMenuStore";
 
-// 메뉴 데이터
+const router = useRouter();
+const route = useRoute();
 const menuStore = useMenuStore();
+
 const menuData = reactive({
   name: "",
   price: null,
   info: "",
-  storeIdx: 3, // 기본값
+  storeIdx: null,
+  imagePath: "",  // 이미지 경로를 포함하도록 수정
 });
 
-// 이미지 변수 추가
-const menuImage = ref(null); // menuImage를 ref로 선언하여 파일 URL을 저장
+const menuImage = ref(null); // 메뉴 이미지 파일
 
-// 취소 버튼
-const cancel = () => {
-  const router = useRouter();
-  router.push(`/mypage/seller`);
-};
+onMounted(() => {
+  menuData.storeIdx = Number(route.params.id); // 페이지가 로드될 때 storeIdx 설정
+});
 
-// 이미지 파일 업로드 처리
-const handleImageUpload = (event) => {
-  const file = event.target.files[0];  // 파일 선택
-  if (file) {
-    menuImage.value = file;  // 선택한 파일을 menuImage에 할당
-  }
-};
+const handleFileUpload = (event) => {
+  const file = event.target.files[0]; // 단일 파일 선택
+  menuImage.value = file;
 
-const submitMenu = async () => {
-  console.log(menuData); // menuData 값 확인
-
-  // 모든 항목 입력되었는지 확인
-  if (!menuData.name || !menuData.price || !menuData.info || !menuImage.value) {
-    alert("모든 항목을 입력해주세요!");
-    return;
-  }
-
-  // 이미지 파일이 존재하는지 확인
-  if (!(menuImage.value instanceof File)) {
-    alert("이미지를 선택해주세요!");
-    return;
-  }
-
-  // 이미지 파일을 Base64로 변환
+  // 이미지 미리보기
   const reader = new FileReader();
-  reader.onloadend = async () => {
-    const base64Image = reader.result.split(',')[1]; // Base64 데이터 추출
-
-    // JSON 객체 생성 (imagePath는 Base64 문자열)
-    const menuPayload = {
-      name: menuData.name,
-      imagePath: base64Image,  // Base64로 인코딩된 이미지
-      price: menuData.price,
-      info: menuData.info,
-      storeIdx: menuData.storeIdx,
-    };
-
-    try {
-      // 메뉴 추가 요청
-      const response = await menuStore.addMenu(menuPayload); // JSON 형태로 요청
-      alert("메뉴가 추가되었습니다.");
-      window.location.reload(); // 페이지 새로고침
-    } catch (error) {
-      console.error("메뉴 추가 실패:", error.response ? error.response.data : error);
-      alert("메뉴 추가 중 오류가 발생했습니다. 서버 로그를 확인해주세요.");
-    }
+  reader.onload = () => {
+    // 미리보기 이미지 업데이트
+    menuImage.preview = reader.result;
   };
+  reader.readAsDataURL(file);  // 파일을 DataURL로 읽기
 
-  reader.readAsDataURL(menuImage.value); // 파일을 Base64로 읽기 시작
+  // imagePath에 파일 경로를 임시로 할당
+  menuData.imagePath = file.name;  // 이 부분은 수정될 부분입니다.
 };
+
+// 메뉴 제출 함수
+const submitMenu = async () => {
+  try {
+    if (!menuData.name || !menuData.price || !menuData.info || !menuImage.value) {
+      alert("모든 항목을 입력해주세요!");
+      return;
+    }
+
+    // 1️⃣ 서버에서 Presigned URL을 포함한 메뉴 데이터를 요청하여 받기
+    const response = await axios.post("/api/app/menu/create", menuData);
+    console.log("Presigned URL 응답:", response.data);
+
+    const presignedUrl = response.data.result.imageUrls; // Presigned URL
+
+    if (!presignedUrl) {
+      throw new Error("Presigned URL을 받지 못했습니다.");
+    }
+
+  // 2️⃣ Presigned URL을 사용하여 이미지를 업로드
+  const uploadPromises = []; // 배열로 초기화
+
+  const uploadResponse = axios.put(presignedUrl, menuImage.value, {
+    headers: {
+      "Content-Type": menuImage.value.type,
+    },
+  });
+
+  // `uploadPromises` 배열에 업로드 프로미스를 추가
+  uploadPromises.push(uploadResponse);
+
+  // 모든 업로드가 완료될 때까지 대기
+  await Promise.all(uploadPromises);
+
+    
+    alert("메뉴가 추가되었습니다.");
+    router.push(`/mypage/seller/store/${menuData.storeIdx}/menu`);
+  } catch (error) {
+    console.error("메뉴 추가 실패:", error);
+    alert("메뉴 추가 중 오류가 발생했습니다. 서버 로그를 확인해주세요.");
+  }
+};
+
 </script>
+
 
 <template>
   <main>
@@ -100,7 +110,7 @@ const submitMenu = async () => {
           <input
             type="file"
             id="menuImage"
-            @change="handleImageUpload"
+            @change="handleFileUpload"
             accept="image/*"
           />
           <div v-if="menuImage">
